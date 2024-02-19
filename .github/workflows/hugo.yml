@@ -37,7 +37,11 @@ jobs:
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && dpkg -x ${{ runner.temp }}/hugo.deb dir \
-          && export PATH=$PATH:$pwd/dir
+          && export PATH=$PATH:$pwd/dir \
+          && hugo --version
+      - name: Install snap
+        run: | 
+          apt download snapd && ls 
       - name: Install Dart Sass
         run: snap install dart-sass
       - name: Checkout
