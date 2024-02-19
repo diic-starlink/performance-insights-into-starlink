@@ -39,12 +39,6 @@ jobs:
           && dpkg -x ${{ runner.temp }}/hugo.deb ${{ runner.temp }}/hugo \
           && export PATH=$PATH:${{ runner.temp }}/hugo/usr/local/bin \
           && hugo version
-      - name: Install snap
-        run: | 
-          apt download snapd \
-          && dpkg -x ${{ runner.temp }}/snapd.deb ${{ runner.temp }}/snap \
-          && export PATH=$PATH:${{ runner.temp }}/snap/usr/local/bin \
-          && snap --version
       - name: Install Dart Sass
         run: snap install dart-sass
       - name: Checkout
