@@ -4,6 +4,6 @@ theme = "hugo-book"
 
 [module]
 [[module.mounts]]
-  source = "../docs"
+  source = "../../docs"
   target = "content"
 
