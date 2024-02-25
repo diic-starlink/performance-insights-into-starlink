@@ -15,7 +15,7 @@
     pkgs = import nixpkgs { inherit system; };
   in {
     packages.${system} = {
-      hugo = pkgs.hugo;
+      hugo = pkgs.callPackage ./nix/hugo.nix {};
       default = self.packages.${system}.hugo;
     };
   };
