@@ -65,5 +65,6 @@ jobs:
           rm -rf *
           cp -r ../result/* .
 
-          git commit -am "Deployment of current website"
+          git add .
+          git commit -m "Deployment of current website"
           git push
