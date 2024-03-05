@@ -56,6 +56,9 @@ jobs:
           mkdir _temp
           cp -r ../../.git _temp
           cd _temp
+
+          git config --global user.email "botty@github.com"
+          git config --global user.name "botty"
           git fetch --all
           git switch static-html
           rm -rf *
