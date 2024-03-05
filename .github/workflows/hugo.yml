@@ -50,5 +50,14 @@ jobs:
           cd src/hugo-pages/
           nix-build # Basically a `hugo` command
 
-          # TODO(Robert): Publish to some webserver          
+          # Push results to branch "static-html"
+          mkdir _temp
+          cp -r ../../.git _temp
+          cd _temp
+          git switch static-html
+          rm -rf *
+          cp -r ../result/* .
+
+          git commit -am "Deployment of current website"
+          git push
 
