@@ -71,7 +71,7 @@ jobs:
           cp -r ../result/* .
 
           git add .
-          git commit -m "Deployment of current website"
+          git diff-index --quiet HEAD || git commit -m "Deployment of current website"
           git push
 
           chmod 755 * # Required so that files can be deleted in the end.
