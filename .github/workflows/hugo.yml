@@ -33,6 +33,8 @@ jobs:
     env:
       HUGO_VERSION: 0.120.4
     steps:
+     - name: Test Nix
+       run: nix --version 
       - name: Checkout
         uses: actions/checkout@v4
         with:
