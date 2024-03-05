@@ -43,6 +43,7 @@ jobs:
       - name: Build LaTeX Document
         run:
           cd ${{ github.workspace }}
+          
           nix-build # Creates main.pdf in result folder
 
       - name: Build Website with Hugo
@@ -61,7 +62,7 @@ jobs:
       - name: Deploy to branch
         if: github.ref == 'refs/heads/master'
         run: |
-          cd {{ github.workspace }}/src/hugo-pages/
+          cd ${{ github.workspace }}/src/hugo-pages/
 
           # Push results to branch "static-html"
           mkdir _temp
