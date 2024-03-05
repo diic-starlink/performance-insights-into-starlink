@@ -1,9 +1,0 @@
-languageCode = 'en-us'
-title = 'Starlink Thesis'
-theme = "hugo-book"
-
-[module]
-[[module.mounts]]
-  source = "../../docs"
-  target = "content"
-
