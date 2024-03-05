@@ -1,17 +1,11 @@
 # Sample workflow for building and deploying a Hugo site to GitHub Pages
 name: Deploy Hugo site to Pages
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: push
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -28,39 +22,55 @@ defaults:
 
 jobs:
   # Build job
-  build:
+  Build:
     runs-on: self-hosted
     env:
       HUGO_VERSION: 0.120.4
     steps:
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
-          dpkg -x ${{ runner.temp }}/hugo.deb ${{ runner.temp }}/hugo
-          export PATH=$PATH:${{ runner.temp }}/hugo/usr/local/bin
-          hugo version
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Build Page with Hugo
+      - name: Test Nix Installation
+        run: nix --version
+
+      - name: Build LaTeX Document
+        run:
+          cd ${{ github.workspace }}
+
+          nix-build # Creates main.pdf in result folder
+
+      - name: Build Website with Hugo
         run: |
-          cd ${{ runner.temp }}/docs
-          hugo
+          cd ${{ github.workspace }}
 
-      - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Automated Upload after push to main"
-          branch: html
-          file_pattern: ${{ runner.temp }}/docs/public/**/*
-          repository: .
-          commit_user_name: GitHub Actions HTML Bot
-          commit_author: Botty <actions@github.com>
-          create_branch: true
-          disable_globbing: false
-          skip_checkout: true
-          skip_fetch: true
+          # Put most recent main.pdf in static folder
+          rm -f src/hugo-pages/static/main.pdf
+          mkdir -p src/hugo-pages/static
+          cp result/main.pdf src/hugo-pages/static
+          
+          # Build the website
+          cd src/hugo-pages/
+          nix-build # Basically a `hugo` command
 
+      - name: Deploy to branch
+        if: github.ref == 'refs/heads/master'
+        run: |
+          cd ${{ github.workspace }}/src/hugo-pages/
 
-  
+          # Push results to branch "static-html"
+          mkdir _temp
+          cp -r ../../.git _temp
+          cd _temp
+          chmod 755 * # Required so that files can be deleted in the end.
+
+          git config user.email "botty@botnet.com"
+          git config user.name "Botty the Bot"
+          git fetch --all
+          git switch static-html
+          rm -rf *
+          cp -r ../result/* .
+
+          git add .
+          git commit -m "Deployment of current website"
+          git push
