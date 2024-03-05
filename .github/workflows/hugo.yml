@@ -39,7 +39,7 @@ jobs:
           submodules: recursive
       - name: Deploy Hugo
         run: |
-          cd $HOME
+          cd ${{ github.workspace }}
           nix --version
 
           # First build the LaTeX file
@@ -58,8 +58,8 @@ jobs:
           cp -r ../../.git _temp
           cd _temp
 
-          git config --global user.email "botty@github.com"
-          git config --global user.name "botty"
+          git config user.email "botty@botnet.com"
+          git config user.name "Botty the Bot"
           git fetch --all
           git switch static-html
           rm -rf *
