@@ -37,21 +37,31 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Deploy Hugo
+      - name: Test Nix Installation
+        run: nix --version
+
+      - name: Build LaTeX Document
+        run:
+          cd ${{ github.workspace }}
+          nix-build # Creates main.pdf in result folder
+
+      - name: Build Website with Hugo
         run: |
           cd ${{ github.workspace }}
-          nix --version
 
-          # First build the LaTeX file
-          rm -f src/hugo-pages/static/main.pdf # -f prevents an error if file does not exist
-          nix-build # Creates main.pdf in result folder
-          mkdir -p src/hugo-pages/static # Creates static/ folder in Hugo if not exists 
-          cp result/main.pdf src/hugo-pages/static # Moves result/main.pdf to Hugo
-
+          # Put most recent main.pdf in static folder
+          rm -f src/hugo-pages/static/main.pdf
+          mkdir -p src/hugo-pages/static
+          cp result/main.pdf src/hugo-pages/static
           
           # Build the website
           cd src/hugo-pages/
           nix-build # Basically a `hugo` command
+
+      - name: Deploy to branch
+        if: github.ref == 'refs/heads/master'
+        run: |
+          cd {{ github.workspace }}/src/hugo-pages/
 
           # Push results to branch "static-html"
           mkdir _temp
