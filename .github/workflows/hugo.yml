@@ -39,7 +39,16 @@ jobs:
           submodules: recursive
       - name: Deploy Hugo
         run: |
-          nix-shell --command "hugo version \
-            && cd src/hugo-pages/ \
-            && hugo \
-            && cd public"
+          # First build the LaTeX file
+          rm -f src/hugo-pages/static/main.pdf # -f prevents an error if file does not exist
+          nix-build # Creates main.pdf in result folder
+          mkdir -p src/hugo-pages/static # Creates static/ folder in Hugo if not exists 
+          cp result/main.pdf src/hugo-pages/static # Moves result/main.pdf to Hugo
+
+          
+          # Build the website
+          cd src/hugo-pages/
+          nix-build # Basically a `hugo` command
+
+          # TODO(Robert): Publish to some webserver          
+
