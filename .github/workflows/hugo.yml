@@ -62,7 +62,6 @@ jobs:
           mkdir _temp
           cp -r ../../.git _temp
           cd _temp
-          chmod 755 * # Required so that files can be deleted in the end.
 
           git config user.email "botty@botnet.com"
           git config user.name "Botty the Bot"
@@ -74,3 +73,6 @@ jobs:
           git add .
           git commit -m "Deployment of current website"
           git push
+
+          chmod 755 * # Required so that files can be deleted in the end.
+
