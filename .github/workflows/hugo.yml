@@ -54,7 +54,7 @@ jobs:
           nix-build # Basically a `hugo` command
 
       - name: Deploy to branch
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           cd ${{ github.workspace }}/src/hugo-pages/
 
