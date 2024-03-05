@@ -56,6 +56,7 @@ jobs:
           mkdir _temp
           cp -r ../../.git _temp
           cd _temp
+          git fetch --all
           git switch static-html
           rm -rf *
           cp -r ../result/* .
