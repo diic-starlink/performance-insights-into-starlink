@@ -39,7 +39,7 @@ jobs:
           submodules: recursive
       - name: Deploy Hugo
         run: |
-          cd ${{ github.workspace }}
+          cd $HOME
           nix --version
 
           # First build the LaTeX file
