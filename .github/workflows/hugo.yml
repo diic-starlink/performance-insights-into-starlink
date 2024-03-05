@@ -22,7 +22,7 @@ defaults:
 
 jobs:
   # Build job
-  Build Hugo and LaTeX:
+  Build:
     runs-on: self-hosted
     env:
       HUGO_VERSION: 0.120.4
