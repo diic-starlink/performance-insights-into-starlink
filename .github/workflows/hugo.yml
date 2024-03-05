@@ -33,14 +33,14 @@ jobs:
     env:
       HUGO_VERSION: 0.120.4
     steps:
-     - name: Test Nix
-       run: nix --version 
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Deploy Hugo
         run: |
+          nix --version
+
           # First build the LaTeX file
           rm -f src/hugo-pages/static/main.pdf # -f prevents an error if file does not exist
           nix-build # Creates main.pdf in result folder
