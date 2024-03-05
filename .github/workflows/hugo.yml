@@ -66,5 +66,3 @@ jobs:
 
           git commit -am "Deployment of current website"
           git push
-          cd ..
-          rm -rf _temp
