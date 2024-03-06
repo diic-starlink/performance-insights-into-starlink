@@ -1,0 +1,13 @@
+[[redirects]]
+  from = "/main.pdf"
+  to = "/404"
+  status = 404
+  force = true
+  conditions = { Role = ["user"] }
+
+[[redirects]]
+  from = "/sensitive"
+  to = "/404"
+  status = 404
+  force = true
+  conditions = { Role = ["user"] }
