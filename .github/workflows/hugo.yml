@@ -45,6 +45,7 @@ jobs:
           nix-build tex.nix
 
           cp result/main.pdf .
+          rm -rf result/
 
       # Build website with Hugo.
       - name: Build Website with Hugo
@@ -55,7 +56,7 @@ jobs:
           rm -f src/hugo-pages/static/main.pdf
           rm -f src/hugo-pages/static/restricted/main.pdf
           mkdir -p src/hugo-pages/static/restricted
-          cp result/main.pdf src/hugo-pages/static/restricted
+          mv ./main.pdf src/hugo-pages/static/restricted
           
           nix-build hugo.nix # Basically a `hugo` command
 
@@ -75,8 +76,7 @@ jobs:
           git switch static-html
 
           rm -rf *
-          cp -r ../result/* _temp && chmod -R 777 _temp
-          cp ../main.pdf _temp
+          cp -r ../result/* _temp
 
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current website"
