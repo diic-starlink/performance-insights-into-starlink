@@ -3,15 +3,11 @@
   to = "/404"
   status = 404
   force = true
-  conditions = {
-    Role = ["user"]
-  }
+  conditions = { Role = ["user"] }
 
 [[redirects]]
   from = "/sensitive"
   to = "/404"
   status = 404
   force = true
-  conditions = {
-    Role = ["user"]
-  }
+  conditions = { Role = ["user"] }
