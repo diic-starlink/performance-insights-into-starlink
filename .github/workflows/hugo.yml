@@ -72,6 +72,7 @@ jobs:
           git switch static-html
           rm -rf *
           cp -r ../result/* .
+          cp ./main.pdf _temp
 
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current website"
