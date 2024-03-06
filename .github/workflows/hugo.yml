@@ -63,7 +63,7 @@ jobs:
 
           # Push results to branch "static-html"
           mkdir _temp
-          cp -r ../../.git _temp
+          cp -r ./.git _temp
           cd _temp
 
           git config user.email "botty@botnet.com"
