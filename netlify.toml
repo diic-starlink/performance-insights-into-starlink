@@ -1,9 +1,15 @@
 [[redirects]]
+  from = "/restricted/*"
+  to = "/restricted/:splat"
+  status = 200
+  force = true
+  conditions = { Role = ["user"] }
+
+[[redirects]]
   from = "/main.pdf"
   to = "/404"
-  status = 404
+  status = 403
   force = true
-  conditions = { Role != ["user"] }
 
 [[redirects]]
   from = "/sensitive"
