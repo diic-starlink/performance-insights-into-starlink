@@ -73,6 +73,6 @@ jobs:
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current website"
           git push
-
-          chmod 755 * # Required so that files can be deleted in the end.
+          
+          cd .. && chmod -R 777 _temp
 
