@@ -68,18 +68,17 @@ jobs:
           mkdir _temp
           cp -r ./.git _temp
 
-          git -C _temp config user.email "botty@botnet.com"
-          git -C _temp config user.name "Botty the Bot"
-          git -C fetch --all
-          git -C switch static-html
-          
-          rm -rf _temp/*
-          cp -r ./result/* _temp && chmod -R 777 _temp
-          cp ./main.pdf _temp
-          
-          git -C _temp add .
-          git -C _temp diff-index --quiet HEAD || git commit -m "Deployment of current website"
-          git -C _temp push
-          
-          cd .. && chmod -R 777 _temp
+          cd _temp
+          git config user.email "botty@botnet.com"
+          git config user.name "Botty the Bot"
+          git fetch --all
+          git switch static-html
 
+          rm -rf *
+          cp -r ../result/* _temp && chmod -R 777 _temp
+          cp ../main.pdf _temp
+
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Deployment of current website"
+          git push
+          
