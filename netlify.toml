@@ -1,0 +1,19 @@
+[[redirects]]
+  from = "/restricted/*"
+  to = "/restricted/:splat"
+  status = 200
+  force = true
+  conditions = { Role = ["user"] }
+
+[[redirects]]
+  from = "/restricted/*"
+  to = "/404"
+  status = 403
+  force = true
+
+[[redirects]]
+  from = "/sensitive"
+  to = "/404"
+  status = 404
+  force = true
+  conditions = { Role = ["user"] }
