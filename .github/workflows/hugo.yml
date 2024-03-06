@@ -38,8 +38,8 @@ jobs:
       - name: Build LaTeX Document
         run:
           cd ${{ github.workspace }}
-          
-          nix-build tex.nix 
+
+          nix-build tex.nix
 
           cp result/main.pdf .
 
@@ -71,8 +71,9 @@ jobs:
           git fetch --all
           git switch static-html
           rm -rf *
+
           cp -r ../result/* .
-          cp ./main.pdf _temp
+          cp ../main.pdf _temp
 
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current website"
