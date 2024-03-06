@@ -1,0 +1,183 @@
+% This file contains most of the packages used for this document. If you want to add a package, do it here.
+% Some packages are already included in other files in the ›core‹ folder if they were already necessary. Thus, make sure to go through these files too if you want to know whether a certain package is already included.
+%
+% This file contains the following parts:
+%   • Typography
+%   • Math
+%   • Fonts
+%   • Graphics
+%   • Tables
+%   • Enumerations
+%   • Algorithms
+%   • Spaces and Special Characters
+%   • Miscellaneous
+%   • Additional Packages
+%   • Hyperlinks
+
+%%%%%%%%%%%%%%%%
+%% Typography %%
+%%%%%%%%%%%%%%%%
+
+\usepackage
+[
+    babel = true, % Enables language-specific tuning.
+]
+{microtype}           % Uses the text space more efficiently.
+\usepackage{csquotes} % Uses the correct quotes according to the current language.
+
+
+%%%%%%%%%%
+%% Math %%
+%%%%%%%%%%
+
+% The following packages are the standard packages used in order to typeset math. They contain a lot of useful commands.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{mathtools}
+\usepackage{thm-restate}
+\usepackage{dsfont}        % Yields far better blackboard-bold letters than \mathbb. Use \mathds in order to write such letters.
+\usepackage{braceMnSymbol} % Adjusts overbraces and underbraces such that longer versions are put together seamlessly.
+
+
+%%%%%%%%%%%
+%% Fonts %%
+%%%%%%%%%%%
+
+\usepackage
+[
+    ttscale = 0.85, % Scales the typewriter font.
+]
+{libertine} % The main font used in this thesis.
+\usepackage
+[
+    libertine,    % Changes the math font to libertine (the main font).
+    slantedGreek, % Makes all greek letters italic by default. If you want to use an upright greek letter, use ›\up‹ immediately followed by the letter’s name. For example, \upGamma displays an upright uppercase gamma.
+    vvarbb,       % Changes the \mathbb font to another font. However, \mathbb remains ugly and should not be used. Use \mathds instead.
+    libaltvw,     % Uses different characters for v und w that look far better than the default ones.
+]
+{newtxmath} % The main math font of this thesis. It fits well with the main font.
+\usepackage{url} % Responsible for URL formatting.
+\usepackage{bm}  % Allows to use sensible bold letters in math mode. This package has to go after the font packages. Otherwise it does not work correctly!
+
+
+%%%%%%%%%%%%%%
+%% Graphics %%
+%%%%%%%%%%%%%%
+
+\usepackage{graphicx} % The standard package for including graphics into your document.
+\usepackage
+[
+    subrefformat = simple, % Formats the label of the \subref command without parentheses.
+    labelformat = simple,  % Formats the mark of a subfigure without parentheses.
+]
+{subcaption}         % Enables it to have subfigures inside of a single figure.
+\usepackage{wrapfig} % Allows to put figures next to text.
+
+% Changing the \columnsep adds some space next to a warpfigure.
+\columnsep = \mymargininnersep
+% The reference label of a subfigure is redefined to have a non-breaking space and parentheses. (Thus, the subfigures show parentheses although the package options removed parentheses; otherwise, two pairs of brackets would be seen.)
+\renewcommand*{\thesubfigure}{~(\alph{subfigure})}
+
+
+%%%%%%%%%%%%
+%% Tables %%
+%%%%%%%%%%%%
+
+\usepackage{array}     % Improves the way that tables can be formatted.
+\usepackage{booktabs}  % Adds lines (called ›rules‹) that can be used in tables and improves spacing.
+\usepackage{longtable} % Allows to make tables that span multiple pages.
+\usepackage{pdflscape} % Allows to change a page into landscape. This is handy if a table is very wide.
+
+
+%%%%%%%%%%%%%%%%%%
+%% Enumerations %%
+%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumitem} % Adds tons of useful features to enumeration environments.
+
+
+%%%%%%%%%%%%%%%%
+%% Algorithms %%
+%%%%%%%%%%%%%%%%
+
+\usepackage
+[
+    ruled,         % Creates lines at the top and at the bottom. Further, the caption is now above the algorithm.
+    vlined,        % Shows the scope of a statement spanning multiple lines via a small vertical bar. Thus, no closing tags are needed.
+    linesnumbered, % Shows line numbers.
+]
+{algorithm2e} % Allows to write pseudocode.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Spaces and Special Characters %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xspace}   % Adds the functionality that a space after a command will be shown as a space in the output.
+\usepackage
+[
+    shortcuts, % Allows to use short symbols for non-breaking hyphens and dashes instead of lengthy commands.
+]
+{extdash}             % Adds non-breaking hyphens and dashes.
+\usepackage{setspace} % Allows to easily chnage the spacing inside of the document.
+
+
+%%%%%%%%%%%%%%%%%%%
+%% Miscellaneous %%
+%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}    % Is used in order to define reasonable commands.
+\usepackage{footnote}  % Allows it to extend the environments footnotes can be used in. It is said that this package is in conflict with ›hyperref‹. I did not note any troubles. However, if something is fishy, it is probably best to not use this package.
+\usepackage{afterpage} % Adds the \afterpage command, which specifies that the provided argument shall be processed after the current page is finished.
+\usepackage
+[
+    textsize = scriptsize, % Determines the text size of the TODO note.
+]
+{todonotes}            % Adds TODO notes to the document. These are small text areas inside of the margin of a page.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Additional Packages %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{packages_and_commands/additional_packages}
+
+
+%%%%%%%%%%%%%%%%
+%% Hyperlinks %%
+%%%%%%%%%%%%%%%%
+
+\usepackage
+[
+    bookmarks = true,                 % Generates boodmarks for the PDF.
+    bookmarksopen = false,            % The bookmarks are closed by default.
+    bookmarksnumbered = true,         % The bookmarks use the numbers of the corresponding headline.
+    pdfstartpage = 1,                 % The first page seen when opening the PDF.
+    pdftitle = {{\printTitle}},       % The PDF’s title in the meta data.
+    pdfauthor = {{\printAuthor}},     % The PDF’s author name in the meta data.
+    pdfsubject = {{\printSubject}},   % The PDF’s subject in the meta data.
+    pdfkeywords = {{\printKeywords}}, % The PDF’s keywords in the meta data.
+    breaklinks = true,                % Allows it to break links.
+    \ifprintVersion
+        hidelinks,                    % In the printed version, links are not highlighted, as they are not clickable.
+    \else
+    colorlinks = true,            % The text of hyperlinks is colored instead of having a colored box around it.
+    allcolors = stroke1,          % Every hyperlink uses the same color. If you want to change specific colors, use the commands below.
+    %        linkcolor = stroke1,          % The color of an in-document hyperlink.
+    %        citecolor = stroke1,          % The color of a citation.
+    %        filecolor = stroke1,          % The color of a file link.
+    %        pagecolor = stroke1,          % The color of a reference to a page.
+    %        urlcolor = stroke1,           % The color of a weblink.
+    \fi
+]
+{hyperref} % The standard package that is used for creating hyperlinks inside of a document.
+
+\usepackage
+[
+    %    capitalise, % Capitalizes the words in front of the labels. This can also be done by simply using \Cref instead of \cref. In order to have a greater variety, this option is not used.
+    noabbrev,   % The words in front of the labels are not abbreviated.
+    nameinlink, % Extends the link of a reference to the word in front of it.
+]
+{cleveref} % This package must be included after ›hyperref‹. It creates clever references that know what they refer to.

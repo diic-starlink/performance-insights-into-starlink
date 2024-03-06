@@ -1,0 +1,59 @@
+% This file contains all sorts of commands that are used in order to specify certain options for the document.
+
+\newif\ifprintVersion   % Defines a binary variable that signals whether the document is prepared for physical or digital print.
+\newif\ifprofessionalPrint % Defines a binary variable that signals whether the print will be done by a professional printing service that requests extra margin for page cutting and is not bound to paper formats like A4.
+\newif\iffancyTheorems  % Defines a binary variable that signals whether theorems are formatted in the classical style or in a new format that better suits the overall flavor of this thesis.
+\newif\ifboldNumberSets % Defines a binary variable that signals whether the variables for number sets (like N or R) should be in bold. If not, they are in blackboard bold instead.
+\newif\ifbachelorThesis % Defines a binary variable that signals whether this thesis is a bachelor thesis (true) or a master thesis (false).
+
+% Set all variables to their default values.
+\printVersionfalse
+\professionalPrintfalse
+\fancyTheoremstrue
+\boldNumberSetstrue
+\bachelorThesistrue
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% The following commands define certain strings that provide important information for the document.
+
+% The title of the thesis.
+\newcommand*{\printTitle}{}
+\newcommand*{\printGermanTitle}{}
+\newcommand*{\myTitle}[2]{\renewcommand*{\printTitle}{#1}\renewcommand*{\printGermanTitle}{#2}}
+\newcommand*{\printTitleBold}{\textbf{\printTitle}}
+
+% The author’s name.
+\newcommand*{\printAuthor}{}
+\newcommand*{\myName}[1]{\renewcommand*{\printAuthor}{#1}}
+
+% The name of the author’s program.
+\newcommand*{\printProgram}{}
+\newcommand*{\myProgram}[1]{\renewcommand*{\printProgram}{#1}}
+
+% The date when the thesis was handed in.
+\newcommand*{\printDateReceived}{}
+\newcommand*{\dateOfHandingIn}[1]{\renewcommand*{\printDateReceived}{#1}}
+
+% A short description of the topic of the thesis. This string will be used for the PDF metadata.
+\newcommand*{\printSubject}{}
+\newcommand*{\mySubject}[1]{\renewcommand*{\printSubject}{#1}}
+
+% A short description of the topic of the thesis. This string will be used for the PDF metadata.
+\newcommand*{\printKeywords}{}
+\newcommand*{\myKeywords}[1]{\renewcommand*{\printKeywords}{#1}}
+
+% The name of the author’s supervisor.
+\newcommand*{\printNameOfSupervisor}{}
+\newcommand*{\nameOfMySupervisor}[1]{\renewcommand*{\printNameOfSupervisor}{#1}}
+
+% The list with the name of the additional examiners.
+\newcommand*{\printAdditionalExaminers}{}
+\newcommand*{\additionalExaminers}[1]{\renewcommand*{\printAdditionalExaminers}{#1}}
+
+% Defines the extra length added to each side for the print version.
+\newlength{\extraborderlength}
+\newcommand*{\extraBorder}[1]{\setlength{\extraborderlength}{#1}}
+
+% Defines the length of the binding correction. (The class ›scrbook‹ has a binding correction but it does not work due to all the other packages that are loaded.)
+\newlength{\mybindingcorrection}
+\newcommand*{\bindingCorrection}[1]{\setlength{\mybindingcorrection}{#1}}

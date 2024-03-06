@@ -1,0 +1,76 @@
+% This file contains the layout of the title page. It is a generous interpretation of the demo page provided by the MNF of the University of Potsdam.
+
+% This page uses a different geometry, as the content will be centered (not including the binding correction).
+\ifprintVersion
+    \ifprofessionalPrint
+        \newgeometry
+        {
+            textwidth = 134 mm,
+            textheight = 220 mm,
+            top = 38 mm + \extraborderlength,
+            inner = 38 mm + \mybindingcorrection + \extraborderlength,
+        }
+    \else
+        \newgeometry
+        {
+            textwidth = 134 mm,
+            textheight = 220 mm,
+            top = 38 mm,
+            inner = 38 mm + \mybindingcorrection,
+        }
+    \fi
+\else
+    \newgeometry
+    {
+        textwidth = 134 mm,
+        textheight = 220 mm,
+        top = 38 mm,
+        inner = 38 mm,
+    }
+\fi
+
+% The format of the title page.
+\begin{titlepage}
+    \sffamily
+    \begin{center}
+        \includegraphics[height = 3.2 cm]{core/title_page/logo_UP.pdf} \hfill \includegraphics[height = 3 cm]{core/title_page/logo_HPI.pdf}\\
+        \vfil
+        {\LARGE
+            \rule[1 ex]{\textwidth}{1.5 pt}
+            \onehalfspacing\printTitleBold\\[1 ex]
+            {\vspace*{-1 ex}\Large \printGermanTitle}\\
+            \rule[-1 ex]{\textwidth}{1.5 pt}
+        }
+        \vfil
+        {\Large\textbf{\printAuthor}}
+        \vfil
+        {\large Universitäts\colloquialDegreeNameLowercase arbeit\\[0.25 ex]
+        zur Erlangung des akademischen Grades}\\[0.25 ex]
+        \bigskip
+        {\Large \colloquialDegreeName{} of Science}\\[0.5 ex]
+        {\large\emph{(\degreeAbbreviation\,Sc.)}}\\
+        \bigskip
+        {\large im Studiengang\\[0.25 ex]
+        \printProgram}
+        \vfil
+        {\large eingereicht am \printDateReceived{} am\\[0.25 ex]
+        Fachgebiet Data-Intensive Internet Computing der\\[0.25 ex]
+        Digital-Engineering-Fakultät\\[0.25 ex]
+        der Universität Potsdam}
+    \end{center}
+    
+    \vfil
+    \begin{table}[h]
+        \centering
+        \large
+        \sffamily 
+        {\def\arraystretch{1.2}
+            \begin{tabular}{>{\bfseries}p{3.8 cm}p{5.3 cm}}
+                Gutachter               & \printNameOfSupervisor\\
+                Betreuer                & \printAdditionalExaminers
+            \end{tabular}
+        }
+    \end{table}
+\end{titlepage}
+
+\restoregeometry

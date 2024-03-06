@@ -8,13 +8,17 @@ stdenv.mkDerivation {
 
   buildInputs = [
     texliveFull
+    biber
   ];
 
   buildPhase = ''
     export HOME=$(pwd)
     mkdir -p $out
 
-    pdflatex main.tex
+    pdflatex main
+    biber main
+    pdflatex main
+    pdflatex main
   '';
 
   installPhase = ''

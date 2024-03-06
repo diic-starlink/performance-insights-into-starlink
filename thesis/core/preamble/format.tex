@@ -1,0 +1,448 @@
+% This file includes all of the code that is used to format the thesis.
+% Some packages are included if they are needed. This is done in the respective part and not at the beginning of this file.
+%
+% This file contains the following parts:
+%   • Language an Character Set
+%   • Penalties
+%   • Indentation
+%   • Footnotes
+%   • Colors
+%   • Size and Position of the Text Body
+%   • Position of the Head and the Foot
+%   • Margin Position and Width
+%   • Header and Footer Format
+%   • Caption Format
+%   • Part Format
+%   • Chapter Format
+%   • Table of Contents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Language and Character Set %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc} % Allows to input UTF8 characters.
+\usepackage[T1]{fontenc}    % Allows to print special characters correctly.
+\usepackage
+[
+    ngerman,         % German is used for the German abstract.
+    main = american, % This is the main language of the thesis.
+]
+{babel}                     % Is responsible for sensible hyphenations.
+
+% The following two commands make it such that the LaTeX compiler of Overleaf produces a PDF from with ligatures and mathematical symbols can be copied correctly.
+% Also refer to: https://tex.stackexchange.com/questions/64188/what-are-good-ways-to-make-pdflatex-output-copy-and-pasteable
+\input glyphtounicode
+\pdfgentounicode=1
+
+
+%%%%%%%%%%%%%%%
+%% Penalties %%
+%%%%%%%%%%%%%%%
+
+\widowpenalties 2 10000 0
+
+
+%%%%%%%%%%%%%%%%%
+%% Indentation %%
+%%%%%%%%%%%%%%%%%
+
+\usepackage{calc} % Makes it easer to do math with TeX measurements.
+
+\newlength{\myparindent}
+\newlength{\myparskip}
+\setlength{\myparindent}{1 em}
+\setlength{\myparskip}{0 em}
+
+\setlength{\parindent}{\myparindent}
+\setlength{\parskip}{\myparskip}
+\setlength{\parskip}{0 pt plus 1 pt minus 0 pt}
+
+
+%%%%%%%%%%%%%%%
+%% Footnotes %%
+%%%%%%%%%%%%%%%
+
+% Remove the footnote rule.
+\setfootnoterule{0 cm}
+
+% The footnote number is made bold and not in superscript.
+\deffootnote[1.2 em]{1.2 em}{0 em}{\makebox[1.4 em][l]{\textbf{\thefootnotemark}}}
+
+% The footnote number will not be reset after every chapter.
+\makeatletter%
+    \@removefromreset{footnote}{chapter}%
+\makeatother
+
+
+%%%%%%%%%%%%
+%% Colors %%
+%%%%%%%%%%%%
+
+\usepackage[dvipsnames]{xcolor} % Allows it to define colors. The option says that common names can be used.
+
+% Dark blue.
+\definecolor{stroke1}{HTML}{2574A9} % This color is used as the standard color to highlight things.
+
+
+% Coloring various different labels.
+\colorlet{captionlabel}{black}
+\colorlet{footerpagenr}{black}
+\colorlet{footerchapter}{stroke1}
+\colorlet{footerchaptername}{black}
+\colorlet{footersection}{stroke1}
+\colorlet{footersectionname}{black}
+\colorlet{chapternumber}{stroke1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Size and Position of the Text Body %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The new paper dimensions that are exclusively used.
+\newlength{\mypaperwidth}
+\setlength{\mypaperwidth}{210 mm}
+
+\newlength{\mypaperheight}
+\setlength{\mypaperheight}{297 mm}
+
+% The text area uses aesthetically pleasing measurements in the same ratio as the page.
+% These dimensions are always used, as the text area should be the same in the printed and digital version of the thesis.
+\newlength{\mybodywidth}
+\setlength{\mybodywidth}{140 mm}
+
+\newlength{\mybodyheight}
+\setlength{\mybodyheight}{198 mm}
+
+\newlength{\myoutermargin}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\myoutermargin}{(\mypaperwidth - \mybodywidth) / \real{1.5} + \extraborderlength}
+    \else
+        \setlength{\myoutermargin}{(\mypaperwidth - \mybodywidth) / \real{1.5} - \mybindingcorrection}
+    \fi
+\else
+    \setlength{\myoutermargin}{(\mypaperwidth - \mybodywidth) / \real{1.5}}
+\fi
+
+\newlength{\mytopmargin}
+\setlength{\mytopmargin}{(\mypaperheight - \mybodyheight) / 3}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\mytopmargin}{(\mypaperheight - \mybodyheight) / 3 + \extraborderlength}
+    \fi
+\fi
+
+\newlength{\myinnermargin}
+\setlength{\myinnermargin}{\mypaperwidth - \mybodywidth - \myoutermargin}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\myinnermargin}{\mypaperwidth + \mybindingcorrection + 2\extraborderlength - \mybodywidth - \myoutermargin}
+    \fi
+\fi
+
+\newlength{\mybottommargin}
+\setlength{\mybottommargin}{\mypaperheight - \mybodyheight - \mytopmargin}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\mybottommargin}{\mypaperheight + 2\extraborderlength - \mybodyheight - \mytopmargin}
+    \fi
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Position of the Head And Foot %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\goldenratio}{1.618}
+
+\newlength{\myheadsep} % Distance from the header to the body.
+\setlength{\myheadsep}{\mytopmargin / \real{\goldenratio} / \real{\goldenratio} - 1 ex}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\myheadsep}{(\mytopmargin - \extraborderlength) / \real{\goldenratio} / \real{\goldenratio} - 1 ex}
+    \fi
+\fi
+
+\newlength{\myfootskip} % Distance from the body to the footer.
+\setlength{\myfootskip}{\mybottommargin / \real{\goldenratio} - 1 ex}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\myfootskip}{(\mybottommargin - \extraborderlength) / \real{\goldenratio} - 1 ex}
+    \fi
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Margin Position And Width %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\mymargininnersep} % Distance between the margin and the body.
+\setlength{\mymargininnersep}{7 mm}
+
+\newlength{\mymarginoutersep} % Distance between the margin and the paper border.
+\setlength{\mymarginoutersep}{12 mm}
+\ifprintVersion
+    \ifprofessionalPrint
+        \setlength{\mymarginoutersep}{12 mm + \extraborderlength}
+    \fi
+\fi
+
+\newlength{\mymarginwidth} % Width of the margin.
+\setlength{\mymarginwidth}{\myoutermargin - \mymargininnersep - \mymarginoutersep}
+
+\newlength{\mymarginwidthwithinnersep} % Width of the margin.
+\setlength{\mymarginwidthwithinnersep}{\mymarginwidth + \mymargininnersep}
+
+\usepackage
+[
+    % In the printed version, we add an extra border to each side as well as the binding correction for the width.
+    \ifprintVersion
+        \ifprofessionalPrint
+            paperwidth = \mypaperwidth + 2\extraborderlength + \mybindingcorrection,
+            paperheight = \mypaperheight + 2\extraborderlength,
+        \else
+            paperwidth = \mypaperwidth,
+            paperheight = \mypaperheight,
+        \fi
+    \else
+        paperwidth = \mypaperwidth,
+        paperheight = \mypaperheight,
+    \fi
+    textwidth = \mybodywidth,
+    textheight = \mybodyheight,
+    outer = \myoutermargin,
+    top = \mytopmargin,
+    headsep = \myheadsep,
+    footskip = \myfootskip,
+    marginparsep = \mymargininnersep,
+    marginparwidth = \mymarginwidth,
+%    showframe, % Use this option for debugging purposes in order to the an outline of all of the different parts of the page layout.
+]
+{geometry} % Used in order to define the dimensions of the page and its layout.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header and Footer Format %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage
+[
+%    draft, % Shows a lot of rules denoting the dimensions of the head and foot. Use this option only for debugging.
+]
+{scrlayer-scrpage} % Allows to adjust the definitions of the head and foot of a page.
+
+% Remove all predefined styles.
+\clearpairofpagestyles
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dimensions and formats are defined.
+
+% Define the dimensions of the head and the foot. Since we want some information to appear in the margin, we extend the head and the foot by the respective lengths.
+\KOMAoptions
+{%
+    headwidth = \textwidth + \mymarginwidthwithinnersep,%
+    footwidth = \myoutermargin : \textwidth,%
+}
+
+% Defines the formats for the chapter and section titles in the marks of the head.
+\renewcommand*{\chaptermarkformat}{\normalfont\sffamily\small\color{footerchaptername}}
+\renewcommand*{\sectionmarkformat}{\normalfont\sffamily\small\color{footersectionname}}
+
+% Displays the chapter names in the head of both odd and even pages.
+\automark[chapter]{chapter}
+% Replaces the chapter name to the head of right pages with the section name if a section is present.
+\automark*[section]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The head is defined.
+
+% Head for even pages.
+% Puts ›Chapter‹ followed by the current chapter number.
+\lehead%
+{%
+    \begin{minipage}[b]{\mymarginwidth}%
+        \small\raggedleft\normalfont\textsf{\textbf{\color{footerchapter}\chaptername\ \thechapter}}
+    \end{minipage}
+}
+% Put the title of the current chapter/section into the center of the head but push it to the border.
+\cehead{\hspace*{\mymarginwidthwithinnersep}\parbox{\textwidth}{\raggedright\leftmark}}
+
+% Head for odd pages.
+\rohead%
+{%
+    % Check whether a section has already started or not.
+    \Ifstr{\rightmark}{\leftmark}%
+    {%
+        \begin{minipage}[b]{\mymarginwidth}%
+            \small\raggedright\normalfont\textsf{\textbf{\color{footersection}Chapter\ \thechapter}}%
+        \end{minipage}%
+    }%
+    {%
+        \begin{minipage}[b]{\mymarginwidth}%
+            \small\raggedright\normalfont\textsf{\textbf{\color{footersection}Section\ \thesection}}%
+        \end{minipage}%
+    }%
+}
+\cohead{\hspace*{-\mymarginwidthwithinnersep}\parbox{\textwidth}{\raggedleft\rightmark}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The foot is defined.
+
+% Displays the page number in bold in the margin, aligned toward the center. Further, a blue line is drawn above number.
+% The starred variant is used, since we want the format of the foot to also apply to the pagestyle ›plain‹.
+\lefoot*%
+{%
+    \vspace*{1 ex}%
+    {\color{stroke1}\rule{\myoutermargin - \mymargininnersep}{0.5 mm}}\\
+    \begin{minipage}[b]{\myoutermargin - \mymargininnersep}%
+        \raggedleft\normalfont\color{footerpagenr}\textbf{\thepage}%
+    \end{minipage}%
+}
+\rofoot*%
+{%
+    {\color{stroke1}\rule{\myoutermargin - \mymargininnersep}{0.5 mm}}\\
+    \begin{minipage}[b]{\myoutermargin - \mymargininnersep}%
+        \raggedright\normalfont\color{footerpagenr}\textbf{\thepage}%
+    \end{minipage}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%% Caption Format %%
+%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{caption}
+\captionsetup
+{
+    font = small,
+    labelfont = {bf, sf, color = captionlabel},
+    format = plain,
+    singlelinecheck = off,
+}
+
+
+%%%%%%%%%%%%%%%%%
+%% Part Format %%
+%%%%%%%%%%%%%%%%%
+\usepackage{tikz} % Used in order to draw the stylistic elements.
+
+\newlength{\mytmpa}
+\setlength{\mytmpa}{1 mm}
+\newlength{\mytmpb}
+\newlength{\mytmpc}
+
+%%%%%%%%%%%%%%%%%
+% The following code draws the outline for a ›part‹ of the thesis.
+% This command is used before the name of the part is displayed. It is void, as the part is added via \partlineswithprefixformat.
+\renewcommand*{\partformat}{}
+% This command calls \partformat (#2) and displays the name of the part (#3).
+\renewcommand*{\partlineswithprefixformat}[3]%
+{%
+    #2
+    \thispagestyle{empty}
+    \setlength{\mytmpa}{0.618\mypaperwidth}%
+    \setlength{\mytmpb}{0.382\mypaperheight}%
+    \ifprintVersion
+        \ifprofessionalPrint
+            \setlength{\mytmpa}{0.618\mypaperwidth + \mybindingcorrection + \extraborderlength}%
+            \setlength{\mytmpb}{0.382\mypaperheight + \extraborderlength}%
+        \fi
+    \fi
+    \begin{tikzpicture}[overlay, remember picture]%
+        \node [inner sep = 0, outer sep = 0, anchor = north] at (current page.north west)%
+        {%
+            \begin{tikzpicture}[overlay, remember picture]%
+            \draw[color = stroke1, line width = 0.7 mm] (\mytmpa, 0) -- (\mytmpa, -\mytmpb);%
+            \end{tikzpicture}%
+        };%
+        \node (align) [align = right, below = \mytmpb - 2 ex, inner sep = 0, outer sep = 0, anchor = north west] at (current page.north west)%
+        {%
+            \hspace{\mytmpa}\hspace{0.5 em}\partname\ \thepart\\[1 ex]
+            \color{stroke1}#3%
+        };%
+    \end{tikzpicture}%
+}
+% This command defines various parameters for the ›part‹ format.
+\RedeclareSectionCommand%
+[%
+    font = \normalfont\Huge\sffamily,
+    prefixfont = \normalfont\Huge\sffamily,
+]
+{part}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%% Chapter Format %%
+%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{etoolbox}
+
+\newbool{chapterHasANumber}
+\newbool{chapterHasAStar}
+\renewcommand*{\chapterlinesformat}[3]%
+{%
+    % Check whether \chapter of \addchap has been used.
+    \Ifnumbered{#1}{\setbool{chapterHasANumber}{true}}{\setbool{chapterHasANumber}{false}}%
+    % Check whether \chapter* or \chapter has been used.
+    \Ifstr{#2}{}{\setbool{chapterHasAStar}{true}}{\setbool{chapterHasAStar}{false}}%
+    % Check whether a normal \chapter or something else is used.
+    \ifboolexpr{bool{chapterHasANumber} and not bool{chapterHasAStar}}%
+    {%
+        \begin{tikzpicture}[overlay, remember picture]%
+            \node [right = \myinnermargin, below = \mytopmargin, inner sep = 0, outer sep = 0, anchor = north west] (numbernode) at (current page.north west)%
+            {%
+                \hspace{\myinnermargin}%
+                \sffamily\fontsize{60}{60}\selectfont%
+                \color{chapternumber}%
+                \thechapter%
+            };%
+            \node [inner sep = 0, outer sep = 0, anchor = north west] at (numbernode.south west)%
+            {%
+                \begin{tikzpicture}[overlay, remember picture]%
+                    \draw[color = stroke1, line width = 0.7 mm] (\myinnermargin, -1 ex) -- (\paperwidth, -1 ex);%
+                \end{tikzpicture}%
+            };%
+            \node (align) [text width = \textwidth - 2 cm, align = right, right = \myinnermargin + \mybodywidth, inner sep = 0, outer sep = 0, anchor = east] at (numbernode.west)%
+            {%
+                #3%
+            };%
+        \end{tikzpicture}%
+    }%
+    {%
+        \begin{tikzpicture}[overlay, remember picture]%
+            \node [right = \myinnermargin, below = \mytopmargin, inner sep = 0, outer sep = 0, anchor = north west] (numbernode) at (current page.north west)%
+            {%
+                \hspace{\myinnermargin}%
+                \sffamily\fontsize{60}{60}\selectfont%
+                \color{white}%
+                \thechapter%
+            };%
+            \node [inner sep = 0, outer sep = 0, anchor = north west] at (numbernode.south west)%
+            {%
+                \begin{tikzpicture}[overlay, remember picture]%
+                    \draw[color = stroke1, line width = 0.7 mm] (\myinnermargin, -1 ex) -- (\paperwidth, -1 ex);%
+                \end{tikzpicture}%
+            };%
+            \node (align) [align = left, right = \myinnermargin, inner sep = 0, outer sep = 0, anchor = south west] at (numbernode.south west)%
+            {%
+                #3%
+            };%
+        \end{tikzpicture}%
+    }%
+}
+\RedeclareSectionCommand%
+[%
+    font = \color{stroke1}\normalfont\huge\sffamily,
+    afterskip = 20 pt,
+]
+{chapter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Table of Contents %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Format the table of contents to have a ›plain‹ page style.
+\BeforeStartingTOC[toc]{\pagestyle{plain}}
+\AfterStartingTOC{\thispagestyle{plain}}

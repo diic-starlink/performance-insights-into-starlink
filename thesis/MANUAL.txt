@@ -1,0 +1,412 @@
+Author: Martin Krejca ❧
+
+Please read this file before you start using this template. The thesis is set up to be handled
+easily, but I would nonetheless recommend that you familiarize yourself with the basic concept of
+this thesis in order to know what you are doing and what you should be doing.
+
+This file documents the most important parts of the thesis template. The original file was created
+and provided by Thomas Bläsius as his PhD thesis. Many thanks to him. I took it upon myself to use
+his initial file and create this template, which can be easily used and adjusted and also provides
+nice defaults. In the following, I will describe how to use the main file, what the structure and
+intention of the different files already present is, and I will give some hints for how to adjust or
+add stuff.
+
+Note that this template concerns bachelor and master theses. If you are interested in writing a PhD
+thesis, please use the other template.
+
+Special thanks to Hans Gawendowicz for improving the commands that generate a version of the PDF
+suited for printing. His macros are better aligned with the use case of printing the thesis on A4
+paper and then binding it, without cutting it after printing.
+
+Special thanks to Merlin de la Haye for pointing out that Overleaf produces PDFs from which math
+symbols and ligatures cannot be copied nicely. Also thank you for pointing out a fix.
+
+
+===========================
+HOW AND WHERE TO ADD STUFF?
+===========================
+
+The main file of the thesis is ›thesis.tex‹, from now on used synonymously with the thesis. You
+mostly want to either edit the thesis or create your own files, which you will link to from the
+thesis. When you open the file for the first time, please see whether you can compile it. Since it
+uses many packages, it may take some time and you may be asked to install further packages. The
+initial version of this thesis contains a demo chapter and also has demo references. The references
+are displayed using the package ›biblatex‹. Thus, you have to compile your bibliography with
+›biber‹, not with ›bibtex‹! A standard compilation cycle would be
+
+  pdflatex → biber → pdflatex → pdflatex .
+
+This should work without any errors. If not, you may have already edited some files, or some
+packages may be out of date. In the latter case, please use the information below in order to get a
+grasp of the structure of the thesis and how things can be edited.
+
+If you compiled the file successfully, you should have a PDF with 25 pages. You can go through it in
+order to get a feel of the style of the thesis. It is displayed in a book format, that is, even and
+odd pages are mirrored and the outer border of a page is thicker (twice as thick, to be precise)
+than the inner border. Additionally, the PDF already contains some meta information, and the page
+size is in the same ratio as a DIN A4 page but slightly smaller. We will shortly get to why that is
+the case.
+
+I would advise you to read Chapter 2 of the demo, as it mentions and shows some basic things that
+can be used for this thesis. The files for this chapter are located in the folder ›DELETE‹. Thus, if
+you delete this folder and the link to it from the thesis, it is easily removed.
+
+Although you should edit the thesis (that is, ›thesis.tex‹) in order to add new chapters to it,
+there are certain parts in it that should not be edited. Hence, some parts are explicitly marked as
+sections that should be edited. The first one occurs almost immediately after the document class, on
+line 19. Here, you mostly input relevant data about yourself. This data is later used for the title
+page or the PDF meta data. However, there are some exceptions. The first two commands require you to
+set a length for an extra border and for the binding correction. These are relevant information for
+printing the thesis. The binding correction says how much of the page will not be seen once the book
+is bound. Usually, the pages will be glued together at the inner margin. Thus, the binding correc-
+tion says how much space of a page is lost this way. The extra border is only necessary for cutting
+the pages. This value if optional and is only used if \professionalPrinttrue is used. The motivation
+is that the thesis contains a colored bar for headlines and page numbers, which go to the border of
+the paper. Printers do not print that far. Thus, in order for the color to go to the border of the
+paper, the pages should be cut in post-production by a certain amount. The extra border tells you
+how much space will be cut from EACH side of the page. Note that this includes the inner side of a
+page. Thus, the inner margin of the print version adds the binding correction as well as the extra
+border.
+
+After \bindingCorrection, we have a command that specifies whether this thesis is a bachelor thesis
+or a master thesis. If the command is commented out (as it is by default), then the thesis is set as
+a bachelor thesis. This basically only affects the information displayed on the title page. If you
+wish a write a master thesis instead, remove the percentage sign and include the command. After
+compilation, the title page should now display that this thesis is a master thesis.
+
+Next, you see four lines that are commented out. Those are switches for certain adjustments of the
+thesis. These adjustments could of course be done manually, but it is far more convenient using
+these options. In order to activate one of them, just remove the percentage sign in the respective
+line. The most important option is the first (\printVersiontrue). The default for this thesis is to
+create a PDF that can be used well digitally. However, the thesis also has to be printed onto
+physical paper. Note that both versions of the thesis, that is, the one for digital use and the one
+for printing, use A4 format.
+
+As mentioned before, when printing, the pages have to be bound (and potentially cut). Thus, some
+extra border around the pages is needed. The option \printVersiontrue adds extra space to the inner
+margin (and reduces the outer margin) in order to compensate for the space that is not seen after
+binding the book. Further, no links are colored in the print version, as they cannot be clicked
+anymore. Use this option only when preparing your PDF for physical printing. For every other case,
+do not use the option \printVersiontrue.
+
+In addition to \printVersiontrue (which only adds the binding correction), the next option, that is,
+\professionalPrinttrue, adds an extra border around the page. This macro only takes effect if
+\printVersiontrue is used. The intention of \professionalPrinttrue is to add extra space to the
+paper that is cut after printing such that certain elements on a page go fully to the border of the
+page and do not stop shortly before. However, note that the resulting paper size is not A4 anymore.
+This option only makes sense if you use a professional printing service that can handle such re-
+quests. In other cases, do not use \professionalPrinttrue.
+
+The next option is \fancyTheoremsfalse. This thesis displays theorems and similar environments with
+normal text, a bold headline, and with blue triangles at the start and the end (see Chapter 2 for an
+example). This is different from conventional LaTeX theorem environments, where the content is
+italic and there is no special symbol at the start or the end. If you want your theorem environments
+to be displayed in the old-fashioned style, use this option.
+
+The last of the three options is \boldNumberSetsfalse. This thesis already provides commands for
+number sets, like the natural or real numbers (\N and \R, respectively). It displays these sets
+using bold capital Latin letters, which is the classic style. However, commonly, capital Latin
+letters in blackboard bold are used. Originally, blackboard bold was used when denoting bold symbols
+on a blackboard (in order to save chalk and time). Over time, many people adapted this style for
+their papers. If you prefer letters in blackboard bold over bold letters, use this option.
+
+The remaining options are mostly self-explanatory. It only seems worth mentioning that the command
+\additionalExaminers should make use of \newline when adding an additional examiner.
+
+After this first part, there is only a single other part left that should be edited. This part is
+almost at the bottom of the thesis (starting at line 104). If you did not edit the thesis, it only
+contains a Part and the demo chapter. If you remove the folder ›DELETE‹, make sure to also remove
+the respective part here. Other than that, I would advise you to add all of your chapters here in
+the same fashion as you see it done with the demo chapter. That is, use the command \input (not
+\include, as this will put the content on a new page!) and reference the file that contains the
+actual content of the chapter. This way, everything remains clear.
+
+
+=========
+STRUCTURE
+=========
+
+This template comes with a lot of folders, most of which should be used. Generally speaking, many
+folders just contain a single TEX file and stand for a certain section either at the beginning or
+the end of the thesis. As these are somewhat basic sections of a thesis and anyone would add them
+anyway, they are already included in this template. Further, we have a folder for the references
+(the BIB files) and another one for packages and commands. The latter contains some files that
+should not be edited but are still simple enough to understand, as their meaning is rather local
+with respect to the entire thesis. However, the folder ›core‹ should only be edited if some
+essential parts of the thesis (like the format) should be changed. The files inside contain many
+comments in order to make it easier to understand the setup of the thesis. However, the commands
+used inside of these files influence a greater part of the thesis. Thus, they should be handled with
+care. Last, the folder ›DELETE‹ contains the files for the demo chapter and can easily be deleted
+(do not forget to remove the part in the thesis that references files from this folder). Of course,
+none of the already existing folders (except DELETE) or any of their files should be renamed.
+
+In the following, the folders and their respective files are be explained in greater detail:
+
+● conclusions – Contains the file used for the conclusions of the thesis. This file should be
+                edited.
+                
+    conclusions.tex – The content of this file is displayed in the chapter ›Conclusions & Outlook‹
+                      in the thesis. Note that the chapter name itself is not included in this file
+                      but rather appears in the thesis outside of the area marked as editable. If
+                      you want to change the name of this chapter, please change it in thesis.tex at
+                      the respective position.
+
+● core – Contains all of the files that are responsible for most of the format of the thesis. Those
+         files are located in four sub-folders, which contain format definitions for different parts
+         of the thesis. Although these parts are independent, the files have some dependencies, as
+         some packages are included that are used in other files as well. The files in here should
+         be handled with care and best not be edited at all.
+         
+    ● bibliography – The file in here contains different style definitions for bibliography of the
+                     thesis.
+                     
+        bibliography_format.tex – Contains the format definitions for the entries used in the
+                                  bibliography. Since biblatex is used, these are mainly
+                                  redefinitions of biblatex commands.
+    
+    ● declaration_of_authorship – Contains the file that declares your authorship of this thesis.
+    
+        declaration_of_authorship.tex – Contains text that says that you are the sole author of this
+                                        thesis and that you acknowledge other authors’ works.
+        
+    ● preamble – Contains the file responsible for the commands used in the beginning of the thesis
+                 and the file defining the format and layout of the thesis.
+                 
+        document_settings.tex – Contains the commands mainly used for the title page. Further, it
+                                also defines the commands for the extra border and the binding
+                                correction.
+        
+        format.tex – Contains almost all of the definitions about the style of the thesis. It
+                     redefines many layout options and also calculates the page size for the digital
+                     version. This file already includes some packages (like tikz) if they are
+                     needed in order to define certain elements.
+        
+    ● title_page – Contains the file responsible for the title page and the logos of the HPI and the
+                   UP.
+                   
+        title_page.tex – Sets up the title page. For this file, many of the commands at the
+                         beginning of the thesis are used.
+
+● DELETE – Contains the file of the demo chapter.
+
+    demo.tex – The file for the demo chapter. Its source code gives some examples of how certain 
+               features of this thesis can be used. I would recommend looking at it.
+
+● introduction – Contains the file used for the introduction of this thesis. This file should be
+                 edited.
+                 
+    introduction.tex – The content of this file is displayed as the introduction of the thesis. Note
+                       that the chapter name itself is not included in this file but rather appears
+                       in the thesis outside of the area marked as editable. If you want to change
+                       the name of this chapter, please change it in thesis.tex at the respective
+                       position.
+
+● packages_and_commands – Contains the files that include most of the packages and define many
+                          commands. These files can be edited.
+                          
+    additional_packages.tex – Use this file if you want to add some packages that are not included
+                              yet. Note that this file is already included in the thesis. Thus, any
+                              package you include here, will be immediately available in the thesis.
+    
+    general_commands.tex – Contains standard commands like definitions of number sets or how the
+                           expected value is displayed. However, even more complex commands are
+                           defined. Most of them are shortly explained inside of this file. Further,
+                           many commands are used in the demo chapter. I would recommend that you
+                           read through this file in order to know which commands have already been
+                           defined. Do not add new commands to this file if you have no pressing
+                           reason to do so.
+    
+    standard_packages.tex – Contains most of the packages used for the thesis. If you want to add
+                            further packages, please use the file additional_packages.tex in this
+                            folder. However, many standard packages have already been included.
+                            Thus, I would recommend that you only read through this file in order to
+                            know which packages you can use. If you really have to add new packages
+                            using this file, please note that the packages hyperref and celveref
+                            should appear last and in that order. (That is why the file
+                            additional_packages.tex is included before these two packages.)
+    
+    user-defined_commands.tex – This file is blank. If you want to define some additional commands,
+                                do so here. This way, you keep your code base clean. Note that this
+                                file is already included in the thesis. Thus, any command you define
+                                here, will be immediately available in the thesis.
+
+● preface – Contains the files that go before the introduction and even the table of contents in the
+            thesis. These files should be edited.
+            
+    abstract.tex – The English abstract of the thesis.
+    
+    abstractGerman.tex – A German translation of the English abstract.
+    
+    acknowledgments.tex – If you want to say thank you to anybody, this is the place to do so. If
+                          you do not want to have any acknowledgments in your thesis, you can remove
+                          this file. However, if you do so, remember to also remove the respective
+                          link in the thesis itself. It is located outside of the second part that
+                          should be edited.
+
+● references – Contains BIB files responsible for the references of the thesis. These files should
+               be edited.
+    
+    references.bib – Should contain all of the references that are used throughout the thesis. Note
+                     that you can use strings defined in strings.bib as consistent shortcuts for
+                     journal names or similar things.
+    
+    strings.bib – Contains many macros or shortcuts for conferences, journals, etc. Use these in
+                  your BIB entries in order to have a consistent naming convention. As this file
+                  most likely does not include all of the venues you may need, feel free to add to
+                  it.
+
+
+==========================
+QUESTIONS THAT MAY COME UP
+==========================
+
+● Where should I add a package that is not included yet?
+► Please add it to packages_and_commands/additional_packages.tex. This file is included in
+  packages_and_commands/standard_packages.tex directly before hyperref and cleveref, as these should
+  remain the last packages in this order, as they are dependent on many other packages that may be
+  included before. If you want to know which packages are included, refer to
+  packages_and_commands/standard_packages.tex. However, recall that some packages are also already
+  included in core/bibliography/bibliography_format.tex and core/preamble/format.tex.
+
+● I dislike the page numbering. How can I change it?
+► The page numbering used follows usual conventions for books. The part before the first chapter
+  uses Roman-style page numbers. Afterward, this is changed to Arabic-style numbers. As usual with
+  books, the first page has number 1. As a general rule: no matter how you change the page numbers,
+  odd pages should always be the ones on the right-hand side! (Hence, the title page has an odd
+  number.) If you want to change where the Roman numbers start, you have to change where the command
+  \frontmatter is used. It is responsible for changing to Roman-style numbers, and it starts at i
+  when you use the command. Changing back to Arabic number is done via \mainmatter. If you change
+  where these commands appear in the thesis, you change the page numbering. However, the default is
+  using Arabic numbers. Thus, if you use \frontmatter later, everything before will be numbered
+  using Arabic numbers.
+► If you want a page to have no page number, use \pagestyle{empty} or \thispagestyle{empty}. Please
+  also refer to the next question.
+
+● How do I change the style of a page? What page styles exist?
+► There are basically three page style you should consider: empty, headings, and plain. You can
+  change to a style by using \pagestyle{STYLE}. If you change to a page style, it is used for the
+  remainder of the thesis. Thus, make sure to change it to something different later on if you need
+  to.
+► An ›empty‹ style removes everything from a page, except if it is the first page of a chapter! The
+  first page of a chapter has a special style that will always show a page number. If you want to
+  remove the page number too (for example when you want the abstract to have no page numbers), use
+  the command \thispagestyle{empty} on the respective first page of a chapter.
+► A ›headings‹ page style shows page numbers and also displays the number as well as the title of
+  the current chapter on even pages and the number and title of the current section on odd pages. If
+  you have not started a section yet and an odd page appears, the current chapter is displayed
+  instead.
+► A ›plain‹ page style shows the page number but does not have a headline. Basically, it is a
+  ›headings‹ page style but without showing the chapter or section names or numbers. Thus, it is
+  mainly used when the headline is already used for something different (as with the first page of a
+  chapter).
+► Clear pages in the thesis are formatted using an empty style. If you want to change that (and only
+  a plain page style would make sense, which adds page numbers), you have to do so in the optional
+  parameter of the document class called cleardoublepage. This globally affects the page style of
+  blank pages.
+
+● Why do blank pages appear sometimes?
+► The thesis is written as a book. As such, it is common to start new chapters on odd (that is,
+  right-hand side) pages. Thus, if a chapter would start on an even page, a blank page is inserted
+  before it. For the digital version, there is no real need for blank pages. However, since the
+  format of the entire thesis is laid out with a two-page view in mind, it makes sense to keep the
+  blank pages, and I would highly advise that you do.
+
+● How do I remove a certain entry from the table of contents?
+► I would not remove entries that have a number. However, the abstract and such are explicitly added
+  to the table of contents via \addchap. If you dislike this, then use \chapter* for the respective
+  chapter from the thesis. If you want to remove the table of contents from itself, remove the line
+  saying ›\setuptoc{toc}{totoc}‹.
+
+● Why does Part 1 start after the introduction?
+► It only appears in order to show that something like a Part exists. There is no real reason for it
+  to show up at this place. The thesis can easily be written without using any Parts at all.
+  However, if you want to combine different aspects into your thesis, it may make sense to separate
+  them using different Parts. Since the introduction should introduce your entire thesis, I do not
+  think it makes sense to start a Part before the introduction. Of course, you can also use Parts
+  when separating preliminaries and related work and such from actual proofs and content.
+
+● How do I remove the number of the conclusions section?
+► I used a number for this section, as I feel that it belongs to the main part of the thesis, whose
+  chapters all have numbers. However, if you want to remove the number, simply change 
+  chapter{Conclusions \& Outlook} into \addchap{Conclusions \& Outlook} in order for this chapter to
+  still show up in the table of contents.
+
+● Why does the bibliography tell me on which pages a reference has been cited?
+► I think that it is neat to go through the references and then immediately be able to jump to a
+  page where it is cited in order to see the context the reference is used in. However, if you
+  dislike this, then you can deactivate these so-called back references. For this, you have to go to
+  the file core/bibliography/bibliography_format.tex and comment out the line saying
+  ›backref = true‹.
+
+● How can I change the blue color? How do I color certain things differently?
+► The blue color used throughout the thesis is defined in core/preamble/format.tex and is called
+  ›stroke1‹. It is from http://www.flatuicolorpicker.com/blue-hex-color-model, where it is called
+  Jelly Bean. Feel free to change it.
+► If you want certain things to be colored differently, then you have to look where these things are
+  defined. This most likely happens in one of the format files, which are core/preamble/format.tex
+  and core/bibliography/bibliography_format.tex. It is probably best to just search for ›stroke1‹
+  and see in what context it is applied. If you want to change how certain links are colored, you
+  should do so in packages_and_commands/standard_packages.tex in the options of the package
+  ›hyperref‹. However, core/preamble/format.tex contains a part devoted to defining different
+  colors. You may want to give that a try first.
+
+● How can I add my own keywords to cleveref such that it uses other words for certain labels, as
+  seen in the demo file with inequality (2.1)?
+► You should add the following line to packages_and_commands/user-defined_commands.tex:
+
+    \crefname{myKeyword}{wordToUseInSingular}{wordToUseInPlural}
+    
+  The format of how such a reference is presented by cleveref can be defined with the following
+  command:
+  
+    \creflabelformat{myKeyword}{FORMAT}
+  
+  The format uses three arguments (#1, #2, and #3); #1 is the counter of the reference, and
+  arguments #2 and #3 delimit the link of the reference. The arguments #2 and #3 have to appear in
+  that order! Note that the word you use will automatically be included in the link, since this
+  thesis uses cleveref with an option doing so.
+► This thesis already defines two keywords for cleveref: ›ineq‹ and ›term‹. The intention is to use
+  them for the ›equation‹ environment when it does not contain a proper equation but something
+  different. Those keywords are defined in packages_and_commands/general_commands.tex. If you want
+  to remove or edit them, please do so in this file.
+
+● Why does the template have the files braceMnSymbol.sty and timetravel.sty?
+► The package braceMnSymbol.sty improves the way that overbraces and underbraces are displayed. The
+  braces do not appear to be broken down into smaller pieces when using this package.
+► The package timetravel.sty is actually not imported by default. If you want to use it, add it to
+  packages_and_commands/additional_packages.tex. A short tutorial of how this package works can be
+  seen by viewing the file itself in a text editor. The package allows to create wormholes and jump
+  back to these later on. When jumped back, the counters of things like theorems (which has to be
+  passed to the package as an option) are set back to where the wormhole was defined. Thus, theorems
+  can be repeated; but anything that has a number can be repeated as well. This package is not used,
+  as theorems can already be restated differently, as shown in the demo chapter. Hence, I see no
+  need for this package. However, a potential plus point of this package is that only the numbering
+  is reset. Thus, if inside of a wormhole, you can change the theorem you want to repeat completely.
+  For example, if you have highlights in your theorem and you want to repeat it without the
+  highlights, the package timetravel.sty could come in handy.
+
+● How do I change the format of something I don’t like?
+► If none of the above answers satisfies you and you still want to change something, you better
+  prepare yourself for a long and hard journey. It may be even best if you do not use this template
+  then. However, many format-related things are defined in core/preamble/format.tex (for the main
+  text body) or core/bibliography/bibliography_format.tex (for the bibliography). Have fun finding
+  the appropriate place. You may also want to have a look at the structure of the thesis described
+  in this document in order to get a feel of where certain things are defined.
+
+● My publications do not display the correct numbers. For example, all labels are [0]. How do I fix
+  this?
+► This is a tricky one, and I am not entirely sure if my proposed solution determines the true
+  cause. However, this silent error seems to show up if the document has undefined references. Once
+  all undefined references are removed, the numbers should be displayed correctly. If not, make sure
+  to delete auxiliary files (like the .aux and the .bbl files) and then recompile.
+
+● The raw template does not compile correctly with texlive. What should I do?
+► It may be that you are missing some packages, such as ›koma-script‹, or that your packages are not
+  up to date. Try the following command to get all the necessary things:
+  
+  sudo apt install texlive texlive-science texlive-extra texlive-fonts-extra texlive-latex-extra
+  texlive-lang-german texlive-bibtex-extra biber
+
+● I use Manjaro, and the raw template does not compile correctly. What should I do?
+► Try replacing all occurrences of the command ›\Ifstr‹ to ›\ifstr‹. In the raw template, this
+  command occurs exactly twice, both times in core/preamble/format.tex.

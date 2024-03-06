@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Use the command \setCounters{counter1,counter2,..} to specify the
+%% set of counters that should be included in the time travel.
+%%
+%% Create named wormholes using the command \wormhole{name}.
+%%
+%% Between \begin{backInTime}{wormholename} and \end{backInTime}, the
+%% counters specified with \setCounters are temporarily reset to the
+%% value they had when the wormhole with the name "wormholename" was
+%% defined.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{timetravel}
+
+\newcommand{\setCounters}[1]{
+  \def\@allCounters{#1}
+  \@initCounters
+}
+
+\newcommand{\wormhole}[1]{
+  % the argument is a new label
+  %
+  % just save all counters at this point and associate the values with
+  % the new label
+  \@processlist{\@saveCounter{#1}}{\@allCounters}
+}
+
+\newenvironment{backInTime}[1]{
+  % first argument is a label defined with \wormhole
+  %
+  % sets all counters back to the value they had when the label was
+  % defined and restore the current value afterwards
+  \@processlist{\begin{@tmpRestoreCounter}{#1}}{\@allCounters}
+}{
+  \@processlist{\end{@tmpRestoreCounter}\@comment}{\@allCounters}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% internal stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\def\@allCounters{}
+
+\newcommand{\@saveCounter}[2]{
+  % first argument is the label, second the counter
+  %
+  % just save the value of the counter at the current position
+  \newcounter{#1#2}
+  \setcounter{#1#2}{\value{#2}}
+}
+
+\newcommand{\@initCounters}{
+  \@processlist{\@makeTmpCounter}{\@allCounters}
+}
+
+\newcommand{\@makeTmpCounter}[1]{
+  \newcounter{tmp#1}
+}
+
+\newenvironment{@tmpRestoreCounter}[2]{
+  % first argument is the label, second the counter
+  %
+  % sets the counter back to the value it had at the label defined
+  % with \wormhole and restores the current value afterwards
+  \def\counter{#2}
+  % \newcounter{tmp#2}
+  \setcounter{tmp#2}{\value{#2}}
+  \setcounter{#2}{\value{#1#2}}
+}{
+  \setcounter{\counter}{\value{tmp\counter}}
+}
+
+\newcommand{\@comment}[1]{}
+
+
+\newcommand{\@processlist}[2]{
+  \@for\timetraveliter:=#2\do{%
+    #1{\timetraveliter}
+  }
+}
