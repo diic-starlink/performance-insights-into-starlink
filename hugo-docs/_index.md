@@ -9,7 +9,7 @@ The master's thesis about measuring the performance of Starlink. Written by _Rob
 
 ## PDF Thesis
 
-You can find the current state of the thesis here: [Starlink Thesis](/main.pdf).
+You can find the current state of the thesis here: [Starlink Thesis](/restricted/main.pdf).
 
 ## Access Control
 
