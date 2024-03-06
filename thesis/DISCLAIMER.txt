@@ -1,0 +1,16 @@
+The logos in core/title_page of the University of Potsdam (logo_UP.pdf) and the Hasso Plattner
+Institute (logo_HPI.pdf) are both subject to copyrights of the respective institutions. I was
+granted permission to include them as a part of this template. However, please note that you can
+only use them when you comply with the following points:
+
+    – You are not allowed to use the logos for any kind of advertisement.
+    – You are only allowed to use any of these two logos if the thesis is connected to the
+      respective institution (that is, the University of Potsdam or the Hasso Plattner Institute).
+    – The logos must not be edited.
+
+If you want to use the logos despite not complying with all of the points above, please contact the
+respective institution and ask for permission.
+
+The rest of this template does not follow any restrictions at all. You are allowed to do with it
+whatever you want. Note that this means that you can use this template for other universities too as
+long as you do not use any of the two logos mentioned above.

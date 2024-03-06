@@ -1,46 +1,140 @@
-\documentclass[12pt]{article}
-\usepackage{lingmacros}
-\usepackage{tree-dvips}
+\documentclass
+[
+    twoside,                 % The thesis is formatted like a book. That is, odd and even pages are handled differently.
+    openright,               % Starts a new chapter on an odd page number (right side).
+    cleardoublepage = empty, % Clear pages inserted in order to have new chapters appear on odd pages are formatted with an empty style.
+    fontsize = 12 pt,        % The size of the font.
+    american,                % Support for American English.
+    captions = tableheading, % Places the correct amount of space when the caption of a table is above the table.
+    numbers = noenddot,      % Does not use a period at the end of numbered titles, such as sections or figures.
+    footheight = 35 pt,      % Defines the height of the foot. Due to the line, it needs extra height.
+%    draft,                   % Only displays boxes of figures. This option is useful if compilation takes a long time.
+]
+{scrbook}
+
+
+\input{core/preamble/document_settings} % Contains commands that are used for certain information that is printed.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Please adjust your options here. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % This section contains commands with important data for your thesis. Please adjust them in order for the document to be printed correctly.
+
+    % Defines the length of the amount that a printed page will be cut from EACH side (including the inner side). This option only takes effect with \printVersiontrue and \professionalPrinttrue.
+    \extraBorder{3 mm}
+
+    % Shifts the inner margin outward by the amount specified. When the book is bound, part of the page will not be seen anymore. This option compensates for this loss. It only takes effect with \printVersiontrue.
+    \bindingCorrection{6 mm}
+
+    % Use the following command if this is a master thesis.
+%    \bachelorThesisfalse
+
+%    \printVersiontrue      % Use this value if you want to prepare your thesis for physical printing. In this case, links will not be colored. Without \professionalPrinttrue, the content will be moved outward by the binding correction, increasing the inner margin and decreasing the outer margin.
+%    \professionalPrinttrue % Use this value if you want to have extra border for cutting and are not bound to paper formats (like A4). This option will increase the page size by the extra border on every side plus the binding correction once for the width. It only takes effect in combination with \printVersiontrue.
+%    \fancyTheoremsfalse  % Use this value if you want to use the classical theorem style, where the text is italic. Further, with this style, the QED symbol is colorless.
+%    \boldNumberSetsfalse % Use this value if you want variables for number sets (like N or R) to appear in blackboard bold rather than bold.
+
+    % The title of the thesis. The first argument is for the English name, the second is for the German name.
+    \myTitle{Starlink Thesis}{Eine adäquate Übersetzung meines Titels}
+
+    % The author’s name.
+    \myName{Robert Alexander Uwe Richter}
+
+    % The author’s program.
+    \myProgram{IT Systems Engineering}
+
+    % The date when the thesis will be handed in.
+    \dateOfHandingIn{30. September 2024}
+
+     % The name and affiliation of the author’s supervisor.
+    \nameOfMySupervisor{Prof.\,Dr. Vaibhav Bajpai}
+
+    % A list with the names of the additional examiners.
+    \additionalExaminers{A Postdoc\newline A PhD student}
+
+    % A short summary of the thesis. These information will be used for the PDF meta data.
+    \mySubject{A cool bachelor/master thesis.}
+
+    % Some keywords of the thesis. These information will be used for the PDF meta data. Please use | as a separator and try to avoid commas.
+    \myKeywords{master thesis | starlink | spacex | satellite web | data-intensive internet computer | vaibhav bajpai}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End of options to adjust. %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{core/preamble/format}                        % Contains commands that define the general format and layout of the thesis.
+\input{core/bibliography/bibliography_format}       % Contains commands for the layout of the bibliography.
+\input{packages_and_commands/standard_packages}     % Contains the packages that this template provides.
+\input{packages_and_commands/general_commands}      % Contains newly defined commands useful for mathematics.
+\input{packages_and_commands/user-defined_commands} % This is where user-defined commands should go.
+
+
+% This is the thesis. The front matter as well as the references should not be changed. The main matter can be edited freely.
 \begin{document}
 
-\section*{Notes for My Own Paper}
 
-Don't forget to include examples of topicalization.
-They look like this:
+    \frontmatter
+    \include{core/title_page/title_page}
 
-{\small
-\enumsentence{Topicalization from sentential subject:\\ 
-\shortex{7}{a John$_i$ [a & kltukl & [el & 
-  {\bf l-}oltoir & er & ngii$_i$ & a Mary]]}
-{ & {\bf R-}clear & {\sc comp} & 
-  {\bf IR}.{\sc 3s}-love   & P & him & }
-{John, (it's) clear that Mary loves (him).}}
-}
+    \pagestyle{plain}
 
-\subsection*{How to handle topicalization}
+    \addchap{Abstract}
+    \input{preface/abstract}
 
-I'll just assume a tree structure like (\ex{1}).
+    \selectlanguage{ngerman}
+    \addchap{Zusammenfassung}
+    \input{preface/abstractGerman}
+    \selectlanguage{american}
 
-{\small
-\enumsentence{Structure of A$'$ Projections:\\ [2ex]
-\begin{tabular}[t]{cccc}
-    & \node{i}{CP}\\ [2ex]
-    \node{ii}{Spec} &   &\node{iii}{C$'$}\\ [2ex]
-        &\node{iv}{C} & & \node{v}{SAgrP}
-\end{tabular}
-\nodeconnect{i}{ii}
-\nodeconnect{i}{iii}
-\nodeconnect{iii}{iv}
-\nodeconnect{iii}{v}
-}
-}
+    \addchap{Acknowledgments}
+    \input{preface/acknowledgments}
 
-\subsection*{Mood}
+    \setuptoc{toc}{totoc}
+    \tableofcontents
 
-Mood changes when there is a topic, as well as when
-there is WH-movement.  \emph{Irrealis} is the mood when
-there is a non-subject topic or WH-phrase in Comp.
-\emph{Realis} is the mood when there is a subject topic
-or WH-phrase.
+    \pagestyle{headings}
+    \mainmatter
+
+    \chapter{Introduction}
+    \input{introduction/introduction}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% Please add the content of your thesis here. %%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \part{The Beginning of It All}
+
+    \chapter{Demo Chapter}
+    some demo...
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% End of adding your content. %%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+    % Add the following chapters not to the current ›part‹ but one level above instead.
+    \makeatletter
+        \def\toclevel@chapter{-1}
+        \def\toclevel@section{0}
+    \makeatother
+
+    \chapter{Conclusions \& Outlook}
+    \input{conclusions/conclusions}
+
+    % Following are the files and commands for the bibliography and the author’s publications.
+    \pagestyle{plain}
+
+    \renewcommand*{\bibfont}{\small}
+    \printbibheading
+    \addcontentsline{toc}{chapter}{Bibliography}
+    \printbibliography[heading = none]
+
+    \addchap{Declaration of Authorship}
+    \input{core/declaration_of_authorship/declaration_of_authorship}
+
 
 \end{document}

@@ -1,0 +1,433 @@
+% This file contains all sorts of macros that are globally used. Further, certain options made available through packages are set here as well.
+%
+% This file contains the following parts:
+%   • Type of Degree
+%   • Miscellaneous
+%   • Footnotes
+%   • Theorem Environments
+%   • Meta Commands
+%   • Common Commands
+
+
+%%%%%%%%%%%%%%%%%%%%
+%% Type of Degree %%
+%%%%%%%%%%%%%%%%%%%%
+
+% The colloquial term of the degree.
+\newcommand*{\colloquialDegreeName}{Master}
+\newcommand*{\colloquialDegreeNameLowercase}{master}
+
+% The abbreviation of the degree.
+\newcommand*{\degreeAbbreviation}{M.}
+
+%%%%%%%%%%%%%%%%%%%
+%% Miscellaneous %%
+%%%%%%%%%%%%%%%%%%%
+
+% Defines the environment used at the beginning of each chapter.
+\newenvironment{jointwork}
+{\itshape}
+{\ignorespacesafterend\bigskip}
+
+% Defines the IfEmptyTF command. This is useful for optional arguments provided as [].
+\makeatletter
+    \def\IfEmptyTF#1%
+    {%
+        \if\relax\detokenize{#1}\relax%
+            \expandafter\@firstoftwo%
+        \else%
+            \expandafter\@secondoftwo%
+        \fi%
+    }
+\makeatother
+
+% Creates an environment that automatically uses math mode if necessary and creates a space afterward if wanted. Basically, if the command \example is defined to use this environment, you can use \example without mathe mode in normal text as if it were ordinary text.
+\NewDocumentCommand{\mathOrText}{m}
+{%
+    \ensuremath{#1}\xspace%
+}
+
+% Reduces the space around scaling bracekts.
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+% Lets math text in an environment of bold text also appear bold.
+\makeatletter
+    \DeclareRobustCommand{\bfseries}%
+    {%
+        \not@math@alphabet\bfseries\mathbf%
+        \fontseries\bfdefault\selectfont%
+        \boldmath%
+    }
+\makeatother
+
+% Adds square and curly brackets to the exceptions for xspace such that no space is used right in front of them.
+\xspaceaddexceptions{]\}}
+
+% Formats URLs by using the normal font (not the typewriter font).
+\urlstyle{rm}
+
+% Allows large display formulas to span multiple pages.
+\allowdisplaybreaks
+
+% Defines an optional argument for labels named ›ineq‹ that signals that cleveref should name the respective reference ›inequality‹ instead of its actual name.
+\crefname{ineq}{inequality}{inequalities}
+\creflabelformat{ineq}{#2{\upshape(#1)}#3} 
+
+% Defines an optional argument for labels named ›term‹ that signals that cleveref should name the respective reference ›term‹ instead of its actual name.
+\crefname{term}{term}{terms}
+\creflabelformat{term}{#2{\upshape(#1)}#3}
+
+
+%%%%%%%%%%%%%%%
+%% Footnotes %%
+%%%%%%%%%%%%%%%
+
+% In the following, the command ›footnote‹ is redefined such that the footnote mark can be more easily adjusted.
+\let\oldfootnote\footnote
+
+% The following are variables used by the command.
+\newlength{\spaceBeforeFootnote} % Denotes the space before the footnote mark in em.
+\newlength{\spaceAfterFootnote}  % Denotes the space after the footnote mark in em.
+
+% The new footnote command. The first three arguments are optional, the fourth mandatory. Its arguments have the following meaning:
+%   1. The amount of space before the footnote mark in em. The default is 0.
+%   2. The amount of space after the footnote mark in em. The default is 0.
+%   3. The number of the footnote mark.
+%   4. The text of the footnote.
+\RenewDocumentCommand{\footnote}{o o o m}%
+{%
+    \IfNoValueTF{#1}%
+    {%
+        \oldfootnote{#4}%
+    }%
+    {%
+        \setlength{\spaceBeforeFootnote}{\IfEmptyTF{#1}{0}{#1} em}%
+        \IfNoValueTF{#2}%
+        {%
+            \hspace*{\spaceBeforeFootnote}\oldfootnote{#4}%
+        }%
+        {%
+            \setlength{\spaceAfterFootnote}{\IfEmptyTF{#2}{0}{#2} em}%
+            \hspace*{\spaceBeforeFootnote}\IfNoValueTF{#3}{\oldfootnote{#4}}{\oldfootnote[#3]{#4}}\hspace*{\spaceAfterFootnote}%
+        }%
+    }%
+}
+
+% The following commands enable it such that footnotes can be used in various other environments other than simple text.
+\makesavenoteenv{figure}
+\makesavenoteenv{table}
+\makesavenoteenv{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem Environments %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iffancyTheorems
+    % The following theorem style uses a bold heading for the theorem and normal (upright) text. The environment begins with a triangle of color ›stroke1‹ pointing to the right and uses a QED symbol that is a triangle of the same color pointing to the left. Thus, the environment is enclosed by triangles.
+    \declaretheoremstyle
+    [
+        spaceabove = \topsep,
+        spacebelow = \topsep,
+        headfont = \bfseries,
+        headformat = \textcolor{stroke1}{$\blacktriangleright$} \NAME~\NUMBER \NOTE,
+        notefont = \bfseries,
+        notebraces = {(}{)},
+        bodyfont = \normalfont,
+        postheadspace = 0.5 em,
+        qed = \textcolor{stroke1}{\bfseries$\blacktriangleleft$},
+    ]
+    {myTheoremStyle}
+    
+    % The QED symbol used in proofs is a squre with color ›stroke1‹ in order to look similar to the theorem environments.
+    \renewcommand*{\qedsymbol}{\textcolor{stroke1}{$\blacksquare$}}
+    
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Conjecture,
+        numberwithin = chapter,
+    ]
+    {conjecture}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Proposition,
+        sharenumber = conjecture,
+    ]
+    {proposition}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Claim,
+        sharenumber = conjecture,
+    ]
+    {claim}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Lemma,
+        sharenumber = conjecture,
+    ]
+    {lemma}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Corollary,
+        sharenumber = conjecture,
+    ]
+    {corollary}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Theorem,
+        sharenumber = conjecture,
+    ]
+    {theorem}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Definition,
+        sharenumber = conjecture,
+    ]
+    {definition}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Example,
+        sharenumber = conjecture,
+    ]
+    {example}
+    \declaretheorem
+    [
+        style = myTheoremStyle,
+        name = Remark,
+        sharenumber = conjecture,
+    ]
+    {remark}
+\else
+    % This is the default style. That is, the head is bold, the rest is italic, and there is no symbol to denote the end of the environment.
+    \theoremstyle{plain}
+    
+    \newtheorem{conjecture}{Conjecture}[chapter]
+    \newtheorem{proposition}[conjecture]{Proposition}
+    \newtheorem{claim}[conjecture]{Claim}
+    \newtheorem{lemma}[conjecture]{Lemma}
+    \newtheorem{corollary}[conjecture]{Corollary}
+    \newtheorem{theorem}[conjecture]{Theorem}
+    \newtheorem{definition}[conjecture]{Definition}
+    \newtheorem{example}[conjecture]{Example}
+    \newtheorem{remark}[conjecture]{Remark}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%
+%% Meta Commands %%
+%%%%%%%%%%%%%%%%%%%
+
+% A template for a function that can use an optional variable bracket size. Its arguments have the following meaning:
+%   1. The name of the function.
+%   2. The type of the left bracket. This should be a bracket symbol, as it will be forwarded to the command \left.
+%   3. The type of the right bracket. The same restrictions as with parameter 2 hold here.
+%   4. The arguments that the function takes, that is, the things that are enclosed by the brackets.
+%   5. The size of the brackets. This should be a value like \big or similar, as it will be forwarded to the command \left.
+\NewDocumentCommand{\functionTemplate}{m m m m o}%
+{%
+    \IfNoValueTF{#5}%
+    {%
+        \mathOrText{#1\left#2{#4}\right#3}%
+    }%
+    {%
+        \mathOrText{#1#5#2{#4}#5#3}%
+    }%
+}
+
+% The following two commands are used as variables for the following command.
+\newcommand*{\leftBracketType}{(}
+\newcommand*{\rightBracketType}{)}
+
+% This is a command that creates a command that is a function as defined by the command \functionTemplate. Its arguments have the following meaning:
+%   1. The name of the function command.
+%   2. The name of the function itself.
+%   3. The type of the left bracket. This will be forwarded to parameter 2 of \functionTemplate. The default is (. Use \lbrack for [ and \{ for }.
+%   4. The type of the right bracket. This will be forwarded to parameter 3 of \functionTemplate. The default is ). The rest is similar to parameter 3.
+% The command created has two optional arguments, which are as follows:
+%   1. The arguments of the function. If this is empty, only the name of the function will be used.
+%   2. The size of the brackets. This will be forwarded to parameter 5 of \functionTemplate.
+\NewDocumentCommand{\createFunction}{m m o o}%
+{%
+    \renewcommand*{\leftBracketType}{\IfNoValueTF{#3}{(}{#3}}%
+    \renewcommand*{\rightBracketType}{\IfNoValueTF{#4}{)}{#4}}%
+    \NewDocumentCommand{#1}{o o}%
+    {%
+        \IfNoValueTF{##1}%
+        {%
+            \mathOrText{#2}%
+        }%
+        {%
+            \functionTemplate{#2}{\leftBracketType}{\rightBracketType}{##1}[##2]%
+        }%
+    }%
+}
+
+% A template for a probabilistic symbol, which can make use of a condition denoted by |. Its arguments have the following meaning:
+%   1. The name of the function.
+%   2. The argument of the function.
+%   3. The condition of the function. The default is that there is no condition.
+%   4. The size of the brackets. This will be forwarded to parameter 5 of \functionTemplate.
+\DeclareDocumentCommand{\probabilisticFunctionTemplate}{m m O{} o}
+{%
+    \functionTemplate{#1}%
+    {\lbrack}%
+    {\rbrack}%
+    {#2\IfEmptyTF{#3}{}{\ \IfNoValueTF{#4}{\left}{#4}\vert\ \vphantom{#2}#3\IfNoValueTF{#4}{\right.}{}}}%
+    [#4]%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%% Common Commands %%
+%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+% Number Sets
+
+% Number sets appear in bold by default. The other option is to make them appear in blackboard bold.
+\ifboldNumberSets
+    \newcommand*{\N}{\mathOrText{\mathbf{N}}}
+    \newcommand*{\Z}{\mathOrText{\mathbf{Z}}}
+    \newcommand*{\Q}{\mathOrText{\mathbf{Q}}}
+    \newcommand*{\R}{\mathOrText{\mathbf{R}}}
+    \newcommand*{\C}{\mathOrText{\mathbf{C}}}
+    \newcommand*{\indicatorFunctionSymbol}{\mathbf{1}}
+\else
+    \newcommand*{\N}{\mathOrText{\mathds{N}}}
+    \newcommand*{\Z}{\mathOrText{\mathds{Z}}}
+    \newcommand*{\Q}{\mathOrText{\mathds{Q}}}
+    \newcommand*{\R}{\mathOrText{\mathds{R}}}
+    \newcommand*{\C}{\mathOrText{\mathds{C}}}
+    \newcommand*{\indicatorFunctionSymbol}{\mathds{1}}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%
+% Probabilistic Functions
+% All of these functions follow the outline of \probabilisticFunctionTemplate. That is, the syntax is, for example, \Pr{A}[B][\big], which would be shown as Pr[A | B] with \big brackets.
+
+% Probability measure
+\RenewDocumentCommand{\Pr}{m O{} o}%
+{%
+    \probabilisticFunctionTemplate{\mathrm{Pr}}{#1}[#2][#3]%
+}
+
+% Expected value
+\NewDocumentCommand{\E}{m O{} o}%
+{%
+    \probabilisticFunctionTemplate{\mathrm{E}}{#1}[#2][#3]%
+}
+
+% Variance
+\NewDocumentCommand{\Var}{m O{} o}%
+{%
+    \probabilisticFunctionTemplate{\mathrm{Var}}{#1}[#2][#3]%
+}
+
+%%%%%%%%%%%%%%%%%%%%%
+% Landau Notation
+% The following commands all take a mandatory argument, which is the term of the Landau notation, as well as an optional argument, which determines the size of the brackets.
+
+% Big O
+\DeclareDocumentCommand{\bigO}{m o}%
+{%
+    \functionTemplate{\mathrm{O}}{(}{)}{#1}[#2]%
+}
+
+% Small O
+\DeclareDocumentCommand{\smallO}{m o}%
+{%
+    \functionTemplate{\mathrm{o}}{(}{)}{#1}[#2]%
+}
+
+% Big Theta
+\DeclareDocumentCommand{\bigTheta}{m o}%
+{%
+    \functionTemplate{\upTheta}{(}{)}{#1}[#2]%
+}
+
+% Big Omega
+\DeclareDocumentCommand{\bigOmega}{m o}%
+{%
+    \functionTemplate{\upOmega}{(}{)}{#1}[#2]%
+}
+
+% Small Omega
+\DeclareDocumentCommand{\smallOmega}{m o}%
+{%
+    \functionTemplate{\upomega}{(}{)}{#1}[#2]%
+}
+
+%%%%%%%%%%%%%%%%%%%%%
+% Constants
+
+% Pi; ratio of a circle’s circumference to its diameter
+\newcommand*{\circlePi}{\mathOrText{\uppi}}
+
+% Euler’s constant. This command takes an optional parameter, which becomes the exponent of this constant.
+\DeclareDocumentCommand{\eulerE}{o}%
+{%
+    \mathOrText{\mathrm{e}\IfNoValueTF{#1}{}{^{#1}}}%
+}
+
+% i; the imaginary unit
+\newcommand*{\imaginaryUnit}{\mathOrText{\mathrm{i}}}
+
+%%%%%%%%%%%%%%%%%%%%%
+% Other
+
+% A polynomial function. The mandatory parameter is the argument of the function, the optional one is the size of the brackets.
+\DeclareDocumentCommand{\poly}{m o}%
+{%
+    \functionTemplate{\mathrm{poly}}{(}{)}{#1}[#2]%
+}
+
+% The identity function
+\createFunction{\id}{\mathrm{id}}
+
+% An indicator function. The first parameter is set as an index, the second is the argument of the function, and the third is the size of the brackets.
+\NewDocumentCommand{\ind}{m o o}%
+{%
+    \IfNoValueTF{#2}%
+    {%
+        \mathOrText{\indicatorFunctionSymbol_{#1}}%
+    }%
+    {%
+        \functionTemplate{\indicatorFunctionSymbol_{#1}}{(}{)}{#2}[#3]%
+    }%
+}
+
+% The domain of a function. Its parameters are the same as for \poly.
+\DeclareDocumentCommand{\dom}{m o}%
+{%
+    \functionTemplate{\mathrm{dom}}{(}{)}{#1}[#2]%
+}
+
+% The range of a function. Its parameters are the same as for \poly.
+\DeclareDocumentCommand{\rng}{m o}%
+{%
+    \functionTemplate{\mathrm{rng}}{(}{)}{#1}[#2]%
+}
+
+% The d for an integral. The optional parameter becomes the exponent/degree of the operator.
+\DeclareDocumentCommand{\d}{o}%
+{%
+    \mathrm{d}\IfNoValueTF{#1}{}{^{#1}}%
+}
+
+% A command that creates sets. The first parameter is the left-hand side, the second is the right-hand side, and the third (optional) parameter is the size of the brackets.
+\DeclareDocumentCommand{\set}{m m o}%
+{
+    \mathOrText{\IfNoValueTF{#3}{\left}{#3}\{#1\ \IfNoValueTF{#3}{\left}{#3}\vert\
+    \vphantom{#1}#2\IfNoValueTF{#3}{\right.}{}\IfNoValueTF{#3}{\right}{#3}\}}
+}
