@@ -44,7 +44,6 @@ jobs:
 
           nix-build tex.nix
           cp result/main.pdf .
-          rm -rf result/
 
       # Build website with Hugo.
       - name: Build Website with Hugo
