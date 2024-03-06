@@ -1,13 +1,11 @@
 ---
 title: Starlink Thesis Main Page
 author: Robert Richter
-date: 2024-06-03
-draft: false
 ---
 
 # Starlink Thesis
 
-The master's thesis about measuring the performance of Starlink. Written by Robert Richter at the "Data-Intensive Internet Computing" by Prof. Bajpai at the Hasso Plattner Institute.
+The master's thesis about measuring the performance of Starlink. Written by _Robert Richter_ at the "Data-Intensive Internet Computing" by _Prof. Bajpai_ at the Hasso Plattner Institute.
 
 ## PDF Thesis
 

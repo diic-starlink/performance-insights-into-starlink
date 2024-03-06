@@ -34,12 +34,15 @@ jobs:
       - name: Test Nix Installation
         run: nix --version
 
+      # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
         run:
           cd ${{ github.workspace }}
+          
+          nix-build tex.nix 
+          cp result/main.pdf .
 
-          nix-build # Creates main.pdf in result folder
-
+      # Build website with Hugo.
       - name: Build Website with Hugo
         run: |
           cd ${{ github.workspace }}
@@ -50,14 +53,12 @@ jobs:
           mkdir -p src/hugo-pages/static/restricted
           cp result/main.pdf src/hugo-pages/static/restricted
           
-          # Build the website
-          cd src/hugo-pages/
-          nix-build # Basically a `hugo` command
+          nix-build hugo.nix # Basically a `hugo` command
 
       - name: Deploy to branch
         if: github.ref == 'refs/heads/main'
         run: |
-          cd ${{ github.workspace }}/src/hugo-pages/
+          cd ${{ github.workspace }}
 
           # Push results to branch "static-html"
           mkdir _temp
