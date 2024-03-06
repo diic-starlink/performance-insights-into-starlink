@@ -39,11 +39,10 @@ jobs:
 
       # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
-        run:
+        run: |
           cd ${{ github.workspace }}
 
           nix-build tex.nix
-
           cp result/main.pdf .
           rm -rf result/
 
