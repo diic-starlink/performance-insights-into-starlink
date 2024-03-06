@@ -46,8 +46,9 @@ jobs:
 
           # Put most recent main.pdf in static folder
           rm -f src/hugo-pages/static/main.pdf
-          mkdir -p src/hugo-pages/static
-          cp result/main.pdf src/hugo-pages/static
+          rm -f src/hugo-pages/static/restricted/main.pdf
+          mkdir -p src/hugo-pages/static/restricted
+          cp result/main.pdf src/hugo-pages/static/restricted
           
           # Build the website
           cd src/hugo-pages/

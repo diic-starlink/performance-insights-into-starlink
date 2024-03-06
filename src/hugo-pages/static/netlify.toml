@@ -6,7 +6,7 @@
   conditions = { Role = ["user"] }
 
 [[redirects]]
-  from = "/main.pdf"
+  from = "/restricted/*"
   to = "/404"
   status = 403
   force = true
