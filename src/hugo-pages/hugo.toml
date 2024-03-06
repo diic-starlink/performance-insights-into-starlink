@@ -8,5 +8,5 @@ theme = "hugo-book"
 
 [module]
 [[module.mounts]]
-  source = '../hugo-docs'
+  source = '../../hugo-docs'
   target = 'content'
