@@ -4,6 +4,10 @@
   <url>
     <loc>/categories/</loc>
   </url><url>
+    <loc>/restricted/papers/</loc>
+  </url><url>
+    <loc>/restricted/</loc>
+  </url><url>
     <loc>/</loc>
   </url><url>
     <loc>/tags/</loc>
