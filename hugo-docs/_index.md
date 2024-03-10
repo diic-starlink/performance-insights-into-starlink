@@ -9,6 +9,8 @@ author: Robert Richter
 
 The master's thesis is about measuring the performance of Starlink. Written by _Robert Richter_ at the "Data-Intensive Internet Computing" chair of _Prof. Bajpai_ at the [Hasso Plattner Institute](https://hpi.de).
 
+[Restricted Section](./restricted/_index.md)
+
 ## PDF Thesis
 
 You can find the current state of the thesis here: [Starlink Thesis](/restricted/main.pdf).
