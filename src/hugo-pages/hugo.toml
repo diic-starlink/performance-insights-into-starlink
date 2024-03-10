@@ -10,3 +10,9 @@ theme = "hugo-book"
 [[module.mounts]]
   source = '../../hugo-docs'
   target = 'content'
+
+[params]
+  BookSearch = true
+  BookToC = true
+  BookPortableLinks = true
+
