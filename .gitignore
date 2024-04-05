@@ -8,3 +8,7 @@ build
 *.out
 *.run.xml
 *.toc
+
+# Eventual Builds by hand (should not be done!)
+main.pdf
+src/main.pdf
