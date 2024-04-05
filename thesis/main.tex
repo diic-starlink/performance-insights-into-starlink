@@ -12,9 +12,7 @@
 ]
 {scrbook}
 
-
 \input{core/preamble/document_settings} % Contains commands that are used for certain information that is printed.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Please adjust your options here. %%
@@ -29,7 +27,7 @@
     \bindingCorrection{6 mm}
 
     % Use the following command if this is a master thesis.
-%    \bachelorThesisfalse
+    \bachelorThesisfalse
 
 %    \printVersiontrue      % Use this value if you want to prepare your thesis for physical printing. In this case, links will not be colored. Without \professionalPrinttrue, the content will be moved outward by the binding correction, increasing the inner margin and decreasing the outer margin.
 %    \professionalPrinttrue % Use this value if you want to have extra border for cutting and are not bound to paper formats (like A4). This option will increase the page size by the extra border on every side plus the binding correction once for the width. It only takes effect in combination with \printVersiontrue.
@@ -37,7 +35,7 @@
 %    \boldNumberSetsfalse % Use this value if you want variables for number sets (like N or R) to appear in blackboard bold rather than bold.
 
     % The title of the thesis. The first argument is for the English name, the second is for the German name.
-    \myTitle{Starlink Thesis}{Eine adäquate Übersetzung meines Titels}
+    \myTitle{Evaluating Resiliency and Performance of Networked Satellite Systems}{Evaluierung der Resilienz und Leistung von Netzwerk Satelliten Systemen}
 
     % The author’s name.
     \myName{Robert Alexander Uwe Richter}
@@ -55,10 +53,10 @@
     \additionalExaminers{A Postdoc\newline A PhD student}
 
     % A short summary of the thesis. These information will be used for the PDF meta data.
-    \mySubject{A cool bachelor/master thesis.}
+    \mySubject{A master's thesis at the Hasso Plattner Institute about Starlink's networking properties.}
 
     % Some keywords of the thesis. These information will be used for the PDF meta data. Please use | as a separator and try to avoid commas.
-    \myKeywords{master thesis | starlink | spacex | satellite web | data-intensive internet computer | vaibhav bajpai}
+\myKeywords{Master Thesis | Starlink | SpaceX | Satellite Web | Data-Intensive Internet Computing}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% End of options to adjust. %%%%%%%%%
@@ -76,65 +74,65 @@
 \begin{document}
 
 
-    \frontmatter
-    \include{core/title_page/title_page}
+\frontmatter
+\include{core/title_page/title_page}
 
-    \pagestyle{plain}
+\pagestyle{plain}
 
-    \addchap{Abstract}
-    \input{preface/abstract}
+\addchap{Abstract}
+\input{preface/abstract}
 
-    \selectlanguage{ngerman}
-    \addchap{Zusammenfassung}
-    \input{preface/abstractGerman}
-    \selectlanguage{american}
+% TODO Figure out if I should do this
+\selectlanguage{ngerman}
+\addchap{Zusammenfassung}
+\input{preface/abstractGerman}
+\selectlanguage{american}
 
-    \addchap{Acknowledgments}
-    \input{preface/acknowledgments}
+\addchap{Acknowledgments}
+\input{preface/acknowledgments}
 
-    \setuptoc{toc}{totoc}
-    \tableofcontents
+\setuptoc{toc}{totoc}
+\tableofcontents
 
-    \pagestyle{headings}
-    \mainmatter
+\pagestyle{headings}
+\mainmatter
 
-    \chapter{Introduction}
-    \input{introduction/introduction}
-
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %% Please add the content of your thesis here. %%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \part{The Beginning of It All}
-
-    \chapter{Demo Chapter}
-    some demo...
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %% End of adding your content. %%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+\input{introduction/introduction}
 
 
-    % Add the following chapters not to the current ›part‹ but one level above instead.
-    \makeatletter
-        \def\toclevel@chapter{-1}
-        \def\toclevel@section{0}
-    \makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Please add the content of your thesis here. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \chapter{Conclusions \& Outlook}
-    \input{conclusions/conclusions}
+\input{./chapters/networking_technologies/networking_technologies.tex}
+\input{./chapters/networking_technologies/traditional/description.tex}
+\input{./chapters/networking_technologies/satcom/description.tex}
 
-    % Following are the files and commands for the bibliography and the author’s publications.
-    \pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End of adding your content. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \renewcommand*{\bibfont}{\small}
-    \printbibheading
-    \addcontentsline{toc}{chapter}{Bibliography}
-    \printbibliography[heading = none]
 
-    \addchap{Declaration of Authorship}
-    \input{core/declaration_of_authorship/declaration_of_authorship}
+% Add the following chapters not to the current ›part‹ but one level above instead.
+\makeatletter
+\def\toclevel@chapter{-1}
+\def\toclevel@section{0}
+\makeatother
+
+\chapter{Conclusions \& Outlook}
+\input{conclusions/conclusions}
+
+% Following are the files and commands for the bibliography and the author’s publications.
+\pagestyle{plain}
+
+\renewcommand*{\bibfont}{\small}
+\printbibheading
+\addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography[heading = none]
+
+\addchap{Declaration of Authorship}
+\input{core/declaration_of_authorship/declaration_of_authorship}
 
 
 \end{document}
