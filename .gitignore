@@ -8,6 +8,8 @@ build
 *.out
 *.run.xml
 *.toc
+*.bbl
+*.blg
 
 # Eventual Builds by hand (should not be done!)
 main.pdf
