@@ -37,6 +37,11 @@ jobs:
       - name: Test Nix Installation
         run: nix --version
 
+      - name: Build Proposal Document
+        run: |
+          cd ${{ github.workspace }}
+          nix-build proposal.nix
+
       # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
         run: |
