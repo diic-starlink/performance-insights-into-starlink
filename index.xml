@@ -7,5 +7,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>/restricted/research_questions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/restricted/research_questions/</guid>
+      <description>Research Questions # Comparison of LEO, GEO and Wired Internet Technology&#xA;How high is the packet loss?&#xA;Measure in percent Use Ping Measurement on RIPE Previous papers reported in high packet loss in Starlink How does the routing look like in Starlink?&#xA;Can we make assumptions about the enablement of ISLs? look at the Starlink Firmware (at least what is out there) What is the latency of different internet technologies?</description>
+    </item>
   </channel>
 </rss>
