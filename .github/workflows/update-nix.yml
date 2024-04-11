@@ -28,6 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           submodules: recursive
       - name: Get Latest Commit Hash Of Nixpkgs
         run: |
