@@ -33,7 +33,9 @@ jobs:
 
           cd ${{ github.workspace }}
           echo "Latest Hash found: $LATEST_HASH"
-          sed -i 's/fetchCommit \".*\"/fetchCommit \"$LATEST_HASH\"/g' ./nixpkgs/default.nix
+          
+          export SED_COMMAND="'s/fetchCommit \".*\"/fetchCommit \"${LATEST_HASH}\"/g'"
+          sed -i $SED_COMMAND ./nixpkgs/default.nix
           cat ./nixpkgs/default.nix
 
           bash ./nixpkgs/update.sh
