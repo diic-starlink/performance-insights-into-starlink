@@ -40,7 +40,7 @@ jobs:
 
           cd ${{ github.workspace }}
           echo "Latest Hash found: $LATEST_HASH"
-          ./nixpkgs/update.sh | echo $LATEST_HASH
+          echo $LATEST_HASH | ./nixpkgs/update.sh
 
       - name: Commit Result
         run: |
