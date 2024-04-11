@@ -35,7 +35,7 @@ jobs:
           echo "Latest Hash found: $LATEST_HASH"
           sed -e "s/fetchCommit \".*\"/fetchCommit \"$LATEST_HASH\"/g" ./nixpkgs/default.nix > ./nixpkgs/default.nix
 
-          cat nixpkgs/hashes.nix | ./nixpkgs/update.sh
+          bash ./nixpkgs/update.sh
 
       - name: Commit Result
         if: github.ref == 'refs/heads/main'
