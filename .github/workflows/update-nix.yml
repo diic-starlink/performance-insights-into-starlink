@@ -35,7 +35,7 @@ jobs:
           echo "Latest Hash found: $LATEST_HASH"
           sed -e "s/fetchCommit\s\".*\"/fetchCommit\s \"$LATEST_HASH\"/g" ./nixpkgs/default.nix > ./nixpkgs/default.nix
           cat nixpkgs/default.nix
-          ./nixpkgs/update.sh
+          cat ./nixpkgs/default.nix | ./nixpkgs/update.sh
 
       - name: Commit Result
         run: |
