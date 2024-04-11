@@ -29,11 +29,13 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           chmod -R 777 .
-
+      
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           submodules: recursive
+
       - name: Test Nix Installation
         run: nix --version
 
@@ -84,4 +86,4 @@ jobs:
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current website"
           git push
-          
+

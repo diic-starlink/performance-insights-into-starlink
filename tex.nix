@@ -1,12 +1,12 @@
-with import <nixpkgs> {};
-
-stdenv.mkDerivation {
+let
+  pkgs = import ./nixpkgs {};
+in pkgs.stdenv.mkDerivation {
   pname = "starlinkThesisBuild";
   version = "0.0.1";
 
   src = ./thesis;
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     texliveFull
     biber
   ];

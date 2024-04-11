@@ -17,4 +17,4 @@ plt.grid(True)
 plt.xticks(rotation=45)
 plt.yscale('log')  # Set y-axis to logarithmic scale
 plt.tight_layout()
-plt.show()
+plt.savefig('satellite-dev.png')
