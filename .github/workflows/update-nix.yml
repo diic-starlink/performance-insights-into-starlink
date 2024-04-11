@@ -38,6 +38,7 @@ jobs:
           #./nixpkgs/update.sh | cat ./nixpkgs/default.nix
 
       - name: Commit Result
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.email "botty@botnet.com"
           git config user.name "Botty the Bot"
