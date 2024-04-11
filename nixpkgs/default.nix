@@ -8,5 +8,4 @@ let
   };
 in
 
-import (fetchCommit "1234") {  # Add additional packages here (those, that are not in nixpkgs)
-}
+import (fetchCommit "2a34566b67bef34c551f204063faeecc444ae9da") {}
