@@ -36,7 +36,7 @@ jobs:
           
           export SED_COMMAND='s/fetchCommit.*{/fetchCommit "$LATEST_HASH"){/g'
           echo $SED_COMMAND
-          cat ./nixpkgs/default.nix | sed -e $SED_COMMAND > ./nixpkgs/default.nix 
+          cat ./nixpkgs/default.nix | sed -e '$SED_COMMAND' > ./nixpkgs/default.nix 
           cat ./nixpkgs/default.nix
 
           bash ./nixpkgs/update.sh
