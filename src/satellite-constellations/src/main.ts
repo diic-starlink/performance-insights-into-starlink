@@ -6,6 +6,8 @@ import {
 	ConstellationData,
 } from "./util";
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+
 const norad_up = async () => {
 	const response = await fetch(NORAD_URL);
 	if (response.status !== 200) {

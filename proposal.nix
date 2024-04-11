@@ -1,12 +1,12 @@
-with import <nixpkgs> {};
-
-stdenv.mkDerivation {
+let
+  pkgs = import ./nixpkgs {};
+in pkgs.stdenv.mkDerivation {
   pname = "proposalBuild";
   version = "0.0.1";
 
   src = ./proposal;
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     texliveFull
     biber
   ];

@@ -1,0 +1,51 @@
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Update Nix
+
+on: push
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  Build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Get Latest Commit Hash Of Nixpkgs
+        run: |
+          git clone --quiet --depth 1 https://github.com/NixOS/nixpkgs.git nixpkgs-test
+          cd nixpkgs-test
+          export LATEST_HASH=$(git rev-parse HEAD)
+          echo "Latest Hash found: $LATEST_HASH"
+
+          cd .. && rm -rf nixpkgs
+      - name: Run Update Script
+        run: |
+          cd ${{ github.workspace }}
+          ls
+          ./nixpkgs/update.sh | $LATEST_HASH
+
+          git config user.email "botty@botnet.com"
+          git config user.name "Botty the Bot"
+
+          git add nixpkgs
+          git commit -m "[Infrastructure] Regular Update for Nixpkgs"
+          git push
