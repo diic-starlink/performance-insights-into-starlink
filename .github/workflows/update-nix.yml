@@ -37,8 +37,7 @@ jobs:
           export LATEST_HASH=$(git rev-parse HEAD)
 
           cd .. && rm -rf nixpkgs-test
-      - name: Run Update Script
-        run: |
+
           cd ${{ github.workspace }}
           echo "Latest Hash found: $LATEST_HASH"
           ./nixpkgs/update.sh | echo $LATEST_HASH
