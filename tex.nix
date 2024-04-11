@@ -6,7 +6,7 @@ in pkgs.stdenv.mkDerivation {
 
   src = ./thesis;
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     texliveFull
     biber
   ];
