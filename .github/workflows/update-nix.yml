@@ -21,6 +21,11 @@ jobs:
   Build:
     runs-on: self-hosted
     steps:
+      - name: Remove Leftovers
+        run: |
+          cd ${{ github.workspace }}
+          chmod -R 777 .
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
