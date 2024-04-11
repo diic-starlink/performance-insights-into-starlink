@@ -40,7 +40,8 @@ jobs:
 
           cd ${{ github.workspace }}
           echo "Latest Hash found: $LATEST_HASH"
-          echo $LATEST_HASH | ./nixpkgs/update.sh
+          sed -e "s/fetchCommit\s\".*\"/fetchCommit\s \"$LATEST_HASH\"/g"
+          ./nixpkgs/update.sh
 
       - name: Commit Result
         run: |
