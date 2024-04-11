@@ -35,12 +35,12 @@ jobs:
           git clone --quiet --depth 1 https://github.com/NixOS/nixpkgs.git nixpkgs-test
           cd nixpkgs-test
           export LATEST_HASH=$(git rev-parse HEAD)
-          echo "Latest Hash found: $LATEST_HASH"
 
           cd .. && rm -rf nixpkgs-test
       - name: Run Update Script
         run: |
           cd ${{ github.workspace }}
+          echo "Latest Hash found: $LATEST_HASH"
           ./nixpkgs/update.sh | echo $LATEST_HASH
 
       - name: Commit Result
