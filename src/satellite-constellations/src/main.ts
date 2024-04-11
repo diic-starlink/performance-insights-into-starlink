@@ -1,3 +1,4 @@
+import fs from "fs";
 import {
 	NORAD_URL,
 	Constellations,
@@ -128,14 +129,28 @@ const main = async () => {
 		Constellations.STARLINK
 	];
 
+	const current_year = new Date().getFullYear();
+	const YEAR_START = 2000;
+
+	let out = "name";
+	for (let i = YEAR_START; i <= current_year; ++i) {
+		out += `,${i}`;
+	}
+	out += "\n";
+
 	for (const con of cons) {
 		const con_data = await get_constellation_data(con);
-		const acc_years = accumulated_satellites_over_years(con_data, 2000);
+		const acc_years = accumulated_satellites_over_years(con_data, YEAR_START);
 
-		console.log(Constellations[con]);
-		console.log(acc_years);
+		out += `${Constellations[con]}`;
+		for (let i = YEAR_START; i <= current_year; ++i) {
+			out += `,${acc_years[i - YEAR_START]}`;
+		}
+		out += "\n";
 	}
 
+	const FILENAME = "satellite-dev.csv";
+	fs.writeFileSync(FILENAME, out);
 };
 
 main();
