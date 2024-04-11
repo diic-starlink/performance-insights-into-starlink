@@ -29,18 +29,13 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           chmod -R 777 .
-      - name: Install nvm
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-          source ~/.bashrc
-          nvm use 20.9.0
-          nvm install 20.9.0
       
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           submodules: recursive
+
       - name: Test Nix Installation
         run: nix --version
 

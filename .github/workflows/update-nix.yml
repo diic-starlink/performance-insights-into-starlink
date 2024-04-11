@@ -37,13 +37,14 @@ jobs:
           export LATEST_HASH=$(git rev-parse HEAD)
           echo "Latest Hash found: $LATEST_HASH"
 
-          cd .. && rm -rf nixpkgs
+          cd .. && rm -rf nixpkgs-test
       - name: Run Update Script
         run: |
           cd ${{ github.workspace }}
-          ls
           ./nixpkgs/update.sh | $LATEST_HASH
 
+      - name: Commit Result
+        run: |
           git config user.email "botty@botnet.com"
           git config user.name "Botty the Bot"
 
