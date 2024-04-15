@@ -8,7 +8,7 @@ let
   };
 in
 
-# Keep this line as it is! Only modify it by running update-default-nix.py.
+# Keep line 12 as it is! Only modify it by running update-default-nix.py. The updating script depends on the next line being as it is on line 12.
 import (fetchCommit "2a34566b67bef34c551f204063faeecc444ae9da") {
 
 }
