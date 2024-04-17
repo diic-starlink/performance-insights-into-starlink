@@ -10,6 +10,7 @@
   "author": "Robert Richter",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "typescript": "^5.4.4",
     "undici-types": "^6.12.0"
   },

@@ -18,6 +18,7 @@ interface Satellite {
 	name: string;
 	norad_id: number;
 	launch_date: Date;
+	decay_date: boolean | Date;
 }
 
 interface ConstellationData {
