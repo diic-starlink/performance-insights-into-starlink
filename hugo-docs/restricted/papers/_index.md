@@ -7,7 +7,7 @@ author: Robert Richter
 
 The following papers are recommended to read.
 
-- ["Internet from Space" without Inter-sattelite Link](./internet_from_space.pdf)
+- ["Internet from Space" without Inter-sattelite Link](./internet_from_space.pdf) (see [Notes](../notes/internet_from_space_paper.md))
 - [A Browser-side View of Starlink Connectivity](./browser_side_view_starlink_connectivity.pdf)
 - [A First Look at Starlink Performance](./first_look_starlink_performance.pdf)
 - [Broadband Internet Access via Satellite](./broadband_internet_access_via_satellite.pdf)
