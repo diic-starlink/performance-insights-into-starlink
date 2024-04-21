@@ -30,6 +30,13 @@
     </item>
     <item>
       <title></title>
+      <link>/restricted/notes/mobile_starlink_performance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/restricted/notes/mobile_starlink_performance/</guid>
+      <description>Starlink on the Road: A First Look at Mobile Starlink Performance in Central Europe # See Paper&#xA;Overall Conclusions # Starlink has devices for in-motion usage (previously, only for stationary usage) Setup: Take a car that is in motion and measure network parameters Throughput, RTT, packet loss, power consumption ⇒ Mobile Performance is much worse than Stationary Performance - throughput drops by 10% when moving - however, being faster or slower does not influence the throughput</description>
+    </item>
+    <item>
+      <title></title>
       <link>/restricted/notes/podcast_starlink/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/restricted/notes/podcast_starlink/</guid>

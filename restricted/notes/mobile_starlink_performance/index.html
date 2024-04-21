@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content=" &ldquo;Internet From Space&rdquo; without Inter-satellite Links? # See Paper
-ISLs should be commonly integrated in Starlink However, no real proof of that. in 2020, devices for ISLs were removed from satellites How is the state now? Bent-Pipe and ISLs # routing can theoretically involve ISLs or not if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites that is called &ldquo;bent-pipe&rdquo; routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between Results # Paper found that ISLs offer an improvement compared to bent-pipe routing Paper measures absolute RTT of 5000 city pairs in intervals of 15 min RTT for ISL were more stable and better More stable, less RTT with ISLs ">
+<meta name="description" content="Starlink on the Road: A First Look at Mobile Starlink Performance in Central Europe # See Paper
+Overall Conclusions # Starlink has devices for in-motion usage (previously, only for stationary usage) Setup: Take a car that is in motion and measure network parameters Throughput, RTT, packet loss, power consumption ⇒ Mobile Performance is much worse than Stationary Performance - throughput drops by 10% when moving - however, being faster or slower does not influence the throughput">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="" />
-<meta property="og:description" content=" &ldquo;Internet From Space&rdquo; without Inter-satellite Links? # See Paper
-ISLs should be commonly integrated in Starlink However, no real proof of that. in 2020, devices for ISLs were removed from satellites How is the state now? Bent-Pipe and ISLs # routing can theoretically involve ISLs or not if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites that is called &ldquo;bent-pipe&rdquo; routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between Results # Paper found that ISLs offer an improvement compared to bent-pipe routing Paper measures absolute RTT of 5000 city pairs in intervals of 15 min RTT for ISL were more stable and better More stable, less RTT with ISLs " />
+<meta property="og:description" content="Starlink on the Road: A First Look at Mobile Starlink Performance in Central Europe # See Paper
+Overall Conclusions # Starlink has devices for in-motion usage (previously, only for stationary usage) Setup: Take a car that is in motion and measure network parameters Throughput, RTT, packet loss, power consumption ⇒ Mobile Performance is much worse than Stationary Performance - throughput drops by 10% when moving - however, being faster or slower does not influence the throughput" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/restricted/notes/internet_from_space_paper/" /><meta property="article:section" content="restricted" />
+<meta property="og:url" content="/restricted/notes/mobile_starlink_performance/" /><meta property="article:section" content="restricted" />
 
 
-<title>Internet From Space Paper | Starlink Thesis</title>
+<title>Mobile Starlink Performance | Starlink Thesis</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
-<link rel="canonical" href="/restricted/notes/internet_from_space_paper/">
+<link rel="canonical" href="/restricted/notes/mobile_starlink_performance/">
 <link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" >
   <script defer src="/flexsearch.min.js"></script>
   <script defer src="/en.search.min.2d889421e1bc5202da6cc6b2fae8d8df15c27b84cd3a477d7620031dbe6e64af.js" ></script>
@@ -101,7 +101,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Internet From Space Paper</strong>
+  <strong>Mobile Starlink Performance</strong>
 
   <label for="toc-control">
     
@@ -117,8 +117,9 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#bent-pipe-and-isls">Bent-Pipe and ISLs</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#overall-conclusions">Overall Conclusions</a></li>
+    <li><a href="#satellite-behavior-simulators">Satellite Behavior Simulators</a></li>
+    <li><a href="#starlink-setup">Starlink Setup</a></li>
   </ul>
 </nav>
 
@@ -131,45 +132,45 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="internet-from-space-without-inter-satellite-links">
-  &ldquo;Internet From Space&rdquo; without Inter-satellite Links?
-  <a class="anchor" href="#internet-from-space-without-inter-satellite-links">#</a>
+  <article class="markdown book-article"><h1 id="starlink-on-the-road-a-first-look-at-mobile-starlink-performance-in-central-europe">
+  Starlink on the Road: A First Look at Mobile Starlink Performance in Central Europe
+  <a class="anchor" href="#starlink-on-the-road-a-first-look-at-mobile-starlink-performance-in-central-europe">#</a>
 </h1>
 <p>See 
       
-  <a href="../papers/internet_from_space.pdf">Paper</a></p>
+  <a href="../papers/starlink_on_the_road.pdf">Paper</a></p>
+<h2 id="overall-conclusions">
+  Overall Conclusions
+  <a class="anchor" href="#overall-conclusions">#</a>
+</h2>
 <ul>
-<li>ISLs should be commonly integrated in Starlink</li>
-<li>However, no real proof of that.
+<li>Starlink has devices for in-motion usage (previously, only for stationary usage)</li>
+<li>Setup: Take a car that is in motion and measure network parameters
 <ul>
-<li>in 2020, devices for ISLs were removed from satellites</li>
-<li>How is the state now?</li>
+<li>Throughput, RTT, packet loss, power consumption</li>
 </ul>
 </li>
 </ul>
-<h2 id="bent-pipe-and-isls">
-  Bent-Pipe and ISLs
-  <a class="anchor" href="#bent-pipe-and-isls">#</a>
+<p>⇒ Mobile Performance is much worse than Stationary Performance
+- throughput drops by 10% when moving
+- however, being faster or slower does not influence the throughput</p>
+<h2 id="satellite-behavior-simulators">
+  Satellite Behavior Simulators
+  <a class="anchor" href="#satellite-behavior-simulators">#</a>
 </h2>
 <ul>
-<li>routing can theoretically involve ISLs or not</li>
-<li>if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites
-<ul>
-<li>that is called &ldquo;bent-pipe&rdquo;</li>
+<li>Hypatia ⇒ requires Python only (and some Linux packages, but should work with VM)</li>
+<li>Starperf ⇒ requires Matlab ⇾ therefore, no option</li>
 </ul>
-</li>
-<li>routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between</li>
-</ul>
-<h2 id="results">
-  Results
-  <a class="anchor" href="#results">#</a>
+<h2 id="starlink-setup">
+  Starlink Setup
+  <a class="anchor" href="#starlink-setup">#</a>
 </h2>
 <ul>
-<li>Paper found that ISLs offer an improvement compared to bent-pipe routing</li>
-<li>Paper measures absolute RTT of 5000 city pairs in intervals of 15 min
+<li>Antenna + Satellite + Ground Station (GS)</li>
+<li>Link from these three is called &ldquo;one-hope bent-pipe&rdquo;
 <ul>
-<li>RTT for ISL were more stable and better</li>
-<li>More stable, less RTT with ISLs</li>
+<li>multi-hop bent-pipe if no GS is in reach</li>
 </ul>
 </li>
 </ul>
@@ -214,8 +215,9 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#bent-pipe-and-isls">Bent-Pipe and ISLs</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#overall-conclusions">Overall Conclusions</a></li>
+    <li><a href="#satellite-behavior-simulators">Satellite Behavior Simulators</a></li>
+    <li><a href="#starlink-setup">Starlink Setup</a></li>
   </ul>
 </nav>
 
