@@ -29,7 +29,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           chmod -R 777 .
-      
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -43,6 +43,11 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           nix-build proposal.nix
+
+      - name: Copy Proposal to Root
+        run: |
+          cd ${{ github.workspace }}
+          cp result/main.pdf proposal.pdf
 
       # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
@@ -60,9 +65,13 @@ jobs:
           # Put most recent main.pdf in static folder
           rm -f src/hugo-pages/static/main.pdf
           rm -f src/hugo-pages/static/restricted/main.pdf
+          rm -f src/hugo-pages/static/proposal.pdf
+          rm -f src/hugo-pages/static/restricted/proposal.pdf
+
           mkdir -p src/hugo-pages/static/restricted
           mv ./main.pdf src/hugo-pages/static/restricted
-          
+          mv ./proposal.pdf src/hugo-pages/static/restricted
+
           nix-build hugo.nix # Basically a `hugo` command
 
       - name: Deploy to branch

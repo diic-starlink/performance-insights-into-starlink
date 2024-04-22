@@ -3,18 +3,20 @@ title: Starlink Thesis Main Page
 author: Robert Richter
 ---
 
-![hpilogo](./img/hpi_logo.jpg)
+![HPI Logo](./img/hpi_logo.jpg)
 
-# Starlink Thesis
+# Evaluating Resiliency and Performance of Networked Satellite Systems
 
-The master's thesis is about measuring the performance of Starlink. Written by _Robert Richter_ at the "Data-Intensive Internet Computing" chair of _Prof. Bajpai_ at the [Hasso Plattner Institute](https://hpi.de).
+The master's thesis is about measuring the performance of networked satellite systems (e.g., Starlink). Written by _Robert Richter_ at the "Data-Intensive Internet Computing" chair of _Prof. Bajpai_ at the [Hasso Plattner Institute](https://hpi.de).
 
 [Restricted Section](./restricted/_index.md)
 
-## PDF Thesis
+## PDFs
 
-You can find the current state of the thesis here: [Starlink Thesis](/restricted/main.pdf).
-_If you get a 404 response, you are most likely not signed in._
+- [Starlink Thesis](/restricted/main.pdf)
+- [Proposal](/restricted/proposal.pdf)
+
+_If you get a 404 response, you are most likely not signed in._ If you are signed in and still get a 404 response, please log out and in again.
 
 ## Access Control
 
