@@ -71,7 +71,7 @@ const get_classification = (html: string): boolean | string => {
 }
 
 const append_to_file = (satellite: Satellite, filename = "output.csv") => {
-	const data = `${satellite.name},${satellite.norad_id},${satellite.launch_date},${satellite.decay_date}\n`;
+	const data = `${satellite.name},${satellite.norad_id},${satellite.launch_date},${satellite.decay_date},${satellite.classification}\n`;
 	fs.appendFileSync(filename, data);
 }
 
