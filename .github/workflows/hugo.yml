@@ -42,11 +42,8 @@ jobs:
       - name: Build Proposal Document
         run: |
           cd ${{ github.workspace }}
-          nix-build proposal.nix
 
-      - name: Copy Proposal to Root
-        run: |
-          cd ${{ github.workspace }}
+          nix-build proposal.nix
           cp result/main.pdf proposal.pdf
 
       # Builds main.pdf and saves it in workspace root
@@ -62,7 +59,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
 
-          # Put most recent main.pdf in static folder
+          # Put most recent main.pdf and proposal.pdf in static folder
           rm -f src/hugo-pages/static/main.pdf
           rm -f src/hugo-pages/static/restricted/main.pdf
           rm -f src/hugo-pages/static/proposal.pdf
