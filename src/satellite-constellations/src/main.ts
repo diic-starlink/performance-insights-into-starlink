@@ -1,9 +1,8 @@
 import fs from "fs";
+import readLastLines from "read-last-lines";
 import {
 	NORAD_URL,
-	Constellations,
 	Satellite,
-	ConstellationData,
 } from "./util";
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
@@ -16,143 +15,123 @@ const norad_up = async () => {
 	return true;
 };
 
-const get_constellation_data = async (
-	constellation: Constellations
-): Promise<ConstellationData | undefined> => {
-	const URL = NORAD_URL + "satellites/?c=" + constellation;
-	let constellation_data: ConstellationData = {
-		constellation: constellation,
-		satellites: [],
-	};
-
-	let data: ConstellationData;
-
-	let response = await fetch(URL);
-	if (response.status !== 200) {
-		console.error(`Could not reach ${URL}.`);
-		process.exit(1);
-	}
-
-	const html: string = await response.text();
-	const table_regex =
-		/\<table\sclass="footable\stable"\sid="categoriestab">(.*)<\/table>/gms;
-	const row_regex = /<tr[\sbgcolor="#F4]*>.*<\/tr>/gm;
-	const cell_regex = />([^<>]+)</gm;
-
-	const table = html.match(table_regex)![0] as string;
-	if (!table) {
-		console.error(
-			`I was not able to parse the information provided for ${Constellations[constellation]}`
-		);
-		process.exit(1);
-	}
-
-	for (const row_matches of table.matchAll(row_regex)) {
-		let ctr = 0;
-		let name = "";
-		let norad_id = 0;
-		let launch_date = "";
-
-		for (const cell of row_matches[0].matchAll(cell_regex)) {
-			switch (ctr) {
-				case 0:
-					name = cell[1];
-					++ctr;
-					break;
-				case 1:
-					norad_id = parseInt(cell[1]);
-					++ctr;
-					break;
-				case 2: // Int'l Code. Not needed
-					++ctr;
-					break;
-				case 3:
-					launch_date = cell[1];
-					++ctr;
-					break;
-				default:
-					ctr = (ctr + 1) % 7; // Disregard infos like Int'l Code, Period and PRN
-			}
-		}
-
-		const satellite: Satellite = {
-			name: name,
-			norad_id: norad_id,
-			launch_date: new Date(Date.parse(launch_date)),
-		};
-		constellation_data.satellites.push(satellite);
-	}
-
-	constellation_data.satellites.pop();
-	return constellation_data;
+const url_of_satellite = (norad_id: number) => {
+	return NORAD_URL + "satellite/?s=" + norad_id;
 };
 
-const accumulated_satellites_over_years = (
-	constellation: ConstellationData,
-	year_start: number
-): number[] => {
-	const satellites = constellation.satellites;
-	const current_year = new Date().getFullYear();
-
-	let years: number[] = [];
-	for (let i = 0; i <= current_year - year_start; ++i) {
-		years.push(0);
+const fetch_satellite = async (norad_id: number, retry = 1): Promise<string> => {
+	if (retry > 10) {
+		console.error(`Failed to fetch Norad ID: ${norad_id}`);
+		process.exit(1);
 	}
 
+	try {
+		const res = await fetch(url_of_satellite(norad_id));
+		return res.text();
+	} catch (err) {
+		console.error(`Error fetching Norad ID: ${norad_id}`);
+		fetch_satellite(norad_id, retry + 1);
+	}
+
+}
+
+const is_404 = (html: string) => {
+	// Norad returns not really 404 on invalid satellite id.
+	// It returns an empty satellite page, dating the launch date to January 1, 1970.
+	// Aside from that, there were no satellites launched on January 1, 1970.
+	return html.includes("January 1, 1970");
+}
+
+// Matches dates in the format: January 1, 1970
+const get_launch_date = (html: string): Date => {
+	const line = /Launch\sdate<\/B>:\s<a[^>]+>([A-Z][a-z]+\s[0-9][0-9]?,\s[0-9][0-9][0-9][0-9])/.exec(html);
+	return new Date(Date.parse(line[1]));
+}
+
+const get_decay_date = (html: string): boolean | Date => {
+	if (!html.includes("Decay date")) return false;
+
+	const line = /Decay\sdate<\/B>:\s([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])/.exec(html);
+	if (!line) return false;
+
+	return new Date(Date.parse(line[1]));
+}
+
+const get_name = (html: string) => {
+	const line = /<H1>([^<]*)<\/H1>/.exec(html);
+	return line[1]; // First group is the name as there [0] is the whole match and [1] is the first group.
+}
+
+const get_classification = (html: string): boolean | string => {
+	if (!html.includes("classified as")) return false;
+
+	const line = /classified\sas:\s<ul>\s*<li[^>]+><A[^>]+>([^<]*)<\/A>/.exec(html);
+	if (!line) return false;
+	return line[1];
+}
+
+const append_to_file = (satellite: Satellite, filename = "output.csv") => {
+	const data = `${satellite.name},${satellite.norad_id},${satellite.launch_date},${satellite.decay_date},${satellite.classification}\n`;
+	fs.appendFileSync(filename, data);
+}
+
+const write_to_file = (satellites: Satellite[], filename = "output.csv") => {
+	let csv = "Name,Norad ID,Launch Date,Decay Date,Classification\n";
 	for (const satellite of satellites) {
-		const ind = current_year - Math.max(year_start, satellite.launch_date.getFullYear());
-		years[ind] = years[ind] + 1;
+		csv += `${satellite.name},${satellite.norad_id},${satellite.launch_date},${satellite.decay_date}\n`;
 	}
-	years = years.reverse();
+	fs.writeFileSync(filename, csv);
+}
 
-	for (let i = 1; i < years.length; ++i) {
-		years[i] += years[i - 1];
+const crawl_satellites = async (file_empty: boolean, filename = "output.csv", last_norad_id = 1) => {
+	let satellites: Satellite[] = [];
+	let norad_id = last_norad_id;
+
+	// Writes only the header to the file.
+	if (file_empty) write_to_file([], filename);
+
+	let html = await fetch_satellite(norad_id);
+	while (!is_404(html)) {
+		// Build Satellite Object from HTML
+		const launch_date = get_launch_date(html);
+		const decay_date = get_decay_date(html);
+		const name = get_name(html);
+		const classification = get_classification(html);
+
+		// Definition of Satellite: see util.ts.
+		const satellite: Satellite = { name, norad_id, launch_date, decay_date, classification };
+		satellites.push(satellite);
+		append_to_file(satellite, filename);
+
+		process.stdout.write(`\rNorad ID: ${norad_id}`);
+
+		++norad_id;
+		html = await fetch_satellite(norad_id);
 	}
-
-	return years;
 };
+
+const get_last_norad_id = async (filename: string): Promise<number> => {
+	const last_line = await readLastLines.read(filename, 1);
+	return parseInt(last_line.split(",")[1]);
+}
 
 const main = async () => {
-	const up = await norad_up();
-	if (!up) {
-		console.error("Norad Database cannot be reached.");
-		process.exitCode = 1;
+	if (!(await norad_up())) {
+		console.error("N2YO is down.");
 		return;
 	}
 
-	const cons = [
-		Constellations.BEIDOU,
-		Constellations.ONEWEB,
-		Constellations.GALILEO,
-		Constellations.IRIDIUM,
-		Constellations.NAVSTAR,
-		Constellations.ORBCOMM,
-		Constellations.INTELSAT,
-		Constellations.STARLINK
-	];
+	let filename = "satellite-dev.csv";
+	let file_empty = true;
+	if (fs.existsSync(filename)) file_empty = false;
 
-	const current_year = new Date().getFullYear();
-	const YEAR_START = 2000;
-
-	let out = "name";
-	for (let i = YEAR_START; i <= current_year; ++i) {
-		out += `,${i}`;
-	}
-	out += "\n";
-
-	for (const con of cons) {
-		const con_data = await get_constellation_data(con);
-		const acc_years = accumulated_satellites_over_years(con_data, YEAR_START);
-
-		out += `${Constellations[con]}`;
-		for (let i = YEAR_START; i <= current_year; ++i) {
-			out += `,${acc_years[i - YEAR_START]}`;
-		}
-		out += "\n";
+	let last_norad_id = 1;
+	if (!file_empty) {
+		last_norad_id = await get_last_norad_id(filename);
+		console.log(`Last Norad ID: ${last_norad_id}`);
 	}
 
-	const FILENAME = "satellite-dev.csv";
-	fs.writeFileSync(FILENAME, out);
+	await crawl_satellites(file_empty, filename, last_norad_id + 1);
 };
 
 main();
