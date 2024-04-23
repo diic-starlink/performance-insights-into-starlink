@@ -39,6 +39,7 @@ const is_404 = (html: string) => {
 	// Norad returns not really 404 on invalid satellite id.
 	// It returns an empty satellite page, dating the launch date to January 1, 1970.
 	// Aside from that, there were no satellites launched on January 1, 1970.
+	if (!html) return true;
 	return html.includes("January 1, 1970");
 }
 
@@ -95,7 +96,7 @@ const crawl_satellites = async (file_empty: boolean, filename = "output.csv", la
 		// Build Satellite Object from HTML
 		const launch_date = get_launch_date(html);
 		const decay_date = get_decay_date(html);
-		const name = get_name(html);
+		const name = get_name(html).replace(",", ""); // Remove commas from the name as CSV uses ',' for seperator.
 		const classification = get_classification(html);
 
 		// Definition of Satellite: see util.ts.
