@@ -44,6 +44,13 @@
     </item>
     <item>
       <title></title>
+      <link>/restricted/notes/satcom_providers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/restricted/notes/satcom_providers/</guid>
+      <description>Providers # LEO # Starlink # 5504 Starlink Satellites 10&#39;000 needed before global coverage 550 km height (very low!) OneWeb # provides a LEO Network next to Starlink satellites at about 1200 km height more than 630 satellites GEO # HughesNet # ASN: AS1358&#xA;as of today, no probe available for Hughesnet US company owned by EchoStar Corporation&#xA;offers 100 MB/s on their website&#xA;dropping subscriber rate&#xA;provides broadband access to aircraft</description>
+    </item>
+    <item>
+      <title></title>
       <link>/restricted/research_questions/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/restricted/research_questions/</guid>

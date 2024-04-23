@@ -3,22 +3,28 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content=" &ldquo;Internet From Space&rdquo; without Inter-satellite Links? # See Paper
-ISLs should be commonly integrated in Starlink However, no real proof of that. in 2020, devices for ISLs were removed from satellites How is the state now? Bent-Pipe and ISLs # routing can theoretically involve ISLs or not if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites that is called &ldquo;bent-pipe&rdquo; routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between Results # Paper found that ISLs offer an improvement compared to bent-pipe routing Paper measures absolute RTT of 5000 city pairs in intervals of 15 min RTT for ISL were more stable and better More stable, less RTT with ISLs ">
+<meta name="description" content="Providers # LEO # Starlink # 5504 Starlink Satellites 10&#39;000 needed before global coverage 550 km height (very low!) OneWeb # provides a LEO Network next to Starlink satellites at about 1200 km height more than 630 satellites GEO # HughesNet # ASN: AS1358
+as of today, no probe available for Hughesnet US company owned by EchoStar Corporation
+offers 100 MB/s on their website
+dropping subscriber rate
+provides broadband access to aircraft">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="/restricted/notes/internet_from_space_paper/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/restricted/notes/satcom_providers/">
   <meta property="og:site_name" content="Starlink Thesis">
   <meta property="og:title" content="Starlink Thesis">
-  <meta property="og:description" content=" &amp;ldquo;Internet From Space&amp;rdquo; without Inter-satellite Links? # See Paper
-ISLs should be commonly integrated in Starlink However, no real proof of that. in 2020, devices for ISLs were removed from satellites How is the state now? Bent-Pipe and ISLs # routing can theoretically involve ISLs or not if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites that is called &amp;ldquo;bent-pipe&amp;rdquo; routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between Results # Paper found that ISLs offer an improvement compared to bent-pipe routing Paper measures absolute RTT of 5000 city pairs in intervals of 15 min RTT for ISL were more stable and better More stable, less RTT with ISLs ">
+  <meta property="og:description" content="Providers # LEO # Starlink # 5504 Starlink Satellites 10&#39;000 needed before global coverage 550 km height (very low!) OneWeb # provides a LEO Network next to Starlink satellites at about 1200 km height more than 630 satellites GEO # HughesNet # ASN: AS1358
+as of today, no probe available for Hughesnet US company owned by EchoStar Corporation
+offers 100 MB/s on their website
+dropping subscriber rate
+provides broadband access to aircraft">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
   <meta property="article:section" content="restricted">
-<title>Internet From Space Paper | Starlink Thesis</title>
+<title>Satcom Providers | Starlink Thesis</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
-<link rel="canonical" href="/restricted/notes/internet_from_space_paper/">
+<link rel="canonical" href="/restricted/notes/satcom_providers/">
 <link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" >
   <script defer src="/flexsearch.min.js"></script>
   <script defer src="/en.search.min.a3ba2988745e32bd64b6ef9b10294d31afc575cf3b6a1cc10623bf645e89dd02.js" ></script>
@@ -105,7 +111,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Internet From Space Paper</strong>
+  <strong>Satcom Providers</strong>
 
   <label for="toc-control">
     
@@ -121,8 +127,18 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#bent-pipe-and-isls">Bent-Pipe and ISLs</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#leo">LEO</a>
+      <ul>
+        <li><a href="#starlink">Starlink</a></li>
+        <li><a href="#oneweb">OneWeb</a></li>
+      </ul>
+    </li>
+    <li><a href="#geo">GEO</a>
+      <ul>
+        <li><a href="#hughesnet">HughesNet</a></li>
+        <li><a href="#viasat">ViaSat</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -135,47 +151,79 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h1 id="internet-from-space-without-inter-satellite-links">
-  &ldquo;Internet From Space&rdquo; without Inter-satellite Links?
-  <a class="anchor" href="#internet-from-space-without-inter-satellite-links">#</a>
+  <article class="markdown book-article"><h1 id="providers">
+  Providers
+  <a class="anchor" href="#providers">#</a>
 </h1>
-<p>See 
-      
-  <a href="../papers/internet_from_space.pdf">Paper</a></p>
-<ul>
-<li>ISLs should be commonly integrated in Starlink</li>
-<li>However, no real proof of that.
-<ul>
-<li>in 2020, devices for ISLs were removed from satellites</li>
-<li>How is the state now?</li>
-</ul>
-</li>
-</ul>
-<h2 id="bent-pipe-and-isls">
-  Bent-Pipe and ISLs
-  <a class="anchor" href="#bent-pipe-and-isls">#</a>
+<h2 id="leo">
+  LEO
+  <a class="anchor" href="#leo">#</a>
 </h2>
+<h3 id="starlink">
+  Starlink
+  <a class="anchor" href="#starlink">#</a>
+</h3>
 <ul>
-<li>routing can theoretically involve ISLs or not</li>
-<li>if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites
+<li>5504 Starlink Satellites</li>
+<li>10'000 needed before global coverage</li>
+<li>550 km height (very low!)</li>
+</ul>
+<h3 id="oneweb">
+  OneWeb
+  <a class="anchor" href="#oneweb">#</a>
+</h3>
 <ul>
-<li>that is called &ldquo;bent-pipe&rdquo;</li>
+<li>provides a LEO Network next to Starlink</li>
+<li>satellites at about 1200 km height</li>
+<li>more than 630 satellites</li>
 </ul>
-</li>
-<li>routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between</li>
-</ul>
-<h2 id="results">
-  Results
-  <a class="anchor" href="#results">#</a>
+<h2 id="geo">
+  GEO
+  <a class="anchor" href="#geo">#</a>
 </h2>
+<h3 id="hughesnet">
+  HughesNet
+  <a class="anchor" href="#hughesnet">#</a>
+</h3>
 <ul>
-<li>Paper found that ISLs offer an improvement compared to bent-pipe routing</li>
-<li>Paper measures absolute RTT of 5000 city pairs in intervals of 15 min
+<li>
+<p>ASN: AS1358</p>
 <ul>
-<li>RTT for ISL were more stable and better</li>
-<li>More stable, less RTT with ISLs</li>
+<li>as of today, no probe available for Hughesnet</li>
 </ul>
 </li>
+<li>
+<p>US company owned by EchoStar Corporation</p>
+</li>
+<li>
+<p>offers 100 MB/s on their website</p>
+</li>
+<li>
+<p>dropping subscriber rate</p>
+</li>
+<li>
+<p>provides broadband access to aircraft</p>
+</li>
+<li>
+<p>uses GEO</p>
+<ul>
+<li>latency of over 600ms</li>
+<li>not competitive compared to Starlink</li>
+</ul>
+</li>
+<li>
+<p>nothing available on RIPE</p>
+</li>
+</ul>
+<h3 id="viasat">
+  ViaSat
+  <a class="anchor" href="#viasat">#</a>
+</h3>
+<ul>
+<li>ASN: AS7155</li>
+<li>uses three satellites &ndash;&gt; GEO constellation</li>
+<li>three satellites providing each a throughput of 1 TBit/s</li>
+<li>there is an anchor available on RIPE</li>
 </ul>
 </article>
  
@@ -218,8 +266,18 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#bent-pipe-and-isls">Bent-Pipe and ISLs</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#leo">LEO</a>
+      <ul>
+        <li><a href="#starlink">Starlink</a></li>
+        <li><a href="#oneweb">OneWeb</a></li>
+      </ul>
+    </li>
+    <li><a href="#geo">GEO</a>
+      <ul>
+        <li><a href="#hughesnet">HughesNet</a></li>
+        <li><a href="#viasat">ViaSat</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
