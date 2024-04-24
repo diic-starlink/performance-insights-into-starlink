@@ -45,6 +45,7 @@ const is_404 = (html: string) => {
 
 // Matches dates in the format: January 1, 1970
 const get_launch_date = (html: string): Date => {
+	if (html.includes("November 30, -0001")) return new Date(Date.parse("January 1, 1970"));
 	const line = /Launch\sdate<\/B>:\s<a[^>]+>([A-Z][a-z]+\s[0-9][0-9]?,\s[0-9][0-9][0-9][0-9])/.exec(html);
 	return new Date(Date.parse(line[1]));
 }
@@ -92,7 +93,14 @@ const crawl_satellites = async (file_empty: boolean, filename = "output.csv", la
 	if (file_empty) write_to_file([], filename);
 
 	let html = await fetch_satellite(norad_id);
-	while (!is_404(html)) {
+	while (norad_id < 59507) {
+
+		if (!html) {
+			++norad_id;
+			html = await fetch_satellite(norad_id);
+			continue;
+		}
+
 		// Build Satellite Object from HTML
 		const launch_date = get_launch_date(html);
 		const decay_date = get_decay_date(html);
