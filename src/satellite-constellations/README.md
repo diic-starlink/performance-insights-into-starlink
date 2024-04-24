@@ -17,3 +17,19 @@ Please note that graphics uses a logarithmic scale, as Starlink has FAR more sat
 - [´satellite-dev.png´](./satellite-dev.png): The graphic shown above.
 - [´satellite-dev.csv´](./satellite-dev.csv): A CSV containing all satellites with their name, Norad ID, launch date, decay date, and classification.
 - [´visualize-results.ipynb´](./visualize-results.ipynb): The Jupyter Notebook used to create the graphic.
+
+## Running it Yourself
+
+As always, get yourself an installation of Nix. Then, run the following command:
+
+```bash
+nix-shell satellite-numbers.nix
+```
+
+with the new terminal, run:
+
+```bash
+npm install && npm run build
+```
+
+This will crawl through all satellites, starting at the last one from `satellite-dev.csv`.
