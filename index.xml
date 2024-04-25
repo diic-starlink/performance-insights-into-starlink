@@ -44,6 +44,13 @@
     </item>
     <item>
       <title></title>
+      <link>/restricted/notes/ripe_builtin_measurements/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/restricted/notes/ripe_builtin_measurements/</guid>
+      <description># RIPE ATLAS Built-in Measurements&#xA;RIPE ATLAS performs built-in measurements for each probe.&#xA;The following (for this thesis relevant) measurements are available see here:&#xA;Type Interval Targets Ping 240s [a-m].rootservers.net + more Traceroute 1800s [a-m].rootservers.net + more </description>
+    </item>
+    <item>
+      <title></title>
       <link>/restricted/notes/satcom_providers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/restricted/notes/satcom_providers/</guid>
