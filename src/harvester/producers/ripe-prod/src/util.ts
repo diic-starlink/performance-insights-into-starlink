@@ -41,8 +41,6 @@ interface Probe {
 	id: number;
 	status: ProbeStatus;
 	ipv4: string;
-	last_page: number;
-	last_msm_id: number;
 }
 
 export {

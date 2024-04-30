@@ -1,4 +1,7 @@
 import KafkaProducer from "./kafka-producer";
+import { large_fetch } from "./large-data-processor/fetch";
+import ROOTSERVERS from "./root_server_config";
+import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Measurement, Probe, ProbeStatus, string_to_probestatus, stringify_msms } from "./util";
 
 const URL = "https://atlas.ripe.net/api/v2/";
@@ -32,8 +35,6 @@ const get_starlink_probes = async () => {
 				id: probe.id,
 				status: string_to_probestatus(probe.status.name),
 				ipv4: probe.address_v4,
-				last_page: 1,
-				last_msm_id: 0,
 			});
 		}
 
@@ -62,30 +63,31 @@ const is_probe_up = async (probe: Probe) => {
 }
 
 const get_next_measurement_page = async (probe: Probe) => {
-	const url = URL + "probes/" + probe.id + "/measurements?page=" + probe.last_page;
-	const response = await (await fetch(url)).json();
+	const url = URL + "measurements";
 
 	let measurements: Measurement[] = [];
-	for (const measurement of response.results) {
-		if (measurement.id < probe.last_msm_id) continue;
+	for (const ROOTSERVER of ROOTSERVERS) {
+		const msm_url = `${url}/${ROOTSERVER}/results/?probe_ids=${probe.id}&start=${START_TIMESTAMP}&stop=${STOP_TIMESTAMP}&format=json`;
 
-		const msm_url = measurement.measurement;
-		const msm_response = await (await fetch(msm_url + "/results")).json();
+		const response = (await large_fetch(msm_url)) as any[];
 
-		measurements.push({
-			measurement_id: msm_response.msm_id,
-			probe_id: msm_response.prb_id,
-			timestamp: msm_response.timestamp,
-			from: msm_response.src_addr,
-			to: msm_response.dst_addr,
-			protocol: msm_response.proto,
-			type: msm_response.type,
-			group_id: msm_response.group_id,
-			stored_timestamp: msm_response.stored_timestamp,
-			qbuf: msm_response.qbuf,
-			result: msm_response.result,
-		});
+		for (const msm of response) {
+			measurements.push({
+				measurement_id: msm.msm_id,
+				probe_id: msm.prb_id,
+				timestamp: msm.timestamp,
+				from: msm.src_addr,
+				to: msm.dst_addr,
+				protocol: msm.proto,
+				type: msm.type,
+				group_id: msm.group_id,
+				stored_timestamp: msm.stored_timestamp,
+				qbuf: msm.qbuf,
+				result: msm.result,
+			});
+		}
 	}
+
 
 	return measurements;
 }
@@ -104,24 +106,19 @@ const main = async () => {
 	const kafka_producer = new KafkaProducer("measurements");
 	await kafka_producer.connect();
 
-	while (true) {
-		for (let i = 0; i < probes.length; i++) {
-			const probe = probes[i];
-			if (await is_probe_up(probe)) {
-				console.log("Probe " + probe.id + " is up. Looking at page " + probe.last_page + ".");
-				const measurements = stringify_msms(await get_next_measurement_page(probe));
+	for (let i = 0; i < probes.length; i++) {
+		const probe = probes[i];
+		if (await is_probe_up(probe)) {
+			console.log("Probe " + probe.id + " is up. Gathering built-in measurements.");
+			const measurements = stringify_msms(await get_next_measurement_page(probe));
 
-				await kafka_producer.produce(measurements);
-
-				probes[i].last_page++;
-			} else {
-				console.log("Probe " + probe.id + " is down.");
-			}
+			await kafka_producer.produce(measurements);
+		} else {
+			console.log("Probe " + probe.id + " is down.");
 		}
-
-		// Ethical crawling.
-		await new Promise(resolve => setTimeout(resolve, 10000));
 	}
+
+	// Ethical crawling.
 	kafka_producer.disconnect();
 };
 
