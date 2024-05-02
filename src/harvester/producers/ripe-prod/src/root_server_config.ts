@@ -1,7 +1,5 @@
-// This variable lists the IDs of the RIPE ATLAS root servers.
-// Can be used in the API to fetch data from.
-// E.g., https://atlas.ripe.net/api/v2/measurements/{Rootserver ID}/?probe_ids=something&start={timestamp}&stop={timestamp_later}
-const ROOTSERVERS = [
+// This variable lists all builtin ping measurements performed from root servers to probes.
+const ROOTSERVERS_BUILTIN_PING = [
 	1001,
 	1004,
 	1005,
@@ -20,6 +18,45 @@ const ROOTSERVERS = [
 	1029,
 	1030,
 	1031,
+	2001,
+	2004,
+	2005,
+	2006,
+	2008,
+	2009,
+	2010,
+	2011,
+	2012,
+	2013,
+	2015,
+	2017,
+	2019,
+	2027,
+	2028,
+	2029,
+	2030,
+	2031,
 ]
 
-export default ROOTSERVERS;
+const ROOTSERVER_BUILTIN_TRACEROUTE = [
+	5001,
+	5004,
+	5005,
+	5006,
+	5008,
+	5009,
+	5010,
+	5011,
+	5012,
+	5013,
+	5015,
+	5017,
+	5019,
+	5027,
+	5028,
+	5029,
+	5030,
+	5031,
+]
+
+export { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_TRACEROUTE };

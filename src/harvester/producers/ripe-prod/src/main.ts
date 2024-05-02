@@ -1,8 +1,7 @@
 import KafkaProducer from "./kafka-producer";
-import { large_fetch } from "./large-data-processor/fetch";
-import ROOTSERVERS from "./root_server_config";
-import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
-import { Measurement, Probe, ProbeStatus, string_to_probestatus, stringify_msms } from "./util";
+import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
+import { Probe, ProbeStatus, string_to_probestatus } from "./util";
+import WebSocket from "ws";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
@@ -48,78 +47,82 @@ const get_starlink_probes = async () => {
 	return probes;
 };
 
-/**
- * Check if a probe is connected.
- *
- * @param probe 
- * 		The probe to check. Only the probe ID is used.
- * @returns
- * 		Returns True, if the probe is connected and False is otherwise.
- */
-const is_probe_up = async (probe: Probe) => {
-	const response = await fetch(URL + "probes/" + probe.id);
-	const status = string_to_probestatus((await response.json()).status.name);
-	return status === ProbeStatus.CONNECTED;
-}
-
-const get_next_measurement_page = async (probe: Probe) => {
-	const url = URL + "measurements";
-
-	let measurements: Measurement[] = [];
-	for (const ROOTSERVER of ROOTSERVERS) {
-		const msm_url = `${url}/${ROOTSERVER}/results/?probe_ids=${probe.id}&start=${START_TIMESTAMP}&stop=${STOP_TIMESTAMP}&format=json`;
-
-		const response = (await large_fetch(msm_url)) as any[];
-
-		for (const msm of response) {
-			measurements.push({
-				measurement_id: msm.msm_id,
-				probe_id: msm.prb_id,
-				timestamp: msm.timestamp,
-				from: msm.src_addr,
-				to: msm.dst_addr,
-				protocol: msm.proto,
-				type: msm.type,
-				group_id: msm.group_id,
-				stored_timestamp: msm.stored_timestamp,
-				qbuf: msm.qbuf,
-				result: msm.result,
-			});
-		}
-	}
-
-
-	return measurements;
-}
-
 const main = async () => {
 	if (!(await ripe_up())) {
 		console.error("RIPE ATLAS is down.");
 		process.exit(1);
 	}
 
-
 	const probes = await get_starlink_probes();
-
-	// Wait for Kafka to be ready and finished its dumb leadership election.
-	await new Promise(resolve => setTimeout(resolve, 20000));
-	const kafka_producer = new KafkaProducer("measurements");
-	await kafka_producer.connect();
-
-	for (let i = 0; i < probes.length; i++) {
-		const probe = probes[i];
-		if (await is_probe_up(probe)) {
-			console.log("Probe " + probe.id + " is up. Gathering built-in measurements.");
-			const measurements = stringify_msms(await get_next_measurement_page(probe));
-
-			await kafka_producer.produce(measurements);
-		} else {
-			console.log("Probe " + probe.id + " is down.");
+	let probe: Probe;
+	for (let i = 0; i < probes.length; ++i) {
+		if (probes[i].status === ProbeStatus.CONNECTED) {
+			probe = probes[i];
+			break;
 		}
 	}
 
-	// Ethical crawling.
-	kafka_producer.disconnect();
+	let stream_configs: any[] = [];
+
+	// TODO: Add sendBacklog parameter in order to cover the last few minutes of possible disconnects.
+	for (const probe of probes) {
+		for (const server of ROOTSERVERS_BUILTIN_PING) {
+			const param = {
+				streamType: "result",
+				msm: server,
+				type: "ping",
+				prb: probe.id,
+			};
+			stream_configs.push(param);
+		}
+	}
+
+	for (const probe of probes) {
+		for (const server of ROOTSERVER_BUILTIN_TRACEROUTE) {
+			const param = {
+				streamType: "result",
+				msm: server,
+				type: "traceroute",
+				prb: probe.id,
+			};
+			stream_configs.push(param);
+		}
+	}
+
+	console.log(`Got a total of ${stream_configs.length} stream configurations.`);
+
+	// Wait for Kafka to be ready and finished its dumb leadership election.
+	await new Promise(resolve => setTimeout(resolve, 20000));
+
+	const kafka_producer = new KafkaProducer("measurements");
+	await kafka_producer.connect();
+
+	const socket = new WebSocket("wss://atlas-stream.ripe.net/stream/");
+	socket.onmessage = (event: any): void => {
+		const [type, payload] = JSON.parse(event.data);
+
+		if (type === "atlas_error") {
+			console.warn(payload);
+		}
+
+		if (type === "atlas_result") {
+			kafka_producer.send(JSON.stringify(payload));
+		}
+	};
+
+	socket.onopen = async (_: any): Promise<void> => {
+		for (const config of stream_configs) {
+			socket.send(JSON.stringify(["atlas_subscribe", config]));
+			// Rate limit to 1 subscription per second.
+			await new Promise(resolve => setTimeout(resolve, 500));
+		}
+		console.log("Subscribed to all builtin Starlink Measurements.");
+	};
+
+	process.on('exit', () => {
+		socket.close();
+		kafka_producer.disconnect();
+	});
 };
 
 main();

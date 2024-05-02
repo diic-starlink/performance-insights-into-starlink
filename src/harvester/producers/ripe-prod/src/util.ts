@@ -12,12 +12,6 @@ interface Measurement {
 	result: Object;
 }
 
-const stringify_msms = (msms: Measurement[]): string[] => {
-	let str_msms: string[] = [];
-	for (const msm of msms) str_msms.push(JSON.stringify(msm));
-	return str_msms;
-};
-
 enum ProbeStatus {
 	CONNECTED = 'Connected',
 	DISCONNECTED = 'Disconnected',
@@ -48,5 +42,4 @@ export {
 	Probe,
 	string_to_probestatus,
 	Measurement,
-	stringify_msms,
 };

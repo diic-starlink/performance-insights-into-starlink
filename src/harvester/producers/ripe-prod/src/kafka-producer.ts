@@ -4,7 +4,6 @@ class KafkaProducer {
 	private kafka: Kafka;
 	private producer: Producer;
 	private topic: string;
-	private admin: Admin;
 
 	constructor(topic: string) {
 		const kafka_config: KafkaConfig = {
@@ -14,7 +13,6 @@ class KafkaProducer {
 
 		this.kafka = new Kafka(kafka_config);
 		this.topic = topic;
-		this.admin = this.kafka.admin();
 	}
 
 	public async connect() {
@@ -27,18 +25,16 @@ class KafkaProducer {
 		await this.producer.disconnect();
 	}
 
-	public async produce(messages: string[]) {
-		for (const message of messages) {
-			await this.producer.send({
-				topic: this.topic,
-				messages: [
-					{
-						value: message,
-						headers: { source: "ripe-atlas" }
-					},
-				],
-			});
-		}
+	public async send(message: string) {
+		await this.producer.send({
+			topic: this.topic,
+			messages: [
+				{
+					value: message,
+					headers: { source: "ripe-atlas" }
+				},
+			],
+		});
 	}
 }
 
