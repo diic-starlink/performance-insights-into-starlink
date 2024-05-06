@@ -1,4 +1,4 @@
-const FILENAME = process.cwd() + '/duck.db'; // Use ':memory:' for in-memory database or filename for file-based database.
+const FILENAME = process.cwd() + '/data/duck.db'; // Use ':memory:' for in-memory database or filename for file-based database.
 const DB_CONFIG = {
   "access_mode": "READ_WRITE",
   "max_memory": "8GB",

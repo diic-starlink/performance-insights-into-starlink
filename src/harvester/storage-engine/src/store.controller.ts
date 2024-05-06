@@ -1,12 +1,27 @@
 import { Controller, Post, Req } from "@nestjs/common";
 import { Database as DuckDB } from "duckdb";
 import { DB_CONFIG, DROP_QUERIES, DROP_TABLES, FILENAME, SETUP_QUERIES } from "./storage.config";
+import { existsSync, mkdir } from "fs";
+import { dirname } from "path";
+import { warn } from "console";
 
 @Controller('store')
 export class StoreController {
   private db: DuckDB;
 
   constructor() {
+    const dname = dirname(FILENAME);
+    console.log("Database file: " + dname);
+    if (!existsSync(dname)) {
+      mkdir(dname, { recursive: true }, (err) => {
+        if (err) {
+          console.error(err);
+          console.error("Failed to create the database file. Terminating ...");
+          process.exit(1);
+        }
+      });
+    }
+
     // This should get an additional Database configuration object as an argument, which sadly does not work.
     this.db = new DuckDB(
       FILENAME,
