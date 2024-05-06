@@ -23,6 +23,9 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-fastify": "^10.3.8",
+    "apache-arrow": "^16.0.0",
+    "duckdb": "^0.10.2",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },

@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
+
+  @Post()
+  getHello(): number {
+    // Status ok. Root does not serve any siginificant purpose.
+    return 1;
+  }
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  dontUseGet(): string {
+    return "Please use POST method to access the API.";
   }
 }
