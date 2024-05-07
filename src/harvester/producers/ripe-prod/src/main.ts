@@ -101,13 +101,24 @@ const main = async () => {
 
 	const socket = new WebSocket("wss://atlas-stream.ripe.net/stream/");
 	socket.onmessage = (event: any): void => {
-		const [type, payload] = JSON.parse(event.data);
+		let [type, payload] = JSON.parse(event.data);
 
 		if (type === "atlas_error") {
 			console.warn(payload);
 		}
 
 		if (type === "atlas_result") {
+			payload.source_platform = "RIPE ATLAS";
+			const prb_id = payload.prb_id;
+			let country = "Unknown";
+			for (const probe of probes) {
+				if (probe.id === prb_id) {
+					country = probe.country;
+					break;
+				}
+			}
+
+			payload.country = country;
 			kafka_producer.send(JSON.stringify(payload));
 		}
 	};
