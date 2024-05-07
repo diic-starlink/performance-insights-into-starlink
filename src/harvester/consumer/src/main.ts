@@ -7,13 +7,13 @@ const TOPIC = 'measurements';
 
 const consumerCallback: EachMessageHandler = (payload: EachMessagePayload): Promise<void> => {
 	let data = JSON.parse(payload.message.value.toString());
-	console.log('Received Data.');
 
 	// Adjust to desired REST API.
 	data.destination = data.dst_addr;
-	data.source = data.src_addr;
+	data.source = data.from;
 	delete data.dst_addr;
 	delete data.src_addr;
+	delete data.from;
 
 	data.sent_packets = data.sent;
 	data.received_packets = data.rcvd;

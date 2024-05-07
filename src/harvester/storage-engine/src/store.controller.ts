@@ -44,8 +44,6 @@ export class StoreController {
   // Store RIPE ATLAS data in the DuckDB database
   @Post('ping')
   storePingData(@Req() request: Request): string {
-    console.log('Storage Engine has been called to store data.');
-
     let status = "Success";
 
     const body = request.body as any;
@@ -63,12 +61,16 @@ export class StoreController {
     const sent_packets = body.sent_packets;
     const received_packets = body.received_packets;
     const source_platform = body.source_platform;
+    const country = body.country;
+    const prb_id = body.prb_id;
 
     const query = `
       INSERT INTO ping_data (
         msm_id,
         destination,
         source,
+        country,
+        prb_id,
         result,
         timestamp,
         msm_type,
@@ -81,6 +83,8 @@ export class StoreController {
         ${msm_id},
         '${destination}',
         '${source}',
+        '${country}',
+        ${prb_id},
         '${result}',
         '${timestamp}',
         'ping',

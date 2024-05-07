@@ -21,6 +21,8 @@ const SETUP_QUERIES = `
     destination VARCHAR,
     source VARCHAR,
     result VARCHAR,
+    country VARCHAR,
+    prb_id UINTEGER,
     timestamp VARCHAR,
     msm_type VARCHAR,
     step UINTEGER,
