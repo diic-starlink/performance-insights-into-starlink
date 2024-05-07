@@ -3,6 +3,8 @@ import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_
 import { Probe, ProbeStatus, string_to_probestatus } from "./util";
 import WebSocket from "ws";
 
+const TOPIC = "measurements";
+
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
 
@@ -94,7 +96,7 @@ const main = async () => {
 	// Wait for Kafka to be ready and finished its dumb leadership election.
 	await new Promise(resolve => setTimeout(resolve, 20000));
 
-	const kafka_producer = new KafkaProducer("measurements");
+	const kafka_producer = new KafkaProducer(TOPIC);
 	await kafka_producer.connect();
 
 	const socket = new WebSocket("wss://atlas-stream.ripe.net/stream/");

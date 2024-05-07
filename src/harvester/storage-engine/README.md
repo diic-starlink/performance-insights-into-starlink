@@ -26,6 +26,7 @@ Parameters:
     - `step` (int): Seconds step at which the measurement was repeated.
     - `sent_packets` (int): Number of packets sent.
     - `received_packets` (int): Number of packets received.
+    - `source_platform` (string): Platform from which the measurement was made (e.g., ripe-atlas, ONI, ...).
 
 Return Type:
 - `Success` if the data was stored successfully.

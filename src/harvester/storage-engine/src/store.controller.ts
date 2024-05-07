@@ -34,12 +34,18 @@ export class StoreController {
       }
     );
 
+    process.on('exit', () => {
+      this.db.close();
+    });
+
     this.prepareDatabase();
   }
 
   // Store RIPE ATLAS data in the DuckDB database
   @Post('ping')
   storePingData(@Req() request: Request): string {
+    console.log('Storage Engine has been called to store data.');
+
     let status = "Success";
 
     const body = request.body as any;
@@ -47,7 +53,7 @@ export class StoreController {
     const msm_id = body.msm_id;
     const destination = body.destination;
     const source = body.source;
-    const result = body.result;
+    const result = JSON.stringify(body.result);
     let timestamp = body.timestamp;
     if (timestamp === undefined) {
       // If timestamp not provided, use the current time.
@@ -56,9 +62,9 @@ export class StoreController {
     const step = body.step;
     const sent_packets = body.sent_packets;
     const received_packets = body.received_packets;
+    const source_platform = body.source_platform;
 
-    const conn = this.db.connect();
-    conn.all(`
+    const query = `
       INSERT INTO ping_data (
         msm_id,
         destination,
@@ -68,7 +74,8 @@ export class StoreController {
         msm_type,
         step,
         sent_packets,
-        received_packets
+        received_packets,
+        source_platform
       )
       VALUES (
         ${msm_id},
@@ -79,9 +86,13 @@ export class StoreController {
         'ping',
         ${step},
         ${sent_packets},
-        ${received_packets}
+        ${received_packets},
+        '${source_platform}'
       );
-    `, (err, _) => {
+    `;
+
+    const conn = this.db.connect();
+    conn.all(query, (err, _) => {
       if (err) {
         status = "Failed";
       }

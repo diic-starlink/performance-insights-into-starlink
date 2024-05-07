@@ -10,6 +10,7 @@ services:
     restart: always
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
+
   kafka:
     container_name: kafka
     hostname: kafka
@@ -23,9 +24,9 @@ services:
       KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CFG_NUM_PARTITION: 1
       KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
-
     depends_on: 
       - zookeeper
+
   kafka-ui:
     container_name: kafka-ui
     hostname: kafka-ui
@@ -39,16 +40,16 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
     depends_on: 
       - kafka
-      - zookeeper
+
   ripe-harvester:
     container_name: ripe-harvester
     hostname: ripe-harvester
     build: ./producers/ripe-prod
     depends_on: 
       - kafka
-      - zookeeper
     environment:
       KAFKAJS_NO_PARTITIONER_WARNING: "1"
+
   duckdb:
     container_name: duckdb
     hostname: duckdb
@@ -57,4 +58,12 @@ services:
       - 3000:3000
     volumes:
       - ./data:/app/data
+
+  consumer:
+    container_name: consumer
+    hostname: consumer
+    build: ./consumer
+    depends_on:
+      - kafka
+      - duckdb
 
