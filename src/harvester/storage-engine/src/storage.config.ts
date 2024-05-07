@@ -21,11 +21,12 @@ const SETUP_QUERIES = `
     destination VARCHAR,
     source VARCHAR,
     result VARCHAR,
-    timestamp TIMESTAMP,
+    timestamp VARCHAR,
     msm_type VARCHAR,
     step UINTEGER,
     sent_packets UINTEGER,
-    received_packets UINTEGER
+    received_packets UINTEGER,
+    source_platform VARCHAR
   );
 `;
 
