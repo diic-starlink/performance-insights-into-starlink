@@ -94,7 +94,7 @@ const main = async () => {
 	console.log(`Got a total of ${stream_configs.length} stream configurations.`);
 
 	// Wait for Kafka to be ready and finished its dumb leadership election.
-	await new Promise(resolve => setTimeout(resolve, 20000));
+	await new Promise(resolve => setTimeout(resolve, 30000));
 
 	const kafka_producer = new KafkaProducer(TOPIC);
 	await kafka_producer.connect();
