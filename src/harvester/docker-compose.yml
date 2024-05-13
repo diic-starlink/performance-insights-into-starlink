@@ -50,6 +50,15 @@ services:
     environment:
       KAFKAJS_NO_PARTITIONER_WARNING: "1"
 
+  ripe-msm-downloader:
+    container_name: ripe-msm-downloader
+    hostname: ripe-msm-downloader
+    build: ./producers/ripe-single-result-prod
+    depends_on: 
+      - kafka
+    environment:
+      KAFKAJS_NO_PARTITIONER_WARNING: "1"
+
   duckdb:
     container_name: duckdb
     hostname: duckdb

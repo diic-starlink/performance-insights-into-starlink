@@ -7,7 +7,7 @@ class KafkaProducer {
 
 	constructor(topic: string) {
 		const kafka_config: KafkaConfig = {
-			clientId: "ripe-atlas-producer",
+			clientId: "ripe-atlas-single-measurement-producer",
 			brokers: ["kafka:9092"], // Dependent on the Docker network
 		};
 
@@ -18,7 +18,6 @@ class KafkaProducer {
 	public async connect() {
 		this.producer = this.kafka.producer();
 		await this.producer.connect();
-
 	}
 
 	public async disconnect() {
