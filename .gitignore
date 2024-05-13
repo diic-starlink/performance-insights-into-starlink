@@ -1,6 +1,7 @@
 result
 build
 .DS_STORE
+/.idea
 
 *.aux
 *.bcf
