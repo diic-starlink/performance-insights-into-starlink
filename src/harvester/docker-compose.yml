@@ -59,6 +59,15 @@ services:
     environment:
       KAFKAJS_NO_PARTITIONER_WARNING: "1"
 
+  cloudflare-latency-prod:
+    container_name: cloudflare-latency-prod
+    hostname: cloudflare-latency-prod
+    build: ./producers/cloudflare-radar
+    depends_on: 
+      - kafka
+    environment:
+      KAFKAJS_NO_PARTITIONER_WARNING: "1"
+
   duckdb:
     container_name: duckdb
     hostname: duckdb
