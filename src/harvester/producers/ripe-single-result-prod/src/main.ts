@@ -29,6 +29,7 @@ const main = async () => {
 
 		const results = await (await (fetch(result_url))).json();
 		for (const result of results) {
+			result.source_platform = "RIPE ATLAS (single measurement)";
 			const message = JSON.stringify(result);
 			await producer.send(message);
 		}
