@@ -51,7 +51,7 @@ build-proposal:
 build-thesis:
     stage: Build Thesis
     script:
-        - nix-build thesis.nix
+        - nix-build tex.nix
         - cp result/main.pdf thesis.pdf
     artifacts:
         untracked: false
