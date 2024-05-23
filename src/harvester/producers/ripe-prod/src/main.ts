@@ -1,12 +1,14 @@
+import assert from "assert";
 import KafkaProducer from "./kafka-producer";
 import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
-import { Probe, ProbeStatus, string_to_probestatus } from "./util";
-import WebSocket from "ws";
+import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
+import { Probe, string_to_probestatus } from "./util";
 
 const TOPIC = "measurements";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
+const TIMEFRAME = 60 * 60 * 24; // 1 day; Feasible timeframe as tested in Postman.
 
 const ripe_up = async () => {
 	const response = await fetch(URL);
@@ -23,7 +25,7 @@ const ripe_up = async () => {
  * @returns
  * 		Returns a list of probes.
  */
-const get_starlink_probes = async () => {
+const get_starlink_probes = async (): Promise<Probe[]> => {
 	const url = URL + "probes/?asn_v4=" + ASN;
 	let response = await (await fetch(url)).json();
 
@@ -55,82 +57,39 @@ const main = async () => {
 		process.exit(1);
 	}
 
+	assert(START_TIMESTAMP < STOP_TIMESTAMP, "Invalid timeframe");
+	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
+
 	const probes = await get_starlink_probes();
-	let probe: Probe;
-	for (let i = 0; i < probes.length; ++i) {
-		if (probes[i].status === ProbeStatus.CONNECTED) {
-			probe = probes[i];
-			break;
-		}
-	}
-
-	let stream_configs: any[] = [];
-
-	// TODO: Add sendBacklog parameter in order to cover the last few minutes of possible disconnects.
-	for (const probe of probes) {
-		for (const server of ROOTSERVERS_BUILTIN_PING) {
-			const param = {
-				streamType: "result",
-				msm: server,
-				type: "ping",
-				prb: probe.id,
-			};
-			stream_configs.push(param);
-		}
-	}
-
-	for (const probe of probes) {
-		for (const server of ROOTSERVER_BUILTIN_TRACEROUTE) {
-			const param = {
-				streamType: "result",
-				msm: server,
-				type: "traceroute",
-				prb: probe.id,
-			};
-			stream_configs.push(param);
-		}
-	}
-
-	console.log(`Got a total of ${stream_configs.length} stream configurations.`);
-
 	const kafka_producer = new KafkaProducer(TOPIC);
 	await kafka_producer.connect();
 
-	const socket = new WebSocket("wss://atlas-stream.ripe.net/stream/");
-	socket.onmessage = (event: any): void => {
-		let [type, payload] = JSON.parse(event.data);
+	const API = "https://atlas.ripe.net/api/v2";
 
-		if (type === "atlas_error") {
-			console.warn(payload);
-		}
-
-		if (type === "atlas_result") {
-			payload.source_platform = "RIPE ATLAS";
-			const prb_id = payload.prb_id;
-			let country = "Unknown";
+	let current_timestamp = START_TIMESTAMP;
+	while (current_timestamp < STOP_TIMESTAMP) {
+		const stop_timestamp = Math.min(STOP_TIMESTAMP, current_timestamp + TIMEFRAME);
+		for (const server of ROOTSERVERS_BUILTIN_PING) {
 			for (const probe of probes) {
-				if (probe.id === prb_id) {
-					country = probe.country;
-					break;
+				const probe_id = probe.id;
+				const url = `${API}/measurements/${server}/results/?probe_ids=${probe_id}&start=${current_timestamp}&stop=${stop_timestamp}`;
+
+				const response = await fetch(url);
+				if (response.status !== 200) {
+					console.error(`Failed to fetch data from ${url}`);
+					continue;
+				}
+
+				const data = await response.json();
+				for (const point of data) {
+					kafka_producer.send(JSON.stringify(point));
 				}
 			}
-
-			payload.country = country;
-			kafka_producer.send(JSON.stringify(payload));
 		}
-	};
-
-	socket.onopen = async (_: any): Promise<void> => {
-		for (const config of stream_configs) {
-			socket.send(JSON.stringify(["atlas_subscribe", config]));
-			// Rate limit to 1 subscription per second.
-			await new Promise(resolve => setTimeout(resolve, 500));
-		}
-		console.log("Subscribed to all builtin Starlink Measurements.");
-	};
+		current_timestamp += TIMEFRAME;
+	}
 
 	process.on('exit', () => {
-		socket.close();
 		kafka_producer.disconnect();
 	});
 };
