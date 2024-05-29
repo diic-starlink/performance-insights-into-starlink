@@ -4,15 +4,10 @@
 	\textbf{RQ: How do networked satellite systems perform in terms of latency and packet loss?}
 \end{mdframed}
 
-Previous work \cite{DBLP:conf/imc/MichelTGB22, DBLP:conf/infocom/MaCZCML23, Segan2020} showed first results for \ac{RTT} (i.e., latency), throughput, and packet loss. However, networked satellite systems are a cutting edge technology that undergo changes frequently. Therefore, it is worth taking a look if significant changes occurred. In the current measurement setup, we only measure \ac{RTT}, average hops, and packet loss.
+Previous work \cite{DBLP:conf/imc/MichelTGB22, DBLP:conf/infocom/MaCZCML23, Segan2020} showed first results for \ac{RTT} (i.e., latency), throughput, and packet loss. However, networked satellite systems are a cutting edge technology that undergo changes frequently. For example, \cite{DBLP:journals/corr/abs-2403-13497} et al. showed a heavily different performance for moving vehicles.
+Therefore, it is worth taking a look if significant changes occurred. First, we will have a look on the current performance of networked satellite systems regarding latency and packet loss. Eventually, a system displaying current Starlink performance trends could be developed.
 
-\begin{mdframed}
-	\textbf{RQ: How does the relative position of a satellite to a user influence the performance?}
-\end{mdframed}
-
-The distance between a user's antenna and a satellite does not remain always the same. Over the course of a connection with a single satellite, the distance is constantly changing as the satellite is moving asynchronously with the earth (i.e., the relative position of satellite to antenna changes).
-One hypothesis states that the strength of a signal is stronger when the users are in the center of a satellite's "beam".
-On the other hand side, the signal is expected to be weaker at the "fringes" of the beam. It should be determined whether there is an actual difference and if the difference is significant.
+Additionally, we will analyze the Starlink user terminal firmware to evaluate resilience and privacy of the system.
 
 \begin{mdframed}
 	\textbf{RQ: How do networked satellite systems perform efficient routing?}
@@ -20,8 +15,16 @@ On the other hand side, the signal is expected to be weaker at the "fringes" of 
 
 In theory, satellites should integrate well in the existing internet architecture. However, it proved not to be the case. Especially high packet loss \cite{DBLP:conf/infocom/MaCZCML23} poses a problem as a continuous connection cannot be guaranteed.
 It should be determined how networked satellite systems currently route packets. That includes considering bent~pipes and ISLs \cite{Hauri2020}.
-Furthermore, versions of Starlink's user terminal firmware were obtained, even allowing root access to the user terminal \cite{QuarkslabsBlogUserTerminalFirmsware, WoutersDumpingUserTerminalFirmware}.
-The firmware should be analyzed to determine how Starlink performs routing at the moment.
 
 Ideally, the firmware also allows assessing whether Starlink guarantees privacy and safe data transfer to modern standard of security.
 Also, we will explore the limitations of fulfilling the previously mentioned standards in networked satellite systems including \ac{ISLs} and bent pipes.
+
+\begin{mdframed}
+	\textbf{RQ: What does the Starlink user terminal firmware reveal about the system's resiliency and privacy?}
+\end{mdframed}
+
+The user terminal firmware is a key factor for privacy and resiliency of the Starlink networked satellite system.
+Previous attempts in accessing the terminal's built-in firmware were highly successful, but the firmware was not analyzed in detail. % TODO: Add citation
+
+This thesis wants to explore that topic by describing a way to acquire the firmware, describe its structure, and analyze it in regard to resiliency and privacy.
+

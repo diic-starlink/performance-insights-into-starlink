@@ -1,10 +1,11 @@
 \section{Contributions} \label{sec:contributions}
 
 This thesis gives an answer to the research questions mentioned in Chapter~\ref{sec:research-questions}.
-It runs measurements on RIPE~ATLAS, a platform for performing measurement with probes distributed across the world.
+It uses measurements running on RIPE~ATLAS, a platform for performing measurements with probes distributed across the world.
 RIPE~ATLAS also provides a number of Starlink probes that allow performing the following measurements: ping, traceroute, DNS, TLS, HTTP, and NTP.
-By running ping measurements, we intend to measure \ac{RTT} and packet loss. The ping measurement runs every five minutes and pings a specific server.
-% \todo{Which Server? In my setup usually an NCC server.}
+By running ping measurements, we intend to measure \ac{RTT} and packet loss. The ping measurements runs every five minutes and pings a specific server.
+
+Also other platforms like Cloudflare~Radar are used to gather data. This allows to compare data from different sources.
 
 The second research question will integrate the data collected in the ping measurement and compare it to satellite positions collected from N2YO. This allows comparing the relative position of the probe to satellite.
 In the end, we want to state whether we were able to see a bit rate decrease, when the satellite moved further away from the probe.
