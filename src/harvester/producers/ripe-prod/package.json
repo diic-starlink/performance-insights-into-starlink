@@ -4,7 +4,7 @@
   "description": "The producer for downloading RIPE artifacts about Starlink.",
   "main": "main.ts",
   "scripts": {
-    "harvester": "npm run compile && node built/main.js",
+    "start": "npm run compile && node built/main.js",
     "compile": "tsc"
   },
   "author": "Robert Richter",
@@ -12,6 +12,7 @@
     "@codetailor/split-json": "^1.0.3",
     "@types/node": "^20.12.7",
     "@types/ws": "^8.5.10",
+    "duckdb": "^0.10.2",
     "kafkajs": "^2.2.4",
     "stream-json": "^1.8.0",
     "typescript": "^5.4.5",
