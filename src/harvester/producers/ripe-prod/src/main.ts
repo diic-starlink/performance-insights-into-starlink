@@ -89,7 +89,7 @@ const download_and_send = async (chunk: ProbeServerPair[]) => {
 	}
 };
 
-const main = async (threads = 128) => {
+const main = async (threads = 1) => {
 	if (!(await ripe_up())) {
 		console.error("RIPE ATLAS is down.");
 		process.exit(1);
@@ -125,7 +125,7 @@ const main = async (threads = 128) => {
 };
 
 if (isMainThread) {
-	main();
+	main(256);
 } else {
 	download_and_send(workerData);
 }
