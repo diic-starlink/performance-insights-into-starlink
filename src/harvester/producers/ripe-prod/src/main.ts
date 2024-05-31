@@ -2,11 +2,14 @@ import assert from "assert";
 import { ROOTSERVERS_BUILTIN_PING } from "./root_server_config";
 import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
-import { Worker, isMainThread, parentPort, workerData } from "worker_threads";
+import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
+import { StoreController } from "./store.controller";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day; Feasible timeframe as tested in Postman.
+
+let db: StoreController;
 
 const ripe_up = async () => {
 	const response = await fetch(URL);
@@ -54,7 +57,7 @@ interface ProbeServerPair {
 	probe: Probe;
 };
 
-const download_and_send = async (chunk: ProbeServerPair[]) => {
+const download_and_store = async (chunk: ProbeServerPair[]) => {
 	const API = "https://atlas.ripe.net/api/v2";
 	for (const pair of chunk) {
 		const probe = pair.probe;
@@ -73,17 +76,17 @@ const download_and_send = async (chunk: ProbeServerPair[]) => {
 				continue;
 			}
 
+			// For some reason, some data points return an empty array.
 			const data = await response.json();
-			// Sending points individually, as the whole body might be too large.
-			for (let point of data) {
-				point.source_platform = "RIPE ATLAS (builtin)";
+			if (data.length === 0) {
+				//console.error(`No data found for probe ${probe_id} and server ${server}. URL: ${url}`);
+			} else {
+				// Sending points individually, as the whole body might be too large.
+				for (let point of data) {
+					point.source_platform = "RIPE ATLAS (builtin)";
+				}
+				parentPort.postMessage(data);
 			}
-			await fetch(`http://localhost:63836/store/ping`, {
-				method: "POST",
-				body: JSON.stringify(data),
-				headers: { "Content-Type": "application/json" },
-			});
-
 			current_timestamp += TIMEFRAME;
 		};
 	}
@@ -100,8 +103,6 @@ const main = async (threads = 1) => {
 	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
 
 	const probes: Probe[] = await get_starlink_probes();
-	const API = "https://atlas.ripe.net/api/v2";
-
 	let probe_server_pair: ProbeServerPair[] = [];
 	for (const server of ROOTSERVERS_BUILTIN_PING) {
 		for (const probe of probes) {
@@ -120,12 +121,16 @@ const main = async (threads = 1) => {
 
 	for (const chunk of chunks) {
 		// Spawns a new worker that will download and send the data.
-		new Worker(__filename, { workerData: chunk });
+		const worker = new Worker(__filename, { workerData: chunk });
+		worker.on('message', (data) => {
+			db.storePingData(data);
+		});
 	}
 };
 
 if (isMainThread) {
+	db = new StoreController();
 	main(256);
 } else {
-	download_and_send(workerData);
+	download_and_store(workerData);
 }
