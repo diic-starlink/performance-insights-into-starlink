@@ -39,8 +39,6 @@ export class StoreController {
   }
 
   storePingData(el_list: any): void {
-    const conn = this.db.connect();
-
     for (const body of el_list) {
       const msm_id = body.msm_id;
       const destination = body.dst_addr;
@@ -59,7 +57,7 @@ export class StoreController {
       const prb_id = body.prb_id;
 
       const query = `
-        INSERT INTO ping_data (
+        INSERT INTO ping_data(
           msm_id,
           destination,
           source,
@@ -72,8 +70,7 @@ export class StoreController {
           sent_packets,
           received_packets,
           source_platform
-        )
-        VALUES (
+        ) VALUES (
           ${msm_id},
           '${destination}',
           '${source}',
@@ -89,15 +86,12 @@ export class StoreController {
         );
       `;
 
-      conn.all(query, (err, _) => {
-        if (err) {
-          console.error("Could not insert into database due to error: " + err);
-        }
-      });
+      const conn = this.db.connect();
+      conn.all(query);
+      conn.close();
     }
-
-    conn.close();
   }
+
 
   prepareDatabase(): void {
     console.log("Preparing the database ...");
@@ -123,5 +117,4 @@ export class StoreController {
 
     console.log("Database prepared.");
   }
-
 }
