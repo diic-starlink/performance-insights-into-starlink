@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How is Starlink Manoeuvering? # See Paper.
+Analysis of Starlink&rsquo;s manoeuvering behavior Uses TLE data from Space-Track Starlink&rsquo;s Manoeuvering # Starlink is organized in 7 different shells (named by their numbers 1 through 7) each shell has an altitude of 500 - 600 km shell 1 and 4 are the largest ones smaller launch batches usually go into the same shell Starlink satellites are launched into a lower orbit and then raise their altitude observation of high number of maneuvers immediately after launch Starlink Orbit Keeping Measures # in LEO, satellites do not keep their altitude by themselves influenced by atmospheric drag, solar radiation pressure, and non-spherical nature of the earth therefore, the need to perform maneuvers in order to keep their altitude Starlink performs such altitude-keeping maneuvers approximately every 80-days Starlink prefers performing these maneuvers equally spread over the whole constellation satellites perform the maneuvers sequentially &ldquo;Presumably, manoeuvring might interrupt the transmission of the satellites and SpaceX would therefore want as even a distribution of manoeuvring activity across time as possible.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/restricted/notes/starlink_maneuvering/">
+  <meta property="og:site_name" content="Starlink Thesis">
+  <meta property="og:title" content="Starlink Thesis">
+  <meta property="og:description" content="How is Starlink Manoeuvering? # See Paper.
+Analysis of Starlink’s manoeuvering behavior Uses TLE data from Space-Track Starlink’s Manoeuvering # Starlink is organized in 7 different shells (named by their numbers 1 through 7) each shell has an altitude of 500 - 600 km shell 1 and 4 are the largest ones smaller launch batches usually go into the same shell Starlink satellites are launched into a lower orbit and then raise their altitude observation of high number of maneuvers immediately after launch Starlink Orbit Keeping Measures # in LEO, satellites do not keep their altitude by themselves influenced by atmospheric drag, solar radiation pressure, and non-spherical nature of the earth therefore, the need to perform maneuvers in order to keep their altitude Starlink performs such altitude-keeping maneuvers approximately every 80-days Starlink prefers performing these maneuvers equally spread over the whole constellation satellites perform the maneuvers sequentially “Presumably, manoeuvring might interrupt the transmission of the satellites and SpaceX would therefore want as even a distribution of manoeuvring activity across time as possible.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="restricted">
+<title>Starlink Maneuvering | Starlink Thesis</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="/restricted/notes/starlink_maneuvering/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" >
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.9c7516ed652fe685b4108b918c7567cb67b84fedbe5d992ec0c093ab19bf6de8.js" ></script>
+
+  
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <link rel="stylesheet" href="/custom_style.css" />
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Starlink Thesis</span>
+  </a>
+</h2>
+
+<div data-netlify-identity-menu></div>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Starlink Maneuvering</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#starlinks-manoeuvering">Starlink&rsquo;s Manoeuvering</a></li>
+    <li><a href="#starlink-orbit-keeping-measures">Starlink Orbit Keeping Measures</a></li>
+    <li><a href="#collision-avoidance">Collision Avoidance</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="how-is-starlink-manoeuvering">
+  How is Starlink Manoeuvering?
+  <a class="anchor" href="#how-is-starlink-manoeuvering">#</a>
+</h1>
+<p>See 
+      
+  <a href="../papers/how_is_starlink_manoeuvring.pdf">Paper</a>.</p>
+<ul>
+<li>Analysis of Starlink&rsquo;s manoeuvering behavior</li>
+<li>Uses TLE data from Space-Track</li>
+</ul>
+<h2 id="starlinks-manoeuvering">
+  Starlink&rsquo;s Manoeuvering
+  <a class="anchor" href="#starlinks-manoeuvering">#</a>
+</h2>
+<ul>
+<li>Starlink is organized in 7 different shells (named by their numbers 1 through 7)
+<ul>
+<li>each shell has an altitude of 500 - 600 km</li>
+<li>shell 1 and 4 are the largest ones</li>
+<li>smaller launch batches usually go into the same shell</li>
+</ul>
+</li>
+<li>Starlink satellites are launched into a lower orbit and then raise their altitude
+<ul>
+<li>observation of high number of maneuvers immediately after launch</li>
+</ul>
+</li>
+</ul>
+<h2 id="starlink-orbit-keeping-measures">
+  Starlink Orbit Keeping Measures
+  <a class="anchor" href="#starlink-orbit-keeping-measures">#</a>
+</h2>
+<ul>
+<li>in LEO, satellites do not keep their altitude by themselves
+<ul>
+<li>influenced by atmospheric drag, solar radiation pressure, and non-spherical nature of the earth</li>
+<li>therefore, the need to perform maneuvers in order to keep their altitude</li>
+</ul>
+</li>
+<li>Starlink performs such altitude-keeping maneuvers approximately every 80-days
+<ul>
+<li>Starlink prefers performing these maneuvers equally spread over the whole constellation</li>
+<li>satellites perform the maneuvers sequentially</li>
+<li>&ldquo;Presumably, manoeuvring might interrupt the transmission of the satellites and SpaceX would therefore want as even a distribution of manoeuvring activity across time as possible.&rdquo;</li>
+</ul>
+</li>
+</ul>
+<h2 id="collision-avoidance">
+  Collision Avoidance
+  <a class="anchor" href="#collision-avoidance">#</a>
+</h2>
+<ul>
+<li>
+<p>Starlink performs collision avoidance maneuvers</p>
+<ul>
+<li>in shells with more satellites, more maneuvers are performed (absolute numbers! author does not say smth about relative numbers)</li>
+</ul>
+</li>
+<li>
+<p>the number of maneuvers in 2023 is lower than in 2022</p>
+</li>
+<li>
+<p>however, the number changes over time</p>
+</li>
+<li>
+<p>Overall, satellites have to maneuver in the following way:</p>
+<ul>
+<li>when a satellite is launched, it maneuvers to its final orbit (requires a lot of maneuvers)</li>
+<li>satellites perform regular altitude-keeping maneuvers
+<ul>
+<li>period depends on the altitude (in case of Starlink: ~80 days)</li>
+</ul>
+</li>
+<li>satellites perform collision avoidance maneuvers
+<ul>
+<li>the more satellites in a shell, the more maneuvers are performed</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#starlinks-manoeuvering">Starlink&rsquo;s Manoeuvering</a></li>
+    <li><a href="#starlink-orbit-keeping-measures">Starlink Orbit Keeping Measures</a></li>
+    <li><a href="#collision-avoidance">Collision Avoidance</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
