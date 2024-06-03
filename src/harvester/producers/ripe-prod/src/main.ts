@@ -70,7 +70,23 @@ const download_and_store = async (chunk: ProbeServerPair[]) => {
 			const probe_id = probe.id;
 			const url = `${API}/measurements/${server}/results/?probe_ids=${probe_id}&start=${current_timestamp}&stop=${stop_timestamp}`;
 
-			const response = await fetch(url);
+			// Calls fetch and handles 429 and other errors.
+			// Take care that RIPE ATLAS employs rate limiting.
+			const fetch_data = async (url: string): Promise<any> => {
+				try {
+					const response = await fetch(url);
+					if (response.status === 429) {
+						await new Promise((resolve) => setTimeout(resolve, 5000));
+						return await fetch_data(url);
+					}
+					return response;
+				} catch (error) {
+					await new Promise((resolve) => setTimeout(resolve, 5000));
+					return await fetch_data(url);
+				}
+			};
+			const response = await fetch_data(url);
+
 			if (response.status !== 200) {
 				console.error(`Failed to fetch data from ${url}`);
 				continue;
