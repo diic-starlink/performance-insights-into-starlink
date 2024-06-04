@@ -9,7 +9,6 @@ import { StoreController } from "./store.controller";
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day in seconds
-const MAX_MEMORY = 8192;  // in MB
 
 let db: StoreController;
 
@@ -123,6 +122,8 @@ const main = async (threads = 1) => {
 	assert(START_TIMESTAMP < STOP_TIMESTAMP, "Invalid timeframe");
 	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
 
+	await db.prepareDatabase();
+
 	// Splits the probe-server pairs into individual chunks.
 	const chunks = [];
 	{
@@ -156,15 +157,11 @@ const print_memory_usage = async () => {
 		await (new Promise((resolve) => setTimeout(resolve, 1000)));
 		const memory_usage = process.memoryUsage().heapUsed / 1024 / 1024;
 		process.stdout.write("  " + Math.round(memory_usage) + " MB\r");
-		fs.appendFileSync('memory_leak.csv', `${Date.now()};${Math.round(memory_usage)}\n`);
-
 	}
 	print_memory_usage();
 };
 
 if (isMainThread) {
-	fs.writeFileSync('memory_leak.csv', 'timestamp;memory\n');
-
 	db = new StoreController();
 	main(256);
 	print_memory_usage();

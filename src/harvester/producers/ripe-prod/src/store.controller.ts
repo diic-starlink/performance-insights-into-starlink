@@ -1,44 +1,20 @@
-import { Database as DuckDB } from "duckdb";
-import { DROP_QUERIES, DROP_TABLES, FILENAME, SETUP_QUERIES } from "./storage.config";
-import { existsSync, mkdir } from "fs";
-import { dirname } from "path";
+import pg from 'pg';
+import { DROP_QUERIES, DROP_TABLES, SETUP_QUERIES } from "./storage.config";
+
+const { Pool, Client } = pg;
 
 export class StoreController {
-  private db: DuckDB;
+  private db_config = {
+    user: 'postgres',
+    password: 'postgres',
+    host: 'postgres',
+    port: 5432,
+    database: 'postgres'
+  };
 
-  constructor() {
-    const dname = dirname(FILENAME);
-    console.log("Database file: " + dname);
-    if (!existsSync(dname)) {
-      mkdir(dname, { recursive: true }, (err) => {
-        if (err) {
-          console.error(err);
-          console.error("Failed to create the database file. Terminating ...");
-          process.exit(1);
-        }
-      });
-    }
+  private pool: any;
 
-    // This should get an additional Database configuration object as an argument, which sadly does not work.
-    this.db = new DuckDB(
-      FILENAME,
-      (err) => {
-        if (err) {
-          console.error(err);
-          console.error("Failed to connect to the database. Terminating ...");
-          process.exit(1);
-        }
-      }
-    );
-
-    process.on('exit', () => {
-      this.db.close();
-    });
-
-    this.prepareDatabase();
-  }
-
-  storePingData(el_list: any): void {
+  async storePingData(el_list: any): Promise<void> {
     for (const body of el_list) {
       const msm_id = body.msm_id;
       const destination = body.dst_addr;
@@ -57,7 +33,7 @@ export class StoreController {
       const prb_id = body.prb_id;
 
       const query = `
-        INSERT INTO ping_data(
+        INSERT INTO ping_data (
           msm_id,
           destination,
           source,
@@ -86,35 +62,25 @@ export class StoreController {
         );
       `;
 
-      const conn = this.db.connect();
-      conn.all(query);
-      conn.close();
+      await this.pool.query(query);
     }
   }
 
-
-  prepareDatabase(): void {
-    console.log("Preparing the database ...");
+  async prepareDatabase(): Promise<void> {
+    const pool = new Pool(this.db_config);
+    await pool.query('SELECT NOW()');
+    console.log("Database ready ... Preparing the database ...");
 
     if (DROP_TABLES) {
       console.log("INFO: Storage Engine is configured to drop all tables before preparing the DB.");
-      this.db.all(DROP_QUERIES, (err, _) => {
-        if (err) {
-          console.error(err);
-          console.error("Failed to drop tables. Terminating ...");
-          process.exit(1);
-        }
-      });
+      await pool.query(DROP_QUERIES);
     }
+    await pool.query(SETUP_QUERIES);
+    this.pool = pool;
 
-    this.db.all(SETUP_QUERIES, (err, _) => {
-      if (err) {
-        console.error(err);
-        console.error("Failed to prepare the database. Terminating ...");
-        process.exit(1);
-      }
+    process.on('exit', () => {
+      this.pool.end();
     });
-
     console.log("Database prepared.");
   }
 }
