@@ -65,35 +65,35 @@ export class StoreController {
       const prb_id = body.prb_id;
 
       const query = `
-        INSERT INTO ping_data (
-          msm_id,
-          destination,
-          source,
-          country,
-          prb_id,
-          result,
-          timestamp,
-          msm_type,
-          step,
-          sent_packets,
-          received_packets,
-          source_platform
-        )
-        VALUES (
-          ${msm_id},
-          '${destination}',
-          '${source}',
-          '${country}',
-          ${prb_id},
-          '${result}',
-          '${timestamp}',
-          'ping',
-          ${step},
-          ${sent_packets},
-          ${received_packets},
-          '${source_platform}'
-        );
-      `;
+      INSERT INTO ping_data (
+        msm_id,
+        destination,
+        source,
+        country,
+        prb_id,
+        result,
+        timestamp,
+        msm_type,
+        step,
+        sent_packets,
+        received_packets,
+        source_platform
+      )
+      VALUES (
+        ${msm_id},
+        '${destination}',
+        '${source}',
+        '${country}',
+        ${prb_id},
+        '${result}',
+        '${timestamp}',
+        'ping',
+        ${step},
+        ${sent_packets},
+        ${received_packets},
+        '${source_platform}'
+      );
+    `;
 
       conn.all(query, (err, _) => {
         if (err) {

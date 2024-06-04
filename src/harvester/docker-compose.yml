@@ -1,87 +1,27 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  zookeeper:
-    container_name: zookeeper
-    hostname: zookeeper
-    image: bitnami/zookeeper:3.7.0
-    ports:
-      - 2181:2181
-    restart: always
-    environment:
-      ALLOW_ANONYMOUS_LOGIN: "yes"
-
-  kafka:
-    container_name: kafka
-    hostname: kafka
-    image: bitnami/kafka:3.7.0
-    ports:
-      - 9092:9092
-    expose:
-      - 29092
-    environment:
-      KAFKA_CFG_ADVERTISED_HOST_NAME: kafka
-      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CFG_NUM_PARTITION: 1
-      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
-    depends_on: 
-      - zookeeper
-
-  kafka-ui:
-    container_name: kafka-ui
-    hostname: kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 8080:8080
-    environment:
-      DYNAMIC_CONFIG_ENABLES: true
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-    depends_on: 
-      - kafka
-
   ripe-harvester:
     container_name: ripe-harvester
     hostname: ripe-harvester
     build: ./producers/ripe-prod
-    depends_on: 
-      - kafka
-    environment:
-      KAFKAJS_NO_PARTITIONER_WARNING: "1"
 
-  ripe-msm-downloader:
-    container_name: ripe-msm-downloader
-    hostname: ripe-msm-downloader
-    build: ./producers/ripe-single-result-prod
-    depends_on: 
-      - kafka
-    environment:
-      KAFKAJS_NO_PARTITIONER_WARNING: "1"
-
-  cloudflare-latency-prod:
-    container_name: cloudflare-latency-prod
-    hostname: cloudflare-latency-prod
-    build: ./producers/cloudflare-radar
-    depends_on: 
-      - kafka
-    environment:
-      KAFKAJS_NO_PARTITIONER_WARNING: "1"
-
-  duckdb:
-    container_name: duckdb
-    hostname: duckdb
-    build: ./storage-engine
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres:16
+    shm_size: 512mb
     ports:
-      - 3000:3000
+      - 5432:5432
     volumes:
-      - ./data:/app/data
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
 
-  consumer:
-    container_name: consumer
-    hostname: consumer
-    build: ./consumer
-    depends_on:
-      - kafka
-      - duckdb
-
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

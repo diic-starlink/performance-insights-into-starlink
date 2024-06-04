@@ -9,25 +9,22 @@ const DB_CONFIG = {
 const DROP_TABLES = true;
 const DROP_QUERIES = `
   DROP TABLE IF EXISTS ping_data;
-  DROP SEQUENCE IF EXISTS ping_data_id_seq;
 `;
 
 const SETUP_QUERIES = `
-  CREATE SEQUENCE ping_data_id_seq START 1;
-
   CREATE TABLE IF NOT EXISTS ping_data (
-    id INTEGER PRIMARY KEY DEFAULT nextval('ping_data_id_seq'),
-    msm_id UINTEGER,
+    id SERIAL PRIMARY KEY,
+    msm_id INTEGER,
     destination VARCHAR,
     source VARCHAR,
     result VARCHAR,
     country VARCHAR,
-    prb_id UINTEGER,
+    prb_id INTEGER,
     timestamp VARCHAR,
     msm_type VARCHAR,
-    step UINTEGER,
-    sent_packets UINTEGER,
-    received_packets UINTEGER,
+    step INTEGER,
+    sent_packets INTEGER,
+    received_packets INTEGER,
     source_platform VARCHAR
   );
 `;

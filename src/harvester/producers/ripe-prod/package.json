@@ -11,9 +11,11 @@
   "dependencies": {
     "@codetailor/split-json": "^1.0.3",
     "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.6",
     "@types/ws": "^8.5.10",
     "duckdb": "^0.10.2",
     "kafkajs": "^2.2.4",
+    "pg": "^8.11.5",
     "sqlite3": "^5.1.7",
     "stream-json": "^1.8.0",
     "typescript": "^5.4.5",
