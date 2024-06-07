@@ -80,7 +80,7 @@ const download_and_store = async (chunk: ProbeServerPair[]) => {
 						await new Promise((resolve) => setTimeout(resolve, 2000));
 						return await fetch_data(url);
 					}
-					return response
+					return response;
 				} catch (error) {
 					{
 						await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -93,14 +93,12 @@ const download_and_store = async (chunk: ProbeServerPair[]) => {
 			if (response.status !== 200) {
 				console.error(`Failed to fetch data from ${url}`);
 			} else {
-				// For some reason, some data points return an empty array.
-				const data = await response.json();
-				if (data.length === 0) {
-					//console.error(`No data found for probe ${probe_id} and server ${server}. URL: ${url}`);
-				} else {
+				let data = await response.json();
+				if (data.length > 0) {
 					// Sending points individually, as the whole body might be too large.
 					for (let point of data) {
 						point.source_platform = "RIPE ATLAS (builtin)";
+						point.country = probe.country;
 					}
 					parentPort.postMessage(data);
 				}
@@ -110,6 +108,7 @@ const download_and_store = async (chunk: ProbeServerPair[]) => {
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 		}
 	}
+	console.log("Worker done.");
 };
 
 const main = async (threads = 1) => {
@@ -152,19 +151,9 @@ const main = async (threads = 1) => {
 	}
 };
 
-const print_memory_usage = async () => {
-	{
-		await (new Promise((resolve) => setTimeout(resolve, 1000)));
-		const memory_usage = process.memoryUsage().heapUsed / 1024 / 1024;
-		process.stdout.write("  " + Math.round(memory_usage) + " MB\r");
-	}
-	print_memory_usage();
-};
-
 if (isMainThread) {
 	db = new StoreController();
 	main(256);
-	print_memory_usage();
 } else {
 	download_and_store(workerData);
 }
