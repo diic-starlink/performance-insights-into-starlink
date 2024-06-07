@@ -1,74 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Starlink Thesis Main Page on Starlink Thesis</title>
+    <title>Starlink Thesis</title>
     <link>/</link>
-    <description>Recent content in Starlink Thesis Main Page on Starlink Thesis</description>
+    <description>Recent content on Starlink Thesis</description>
     <generator>Hugo</generator>
     <language>en</language>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>/restricted/notes/internet_from_space_paper/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/internet_from_space_paper/</guid>
-      <description> &amp;ldquo;Internet From Space&amp;rdquo; without Inter-satellite Links? # See Paper&#xA;ISLs should be commonly integrated in Starlink However, no real proof of that. in 2020, devices for ISLs were removed from satellites How is the state now? Bent-Pipe and ISLs # routing can theoretically involve ISLs or not if routing does not involve ISLs, it transmits data back and forth between ground-stations and satellites that is called &amp;ldquo;bent-pipe&amp;rdquo; routing can also involve ISLs, which allows transmission between satellites without any ground stations in-between Results # Paper found that ISLs offer an improvement compared to bent-pipe routing Paper measures absolute RTT of 5000 city pairs in intervals of 15 min RTT for ISL were more stable and better More stable, less RTT with ISLs </description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/iridium_bankrupt/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/iridium_bankrupt/</guid>
-      <description> Iridium, Bankrupt, Is Planning a Fiery Ending for Its 88 Satellites # See The New York Times&#xA;Iridium was a start-up intending to deliver communication &amp;ldquo;with anyone, anytime, virtually anywhere in the world&amp;rdquo; Company put $5 Billion in satellite constellation However, there were too little subscribers Company went bankrupt in the end Problem was long development time and poor marketing But the service worked well for disconnected regions e.g., traveling in life-hostile regions meant usually having no service at all SatCom allowed having service After the Article # Iridium starts shooting up satellites again Norad has currently data of 100+ satellites long period after 2000 with 31 satellites </description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/meetings/2024-04-17/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/meetings/2024-04-17/</guid>
-      <description> Meeting Notes 2024-04-17 # MLab&#xA;reverse traceroute do they have Starlink probes? Paper What if people did not adjust their antenna properly?&#xA;does the antenna adjust itself automatically? Integrate the RIPE ATLAS Probes with the Satellite Locations&#xA;Until Wednesday:&#xA;How does Ping look like Involve advisors in experiment setup Write a First Proposal Version Send version to Vasili </description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/mobile_starlink_performance/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/mobile_starlink_performance/</guid>
-      <description>Starlink on the Road: A First Look at Mobile Starlink Performance in Central Europe # See Paper&#xA;Overall Conclusions # Starlink has devices for in-motion usage (previously, only for stationary usage) Setup: Take a car that is in motion and measure network parameters Throughput, RTT, packet loss, power consumption ⇒ Mobile Performance is much worse than Stationary Performance - throughput drops by 10% when moving - however, being faster or slower does not influence the throughput</description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/podcast_starlink/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/podcast_starlink/</guid>
-      <description>Starlink and the Future of Low-Orbit Internet # &amp;ldquo;Sweet Spot&amp;rdquo; for satellite signals: ~450 km altitude earth expands during solar storms, therefore not lower possible Starlink # For Starlink, the country needs to be signed up for Starlink Equipment needed: Antenna Modem Cabels And then you are connected &amp;hellip; Allows access all over the world (where it is available) Starlink has competitive advantage: Rockets are reusable Rockets do not have to be rebuilt after launch Drops price per kg massively Starlink satellites move rather quickly Often switching the use of the satellite Is that the cause for high packet loss?</description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/ripe_builtin_measurements/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/ripe_builtin_measurements/</guid>
-      <description># RIPE ATLAS Built-in Measurements&#xA;RIPE ATLAS performs built-in measurements for each probe.&#xA;The following (for this thesis relevant) measurements are available see here:&#xA;Type Interval Targets Ping 240s [a-m].rootservers.net + more Traceroute 1800s [a-m].rootservers.net + more </description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/satcom_providers/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/satcom_providers/</guid>
-      <description>Providers # LEO # Starlink # 5504 Starlink Satellites 10&#39;000 needed before global coverage 550 km height (very low!) OneWeb # provides a LEO Network next to Starlink satellites at about 1200 km height more than 630 satellites GEO # HughesNet # ASN: AS1358&#xA;as of today, no probe available for Hughesnet US company owned by EchoStar Corporation&#xA;offers 100 MB/s on their website&#xA;dropping subscriber rate&#xA;provides broadband access to aircraft</description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/notes/starlink_maneuvering/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/notes/starlink_maneuvering/</guid>
-      <description>How is Starlink Manoeuvering? # See Paper.&#xA;Analysis of Starlink&amp;rsquo;s manoeuvering behavior Uses TLE data from Space-Track Starlink&amp;rsquo;s Manoeuvering # Starlink is organized in 7 different shells (named by their numbers 1 through 7) each shell has an altitude of 500 - 600 km shell 1 and 4 are the largest ones smaller launch batches usually go into the same shell Starlink satellites are launched into a lower orbit and then raise their altitude observation of high number of maneuvers immediately after launch Starlink Orbit Keeping Measures # in LEO, satellites do not keep their altitude by themselves influenced by atmospheric drag, solar radiation pressure, and non-spherical nature of the earth therefore, the need to perform maneuvers in order to keep their altitude Starlink performs such altitude-keeping maneuvers approximately every 80-days Starlink prefers performing these maneuvers equally spread over the whole constellation satellites perform the maneuvers sequentially &amp;ldquo;Presumably, manoeuvring might interrupt the transmission of the satellites and SpaceX would therefore want as even a distribution of manoeuvring activity across time as possible.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>/restricted/research_questions/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/restricted/research_questions/</guid>
-      <description>Research Questions # Comparison of LEO, GEO and Wired Internet Technology&#xA;How high is the packet loss?&#xA;Measure in percent Use Ping Measurement on RIPE Previous papers reported in high packet loss in Starlink How does the routing look like in Starlink?&#xA;Can we make assumptions about the enablement of ISLs? look at the Starlink Firmware (at least what is out there) What is the latency of different internet technologies?</description>
-    </item>
   </channel>
 </rss>
