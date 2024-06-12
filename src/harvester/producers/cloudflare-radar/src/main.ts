@@ -49,7 +49,7 @@ const main = async () => {
 	const series = data.result.starlink_results;
 	for (let i = 0; i < series.timestamps.length; ++i) {
 		let point: DataPoint = {
-			timestamp: series.timestamps[i],
+			timestamp: Date.parse(series.timestamps[i]),
 			result: JSON.stringify({
 				p25: series.p25[i],
 				p50: series.p50[i],
