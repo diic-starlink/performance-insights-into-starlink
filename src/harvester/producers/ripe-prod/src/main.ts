@@ -137,6 +137,9 @@ const main = async (threads = 1) => {
 		console.log(`Length of first chunk: ${chunks[0].length}`);
 	}
 
+	// Wait for 10 seconds to ensure that the database API is ready.
+	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
+
 	for (const chunk of chunks) {
 		// Spawns a new worker that will download and send the data.
 		const worker = new Worker(__filename, { workerData: chunk });

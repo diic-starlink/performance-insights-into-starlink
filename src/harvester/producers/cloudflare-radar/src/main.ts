@@ -42,6 +42,9 @@ const main = async () => {
 		process.exit(1);
 	}
 
+	// Wait for 10 seconds to ensure that the database API is ready.
+	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
+
 	let results: DataPoint[] = [];
 	const series = data.result.starlink_results;
 	for (let i = 0; i < series.timestamps.length; ++i) {
