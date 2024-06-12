@@ -1,5 +1,7 @@
 # OONI Data
 
+How can we use it to find further information about Starlink?
+
 [OONI](https://ooni.torproject.org/) is a project that collects data on internet censorship. It measures whether websites are blocked and tries to therefore determine a censorship from a country.
 
 In the terms of Starlink, no special behavior is observed. The censorship is the same as with most other networks too.
