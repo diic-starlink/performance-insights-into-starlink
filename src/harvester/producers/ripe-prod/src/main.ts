@@ -1,16 +1,13 @@
 import assert from "assert";
-import fs from 'fs';
 import { ROOTSERVERS_BUILTIN_PING } from "./root_server_config";
 import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { StoreController } from "./store.controller";
+import { storePingData } from "./store.controller";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day in seconds
-
-let db: StoreController;
 
 const ripe_up = async () => {
 	const response = await fetch(URL);
@@ -121,8 +118,6 @@ const main = async (threads = 1) => {
 	assert(START_TIMESTAMP < STOP_TIMESTAMP, "Invalid timeframe");
 	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
 
-	await db.prepareDatabase();
-
 	// Splits the probe-server pairs into individual chunks.
 	const chunks = [];
 	{
@@ -146,13 +141,12 @@ const main = async (threads = 1) => {
 		// Spawns a new worker that will download and send the data.
 		const worker = new Worker(__filename, { workerData: chunk });
 		worker.on('message', (data) => {
-			db.storePingData(data);
+			storePingData(data);
 		});
 	}
 };
 
 if (isMainThread) {
-	db = new StoreController();
 	main(256);
 } else {
 	download_and_store(workerData);

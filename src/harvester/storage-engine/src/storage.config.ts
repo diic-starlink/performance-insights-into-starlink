@@ -6,7 +6,6 @@ const DROP_QUERIES = `
 
 const SETUP_QUERIES = `
   CREATE TABLE IF NOT EXISTS ping_data (
-    id SERIAL PRIMARY KEY,
     msm_id INTEGER,
     destination VARCHAR,
     source VARCHAR,

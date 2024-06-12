@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { StoreController } from './store.controller';
+import { storePingData } from './store.controller';
 dotenv.config();
 
 const API_KEY = process.env.API_KEY;
@@ -21,9 +21,6 @@ interface DataPoint {
 };
 
 const main = async () => {
-	const db = new StoreController();
-	await db.prepareDatabase();
-
 	if (!API_KEY) {
 		console.error('API_KEY not found in environment variables. Cannot connect to Cloudflare Radar without API Key. Terminating ...');
 		process.exit(1);
@@ -65,7 +62,7 @@ const main = async () => {
 		results.push(point);
 	}
 
-	db.storePingData(results);
+	storePingData(results);
 };
 
 main();

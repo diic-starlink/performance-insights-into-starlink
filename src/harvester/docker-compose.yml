@@ -15,6 +15,15 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
 
+  storage-engine:
+    container_name: storage-engine
+    hostname: storageengine
+    build: ./storage-engine
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres
+
   adminer:
     image: adminer
     restart: always
@@ -29,3 +38,17 @@ services:
       - 8888:8888
     volumes:
       - ./notebooks:/home/jovyan/work
+
+  clourflare-producer:
+    container_name: clourflare-producer
+    hostname: clourflare-producer
+    build: ./producers/cloudflare-radar
+    depends_on:
+      - storage-engine
+
+  ripe-builtin-prod:
+    container_name: ripe-builtin-prod
+    hostname: ripe-builtin-prod
+    build: ./producers/ripe-prod
+    depends_on:
+      - storage-engine
