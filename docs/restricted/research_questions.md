@@ -9,7 +9,14 @@
 - How does the routing look like in Starlink?
 	- Can we make assumptions about the enablement of ISLs?
 	- look at the Starlink Firmware (at least what is out there)
-- What is the latency of different internet technologies?
 - Are there regional differences with LEO?
 - How does Starlink latency change with different protocols?
+	- kinda hard to estimate due to missing probes
+
+- Do ISLs improve latency?
+	- Idea for Starlink constellation is that it does
+		- "each satellite serves as individual unit" -> see [estimation of starlink capcity](./papers/estimation_of_starlink_global_satellite_system_capacity.pdf).
+	- [Mohan et al.](./papers/a_multifaceted_look_at_starlink_performance.pdf) say ISLs enhance network performance
+	- [Hauri et al.](./papers/internet_from_space.pdf) also claim ISL to be important
+	- BUT []
 
