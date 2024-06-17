@@ -18,5 +18,6 @@
 		- "each satellite serves as individual unit" -> see [estimation of starlink capcity](./papers/estimation_of_starlink_global_satellite_system_capacity.pdf).
 	- [Mohan et al.](./papers/a_multifaceted_look_at_starlink_performance.pdf) say ISLs enhance network performance
 	- [Hauri et al.](./papers/internet_from_space.pdf) also claim ISL to be important
-	- BUT []
+	- BUT [Iyhikevich et al.] say it increases number of hops and therefore also latency in real-world application
+	⇒ So what do ISLs actually do to latency?
 
