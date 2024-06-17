@@ -1,8 +1,8 @@
-const API: string = 'http://storageengine:8001/store/ping';
+const API: string = 'http://storageengine:8001';
 
-const storePingData = async (data: any) => {
+const storeData = async (data: any, endpoint: string) => {
   const body = JSON.stringify(data);
-  const response = await fetch(API, {
+  const response = await fetch(`${API}/${endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,6 +17,14 @@ const storePingData = async (data: any) => {
     console.error(await response.text());
     process.exitCode = 1;
   }
-}
+};
 
-export { storePingData };
+const storePingData = async (data: any) => {
+  await storeData(data, 'store/ping');
+};
+
+const storeDisconnectEventData = async (data: any) => {
+  await storeData(data, 'store/disconnect_event');
+};
+
+export { storePingData, storeDisconnectEventData };
