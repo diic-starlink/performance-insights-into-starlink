@@ -36,6 +36,48 @@ export class StoreController {
     console.log("Database prepared.");
   }
 
+  @Post('disconnect_event')
+  async storeDisconnectEventData(@Req() request: Request): Promise<string> {
+    const el_list = request.body as any;
+
+    for (const body of el_list) {
+      // Some responses do not contain a valid ASN.
+      if (!body.asn) body.asn = 14593;
+
+      const query = `
+      INSERT INTO disconnect_event_data (
+        timestamp,
+        stored_timestamp,
+        prb_id,
+        msm_id,
+        type,
+        event,
+        controller,
+        asn,
+        prefix,
+        prb_country,
+        source_platform
+      ) VALUES (
+        ${body.timestamp},
+        ${body.stored_timestamp},
+        ${body.prb_id},
+        ${body.msm_id},
+        '${body.type}',
+        '${body.event}',
+        '${body.controller}',
+        ${body.asn},
+        '${body.prefix}',
+        '${body.country}',
+        '${body.source_platform}'
+      )
+      `;
+
+      await this.pool.query(query);
+    }
+
+    return 'Success';
+  }
+
   @Post('ping')
   async storePingData(@Req() request: Request): Promise<string> {
     const el_list = request.body as any;
