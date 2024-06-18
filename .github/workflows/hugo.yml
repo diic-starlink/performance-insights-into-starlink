@@ -26,13 +26,12 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    needs: checkout
     container:
       image: nixos/nix:latest
     steps:
       - name: Clone repository
         run: |
-          mkdir /app/starlink-thesis
+          mkdir -p /app/starlink-thesis
           nix-shell -p git --run "$CLONE_COMMAND"
           cd /app/starlink-thesis
       - name: Test Nix Installation
