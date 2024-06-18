@@ -27,4 +27,8 @@ const storeDisconnectEventData = async (data: any) => {
   await storeData(data, 'store/disconnect_event');
 };
 
-export { storePingData, storeDisconnectEventData };
+const storeTracerouteData = async (data: any) => {
+  await storeData(data, 'store/traceroute')
+};
+
+export { storePingData, storeDisconnectEventData, storeTracerouteData };

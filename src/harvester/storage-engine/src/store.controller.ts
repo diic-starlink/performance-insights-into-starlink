@@ -36,6 +36,43 @@ export class StoreController {
     console.log("Database prepared.");
   }
 
+  @Post('traceroute')
+  async storeTracerouteData(@Req() request: Request): Promise<string> {
+    const el_list = request.body as any;
+
+    for (const body of el_list) {
+      const query = `
+        INSERT INTO traceroute_data (
+          msm_id,
+          prb_id,
+          destination,
+          source,
+          protocol,
+          af,
+          size,
+          paris_id,
+          result,
+          destination_ip_responded
+        ) VALUES (
+          ${body.msm_id},
+          ${body.prb_id},
+          '${body.dst_addr}',
+          '${body.from}',
+          '${body.proto}',
+          ${body.af},
+          ${body.size},
+          ${body.paris_id},
+          '${JSON.stringify(body.result)}',
+          ${body.destination_ip_responded}
+        );
+      `;
+
+      await this.pool.query(query);
+    }
+
+    return 'Sucess';
+  }
+
   @Post('disconnect_event')
   async storeDisconnectEventData(@Req() request: Request): Promise<string> {
     const el_list = request.body as any;

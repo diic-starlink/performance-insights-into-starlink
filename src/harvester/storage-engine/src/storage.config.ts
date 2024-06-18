@@ -3,6 +3,7 @@ const DROP_TABLES = true;
 const DROP_QUERIES = `
   DROP TABLE IF EXISTS ping_data;
   DROP TABLE IF EXISTS disconnect_event_data;
+  DROP TABLE IF EXISTS traceroute_data;
 `;
 
 const SETUP_QUERIES = `
@@ -33,6 +34,19 @@ const SETUP_QUERIES = `
     prefix VARCHAR,
     prb_country VARCHAR,
     source_platform VARCHAR
+  );
+
+  CREATE TABLE IF NOT EXISTS traceroute_data (
+    msm_id INTEGER,
+    prb_id INTEGER,
+    destination VARCHAR,
+    source VARCHAR,
+    protocol VARCHAR,
+    af INTEGER,
+    size INTEGER,
+    paris_id INTEGER,
+    result VARCHAR,
+    destination_ip_responded BOOLEAN
   );
 `;
 
