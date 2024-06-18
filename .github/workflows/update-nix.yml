@@ -19,6 +19,7 @@ defaults:
 jobs:
   # Build job
   Build:
+    if: false
     runs-on: self-hosted
     steps:
       - name: Remove Leftovers
