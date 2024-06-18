@@ -1,5 +1,5 @@
 # Sample workflow for building and deploying a Hugo site to GitHub Pages
-name: Deploy Hugo site to Pages
+name: Deploy Artifacts
 
 on: push
 
@@ -22,20 +22,21 @@ defaults:
 
 jobs:
   # Build job
-  Build:
-    runs-on: self-hosted
+  checkout:
+    runs-on: ubuntu-latest
     steps:
-      - name: Remove Leftovers
-        run: |
-          cd ${{ github.workspace }}
-          chmod -R 777 .
+       - name: Checkout
+         uses: actions/checkout@v4
+         with:
+           ref: ${{ github.ref }}
+           submodules: recursive
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-          submodules: recursive
-
+  build:
+    runs-on: ubuntu-latest
+    needs: checkout
+    container:
+      image: nixos/nix:latest
+    steps:
       - name: Test Nix Installation
         run: nix --version
 
@@ -53,23 +54,6 @@ jobs:
 
           nix-build tex.nix
           cp result/main.pdf .
-
-      # Build website with Hugo.
-      - name: Build Website with Hugo
-        run: |
-          cd ${{ github.workspace }}
-
-          # Put most recent main.pdf and proposal.pdf in static folder
-          rm -f src/hugo-pages/static/main.pdf
-          rm -f src/hugo-pages/static/restricted/main.pdf
-          rm -f src/hugo-pages/static/proposal.pdf
-          rm -f src/hugo-pages/static/restricted/proposal.pdf
-
-          mkdir -p src/hugo-pages/static/restricted
-          mv ./main.pdf src/hugo-pages/static/restricted
-          mv ./proposal.pdf src/hugo-pages/static/restricted
-
-          nix-build hugo.nix # Basically a `hugo` command
 
       - name: Deploy to branch
         if: github.ref == 'refs/heads/main'
@@ -90,6 +74,6 @@ jobs:
           cp -r ../result/* .
 
           git add .
-          git diff-index --quiet HEAD || git commit -m "Deployment of current website"
+          git diff-index --quiet HEAD || git commit -m "Deployment of current artifacts"
           git push
 
