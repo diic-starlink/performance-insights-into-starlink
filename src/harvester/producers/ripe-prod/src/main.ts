@@ -263,7 +263,7 @@ const main = async (threads = 1) => {
 if (isMainThread) {
 	main(256);
 } else {
-	//download_and_store(workerData.ping_chunk, 'RIPE ATLAS (builtin ping)');
-	//download_and_store(workerData.disconnect_event_chunk, 'RIPE ATLAS (builtin disconnect event)');
+	download_and_store(workerData.ping_chunk, 'RIPE ATLAS (builtin ping)');
+	download_and_store(workerData.disconnect_event_chunk, 'RIPE ATLAS (builtin disconnect event)');
 	download_and_store(workerData.traceroute_chunk, SourcePlatforms.traceroute);
 }
