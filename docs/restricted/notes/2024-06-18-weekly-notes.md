@@ -1,0 +1,31 @@
+# Weekly Meeting Notes 18.06.2024
+with Vaibhav
+
+- daily pattern
+- weekly patterns
+- boxplots
+- correlate latencies with launched satellites
+- how is latency measured with CF?
+	- protocol, ipv4, ipv6
+	- primary AS, secondary AS
+	- correlate with countries?
+- boxplot on the RIPE ATLAS latencies
+	- could also be a heatmap
+	- differentiate by server
+	- rephrase latency to ping
+	- correlate data with number of hops
+- why do some countries have higher latencies than others
+- correlate latency with number of ground stations
+	- more ground stations, less latencies
+- disconnection events:
+	- what is a disconnection event? Heartsbeats? Pings? Protocol?
+	- length of the connection events as main metric
+	- draw as cdf
+	- correlate with performance data
+	- filter out software probes
+- packet loss:
+	- more fine grained
+	- show per timeframe
+	- correlation of countries and time and measurement
+- always start with the CDF for every kind of metric
+- OONI censorship with Starlink
