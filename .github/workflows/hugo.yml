@@ -20,23 +20,15 @@ defaults:
   run:
     shell: bash
 
-env:
-  CLONE_COMMAND: git clone --depth 1 -b $GITHUB_REF_NAME --single-branch --recursive ${{ github.server_url }}/${{ github.repository }}.git /app/starlink-thesis
-
 jobs:
   build:
-    if: false
     runs-on: ubuntu-latest
-    container:
-      image: nixos/nix:latest
     steps:
-      - name: Clone repository
-        run: |
-          mkdir -p /app/starlink-thesis
-          nix-shell -p git --run "$CLONE_COMMAND"
-          cd /app/starlink-thesis
-      - name: Test Nix Installation
-        run: nix --version
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
       - name: Build Proposal Document
         run: |
           cd ${{ github.workspace }}
