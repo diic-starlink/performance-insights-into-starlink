@@ -11,27 +11,17 @@ permissions:
   contents: write
   id-token: write
 
-# Default to bash
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  # Build job
   Build:
-    if: false
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Remove Leftovers
-        run: |
-          cd ${{ github.workspace }}
-          chmod -R 777 .
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           submodules: recursive
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
       - name: Get Latest Commit Hash Of Nixpkgs
         run: |
           cd nixpkgs
