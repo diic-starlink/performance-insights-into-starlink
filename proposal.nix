@@ -1,13 +1,13 @@
 let
   pkgs = import ./nixpkgs {};
-in pkgs.stdenv.mkDerivation {
+in pkgs.stdenv.mkDerivation rec {
   pname = "proposalBuild";
   version = "0.0.1";
 
   src = ./proposal;
 
   buildInputs = with pkgs; [
-    texliveBasic
+    texliveFull
     biber
   ];
 
