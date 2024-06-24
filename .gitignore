@@ -2,6 +2,7 @@ result
 build
 .DS_STORE
 /.idea
+/node_modules
 
 *.aux
 *.bcf
