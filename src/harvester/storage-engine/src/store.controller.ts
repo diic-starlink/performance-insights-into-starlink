@@ -41,6 +41,8 @@ export class StoreController {
     const el_list = request.body as any;
 
     for (const body of el_list) {
+      const responded = body.destination_ip_responded ? true : false;
+
       const query = `
         INSERT INTO traceroute_data (
           msm_id,
@@ -63,7 +65,7 @@ export class StoreController {
           ${body.size},
           ${body.paris_id},
           '${JSON.stringify(body.result)}',
-          ${body.destination_ip_responded}
+          ${responded}
         );
       `;
 

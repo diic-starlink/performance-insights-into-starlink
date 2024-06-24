@@ -6,8 +6,8 @@ const API_KEY = process.env.API_KEY;
 const ASN = 14593;
 const INTERVAL = "15m";
 const API_URL = 'https://api.cloudflare.com/client/v4/radar/quality/iqi/timeseries_groups';
-const START_TIMESTAMP = new Date("2024-03-01T00:00:00.000Z");
-const STOP_TIMESTAMP = new Date("2024-03-31T00:00:00.000Z");
+const START_TIMESTAMP = new Date("2023-06-01T00:00:00.000Z");
+const STOP_TIMESTAMP = new Date("2024-06-01T00:00:00.000Z");
 
 interface DataPoint {
 	source_platform: string,

@@ -33,9 +33,7 @@ const fetch_data = async (url: string): Promise<any> => {
 		}
 		return response;
 	} catch (error) {
-		{
-			await new Promise((resolve) => setTimeout(resolve, 5000));
-		}
+		await new Promise((resolve) => setTimeout(resolve, 5000));
 		return await fetch_data(url);
 	}
 };
@@ -111,68 +109,6 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 
 };
 
-const download_and_store_disconnect_event = async (chunk: ProbeServerPair[]) => {
-	for (const pair of chunk) {
-		const probe = pair.probe;
-		const server = pair.server;
-
-		let current_timestamp = START_TIMESTAMP;
-		while (current_timestamp < STOP_TIMESTAMP) {
-			const stop = Math.min(STOP_TIMESTAMP, current_timestamp + TIMEFRAME);
-			const prb_id = probe.id;
-
-			const url = `${API}/measurements/${server}/results/?probe_ids=${prb_id}&start=${current_timestamp}&stop=${stop}&format=json`;
-			const response = await fetch_data(url);
-			if (response.status !== 200) {
-				console.error(`Failed to fetch data from ${url}.`);
-			} else {
-				let data = await response.json();
-				if (data.length > 0) {
-					for (let point of data) {
-						point.source_platform = 'RIPE ATLAS (builtin disconnection events)';
-						point.country = probe.country;
-					}
-					parentPort.postMessage(data);
-				}
-			}
-
-			current_timestamp += TIMEFRAME;
-		}
-	}
-};
-
-const download_and_store_ping = async (chunk: ProbeServerPair[]) => {
-	for (const pair of chunk) {
-		const probe = pair.probe;
-		const server = pair.server;
-
-		let current_timestamp = START_TIMESTAMP;
-		while (current_timestamp < STOP_TIMESTAMP) {
-			const stop_timestamp = Math.min(STOP_TIMESTAMP, current_timestamp + TIMEFRAME);
-
-			const probe_id = probe.id;
-			const url = `${API}/measurements/${server}/results/?probe_ids=${probe_id}&start=${current_timestamp}&stop=${stop_timestamp}`;
-			const response = await fetch_data(url);
-
-			if (response.status !== 200) {
-				console.error(`Failed to fetch data from ${url}`);
-			} else {
-				let data = await response.json();
-				if (data.length > 0) {
-					// Sending points individually, as the whole body might be too large.
-					for (let point of data) {
-						point.source_platform = "RIPE ATLAS (builtin latency)";
-						point.country = probe.country;
-					}
-					parentPort.postMessage(data);
-				}
-			};
-			current_timestamp += TIMEFRAME;
-			// Ethical crawling
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-		}
-	}
-};
 
 interface Chunk {
 	ping_chunk: ProbeServerPair[];
@@ -258,12 +194,17 @@ const main = async (threads = 1) => {
 			}
 		});
 	}
+	console.log('Work has been distributed among workers and workers start working now.');
+};
+
+const workerMain = async () => {
+	await download_and_store(workerData.ping_chunk, 'RIPE ATLAS (builtin ping)');
+	await download_and_store(workerData.disconnect_event_chunk, 'RIPE ATLAS (builtin disconnect event)');
+	await download_and_store(workerData.traceroute_chunk, SourcePlatforms.traceroute);
 };
 
 if (isMainThread) {
 	main(256);
 } else {
-	download_and_store(workerData.ping_chunk, 'RIPE ATLAS (builtin ping)');
-	download_and_store(workerData.disconnect_event_chunk, 'RIPE ATLAS (builtin disconnect event)');
-	download_and_store(workerData.traceroute_chunk, SourcePlatforms.traceroute);
+	workerMain();
 }

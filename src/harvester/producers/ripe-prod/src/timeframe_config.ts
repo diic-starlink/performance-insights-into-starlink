@@ -1,4 +1,4 @@
-const START_TIMESTAMP = 1711929600; // 2024-01-01 00:00:00
-const STOP_TIMESTAMP = 1714521599; // 2024-01-31 23:59:59
+const START_TIMESTAMP = Math.floor(new Date('2022.01.01').getTime() / 1000)
+const STOP_TIMESTAMP = Math.floor(new Date('2024.06.01').getTime() / 1000)
 
 export { START_TIMESTAMP, STOP_TIMESTAMP };
