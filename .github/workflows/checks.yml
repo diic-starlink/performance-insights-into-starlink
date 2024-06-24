@@ -17,5 +17,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Run Formatter
         run: |
-          npm install
+          npm install --force
           npm run format-check
