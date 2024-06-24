@@ -1,15 +1,8 @@
 {
   "name": "starlink-thesis",
-  "directories": {
-    "doc": "docs",
-    "src": "src"
-  },
   "scripts": {
     "format-check": "eslint src"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.5.0",
     "eslint": "^9.5.0",
