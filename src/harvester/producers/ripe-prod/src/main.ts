@@ -91,13 +91,17 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 			if (response.status !== 200) {
 				console.error(`Failed to fetch data from ${url}.`);
 			} else {
-				let data = await response.json();
-				if (data.length > 0) {
-					for (let point of data) {
-						point.source_platform = source_platform;
-						point.country = probe.country;
+				try {
+					let data = await response.json();
+					if (data.length > 0) {
+						for (let point of data) {
+							point.source_platform = source_platform;
+							point.country = probe.country;
+						}
+						parentPort.postMessage(data);
 					}
-					parentPort.postMessage(data);
+				} catch (e) {
+					console.warn('Was not able to parse JSON returned from ${url}.');
 				}
 			}
 
