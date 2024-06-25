@@ -24,7 +24,7 @@ const ripe_up = async () => {
 	return true;
 };
 
-const fetch_data = async (url: string): Promise<any> => {
+const fetch_data = async (url: string): Promise<object> => {
 	try {
 		const response = await fetch(url);
 		if (response.status === 429) {
@@ -92,9 +92,9 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 				console.error(`Failed to fetch data from ${url}.`);
 			} else {
 				try {
-					let data = await response.json();
+					const data = await response.json();
 					if (data.length > 0) {
-						for (let point of data) {
+						for (const point of data) {
 							point.source_platform = source_platform;
 							point.country = probe.country;
 						}
@@ -134,15 +134,15 @@ const main = async (threads = 1) => {
 	const chunks: Chunk[] = [];
 	const probes: Probe[] = await get_starlink_probes();
 
-	const get_chunks = (servers: any[]): ProbeServerPair[][] => {
-		let probe_server_pairs: ProbeServerPair[] = [];
+	const get_chunks = (servers: number[]): ProbeServerPair[][] => {
+		const probe_server_pairs: ProbeServerPair[] = [];
 		for (const server of servers) {
 			for (const probe of probes) {
 				probe_server_pairs.push({ server, probe });
 			}
 		}
 
-		let res: ProbeServerPair[][] = [];
+		const res: ProbeServerPair[][] = [];
 		const chunk_size = Math.ceil(probe_server_pairs.length / threads);
 		for (let i = 0; i < probe_server_pairs.length; i += chunk_size) {
 			res.push(probe_server_pairs.slice(i, i + chunk_size));

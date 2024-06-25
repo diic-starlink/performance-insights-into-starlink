@@ -1,6 +1,6 @@
 const API: string = 'http://storageengine:8001/store/ping';
 
-const storePingData = async (data: any) => {
+const storePingData = async (data: object) => {
   const body = JSON.stringify(data);
   const response = await fetch(API, {
     method: 'POST',

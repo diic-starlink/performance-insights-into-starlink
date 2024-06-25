@@ -1,6 +1,6 @@
 const API: string = 'http://storageengine:8001';
 
-const storeData = async (data: any, endpoint: string) => {
+const storeData = async (data: object, endpoint: string) => {
   const body = JSON.stringify(data);
   const response = await fetch(`${API}/${endpoint}`, {
     method: 'POST',
@@ -19,15 +19,15 @@ const storeData = async (data: any, endpoint: string) => {
   }
 };
 
-const storePingData = async (data: any) => {
+const storePingData = async (data: object) => {
   await storeData(data, 'store/ping');
 };
 
-const storeDisconnectEventData = async (data: any) => {
+const storeDisconnectEventData = async (data: object) => {
   await storeData(data, 'store/disconnect_event');
 };
 
-const storeTracerouteData = async (data: any) => {
+const storeTracerouteData = async (data: object) => {
   await storeData(data, 'store/traceroute')
 };
 
