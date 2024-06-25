@@ -1,0 +1,18 @@
+{
+  "name": "satellite-constellations",
+  "version": "1.0.0",
+  "description": "A crawler for finding the number of satellites in various constellations.",
+  "main": "src/main.ts",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node built/main.js"
+  },
+  "author": "Robert Richter",
+  "dependencies": {
+    "typescript": "^5.4.4",
+    "undici-types": "^6.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.6"
+  }
+}

@@ -36,6 +36,33 @@ export class StoreController {
     console.log("Database prepared.");
   }
 
+  // Expects to receive a single new data point about a satellite.
+  @Post('satellite')
+  async storeSatelliteData(@Req() request: Request): Promise<string> {
+    // eslint-disable-next-line
+    let sat_data = request.body as any;
+    if (!sat_data.norad_id) sat_data.norad_id = -1;
+
+    const query = `
+      INSERT INTO satellite_data (
+        name,
+        norad_id,
+        launch_date,
+        decay_date,
+        classification
+      ) VALUES (
+        '${sat_data.name}',
+        ${sat_data.norad_id},
+        '${sat_data.launch_date}',
+        '${sat_data.decay_date}',
+        '${sat_data.classification}'
+      );
+    `;
+
+    this.pool.query(query);
+    return 'Success';
+  }
+
   @Post('traceroute')
   async storeTracerouteData(@Req() request: Request): Promise<string> {
     // eslint-disable-next-line
@@ -70,7 +97,7 @@ export class StoreController {
         );
       `;
 
-      await this.pool.query(query);
+      this.pool.query(query);
     }
 
     return 'Sucess';
@@ -113,7 +140,7 @@ export class StoreController {
       )
       `;
 
-      await this.pool.query(query);
+      this.pool.query(query);
     }
 
     return 'Success';
@@ -171,7 +198,7 @@ export class StoreController {
         '${source_platform}'
       );
       `;
-      await this.pool.query(query);
+      this.pool.query(query);
     }
     return "Success";
   }
