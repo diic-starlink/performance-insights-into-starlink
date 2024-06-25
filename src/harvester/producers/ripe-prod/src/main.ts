@@ -208,7 +208,7 @@ const workerMain = async () => {
 };
 
 if (isMainThread) {
-	main(256);
+	main(512);
 } else {
 	workerMain();
 }
