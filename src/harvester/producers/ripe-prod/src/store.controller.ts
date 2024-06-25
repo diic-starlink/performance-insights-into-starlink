@@ -1,6 +1,6 @@
 const API: string = 'http://storageengine:8001';
 
-const storeData = async (data: object, endpoint: string) => {
+const storeData = async (data: object, endpoint: string, retries = 10) => {
   try {
     const body = JSON.stringify(data);
     const response = await fetch(`${API}/${endpoint}`, {
@@ -21,8 +21,11 @@ const storeData = async (data: object, endpoint: string) => {
   } catch (e) {
     // If error occurrs here for some reason, wait a bit and retry afterwards.
     console.warn('Failed to send data to database. Retrying ...');
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    await storeData(data, endpoint);
+    await new Promise((resolve) => setTimeout(resolve, 10000));
+    if (retries > 0) await storeData(data, endpoint, retries - 1);
+    if (retries <= 0) {
+      console.warn('Could not transfer data to backend.');
+    }
   }
 };
 

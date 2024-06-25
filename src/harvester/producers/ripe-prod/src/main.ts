@@ -24,7 +24,7 @@ const ripe_up = async () => {
 	return true;
 };
 
-const fetch_data = async (url: string): Promise<object> => {
+const fetch_data = async (url: string): Promise<Response> => {
 	try {
 		const response = await fetch(url);
 		if (response.status === 429) {
