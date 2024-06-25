@@ -19,13 +19,7 @@ const storeData = async (data: object, endpoint: string, retries = 10) => {
       process.exitCode = 1;
     }
   } catch (e) {
-    // If error occurrs here for some reason, wait a bit and retry afterwards.
-    console.warn('Failed to send data to database. Retrying ...');
-    await new Promise((resolve) => setTimeout(resolve, 10000));
-    if (retries > 0) await storeData(data, endpoint, retries - 1);
-    if (retries <= 0) {
-      console.warn('Could not transfer data to backend.');
-    }
+    console.warn('Failed to send data to database.');
   }
 };
 
