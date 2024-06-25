@@ -4,6 +4,7 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS ping_data;
   DROP TABLE IF EXISTS disconnect_event_data;
   DROP TABLE IF EXISTS traceroute_data;
+  DROP TABLE IF EXISTS satellite_data;
 `;
 
 const SETUP_QUERIES = `
@@ -47,6 +48,14 @@ const SETUP_QUERIES = `
     paris_id INTEGER,
     result VARCHAR,
     destination_ip_responded BOOLEAN
+  );
+
+  CREATE TABLE IF NOT EXISTS satellite_data (
+    name VARCHAR,
+    norad_id INTEGER,
+    launch_date VARCHAR,
+    decay_date VARCHAR,
+    classification VARCHAR
   );
 `;
 

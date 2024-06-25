@@ -52,3 +52,10 @@ services:
     build: ./producers/ripe-prod
     depends_on:
       - storage-engine
+
+  satellite-collector:
+    container_name: satellite-collector
+    hostname: satellite-collector
+    build: ./satellite-constellations
+    depends_on:
+      - storage-engine
