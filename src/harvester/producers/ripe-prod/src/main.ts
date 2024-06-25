@@ -24,17 +24,17 @@ const ripe_up = async () => {
 	return true;
 };
 
-const fetch_data = async (url: string): Promise<Response> => {
+const fetch_data = async (url: string, retries = 3): Promise<Response> => {
 	try {
 		const response = await fetch(url);
-		if (response.status === 429) {
+		if (response.status === 429 && retries > 0) {
 			await new Promise((resolve) => setTimeout(resolve, 2000));
-			return await fetch_data(url);
+			return await fetch_data(url, retries - 1);
 		}
 		return response;
 	} catch (error) {
-		await new Promise((resolve) => setTimeout(resolve, 5000));
-		return await fetch_data(url);
+		console.error('Failed fetching data.');
+		return undefined;
 	}
 };
 
@@ -88,7 +88,7 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 
 			const url = `${API}/measurements/${server}/results/?probe_ids=${prb_id}&start=${current_timestamp}&stop=${stop}&format=json`;
 			const response = await fetch_data(url);
-			if (response.status !== 200) {
+			if (response?.status !== 200) {
 				console.error(`Failed to fetch data from ${url}.`);
 			} else {
 				try {
