@@ -35,14 +35,6 @@ const fetch_satellite = async (norad_id: number, retry = 1): Promise<string> => 
 
 }
 
-const is_404 = (html: string) => {
-	// Norad returns not really 404 on invalid satellite id.
-	// It returns an empty satellite page, dating the launch date to January 1, 1970.
-	// Aside from that, there were no satellites launched on January 1, 1970.
-	if (!html) return true;
-	return html.includes("January 1, 1970");
-}
-
 // Matches dates in the format: January 1, 1970
 const get_launch_date = (html: string): Date => {
 	if (html.includes("November 30, -0001")) return new Date(Date.parse("January 1, 1970"));
@@ -86,7 +78,7 @@ const write_to_file = (satellites: Satellite[], filename = "output.csv") => {
 }
 
 const crawl_satellites = async (file_empty: boolean, filename = "output.csv", last_norad_id = 1) => {
-	let satellites: Satellite[] = [];
+	const satellites: Satellite[] = [];
 	let norad_id = last_norad_id;
 
 	// Writes only the header to the file.
@@ -130,7 +122,7 @@ const main = async () => {
 		return;
 	}
 
-	let filename = "satellite-dev.csv";
+	const filename = "satellite-dev.csv";
 	let file_empty = true;
 	if (fs.existsSync(filename)) file_empty = false;
 

@@ -9,7 +9,7 @@ interface Measurement {
 	group_id: string;
 	stored_timestamp: number;
 	qbuf: string;
-	result: Object;
+	result: unknown;
 }
 
 enum ProbeStatus {

@@ -1,4 +1,4 @@
-import ping, { pingOptions, pingResponse } from "pingman";
+import ping, { pingResponse } from "pingman";
 import fs from "fs";
 
 const TARGET = "google.com";

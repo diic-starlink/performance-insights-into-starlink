@@ -38,6 +38,7 @@ export class StoreController {
 
   @Post('traceroute')
   async storeTracerouteData(@Req() request: Request): Promise<string> {
+    // eslint-disable-next-line
     const el_list = request.body as any;
 
     for (const body of el_list) {
@@ -77,6 +78,7 @@ export class StoreController {
 
   @Post('disconnect_event')
   async storeDisconnectEventData(@Req() request: Request): Promise<string> {
+    // eslint-disable-next-line
     const el_list = request.body as any;
 
     for (const body of el_list) {
@@ -119,6 +121,7 @@ export class StoreController {
 
   @Post('ping')
   async storePingData(@Req() request: Request): Promise<string> {
+    // eslint-disable-next-line
     const el_list = request.body as any;
 
     for (const body of el_list) {
@@ -172,4 +175,5 @@ export class StoreController {
     }
     return "Success";
   }
+
 }
