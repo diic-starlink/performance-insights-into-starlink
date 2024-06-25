@@ -1,6 +1,6 @@
 const API: string = 'http://storageengine:8001';
 
-const storeData = async (data: object, endpoint: string, retries = 10) => {
+const storeData = async (data: object, endpoint: string) => {
   try {
     const body = JSON.stringify(data);
     const response = await fetch(`${API}/${endpoint}`, {
