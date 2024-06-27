@@ -154,7 +154,7 @@ export class StoreController {
     for (const body of el_list) {
       const msm_id = body.msm_id;
       const destination = body.dst_addr;
-      const source = body.src_addr;
+      const source = body.from;
       const result = JSON.stringify(body.result);
       let timestamp = body.timestamp;
       if (timestamp === undefined) {
