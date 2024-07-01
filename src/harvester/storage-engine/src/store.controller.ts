@@ -1,8 +1,7 @@
-import { Controller, Post, Req } from "@nestjs/common";
 import { Pool } from "pg";
 import { DROP_QUERIES, DROP_TABLES, SETUP_QUERIES } from "./storage.config";
+import { Request, Response } from 'express';
 
-@Controller('store')
 export class StoreController {
   private pool: Pool;
 
@@ -37,10 +36,9 @@ export class StoreController {
   }
 
   // Expects to receive a single new data point about a satellite.
-  @Post('satellite')
-  async storeSatelliteData(@Req() request: Request): Promise<string> {
+  async storeSatelliteData(request: Request, response: Response): Promise<void> {
     // eslint-disable-next-line
-    let sat_data = request.body as any;
+    let sat_data = request.body;
     if (!sat_data.norad_id) sat_data.norad_id = -1;
 
     const query = `
@@ -60,13 +58,12 @@ export class StoreController {
     `;
 
     this.pool.query(query);
-    return 'Success';
+    response.send('Success');
   }
 
-  @Post('traceroute')
-  async storeTracerouteData(@Req() request: Request): Promise<string> {
+  async storeTracerouteData(request: Request, response: Response): Promise<void> {
     // eslint-disable-next-line
-    const el_list = request.body as any;
+    const el_list = request.body;
 
     for (const body of el_list) {
       const responded = body.destination_ip_responded ? true : false;
@@ -100,13 +97,12 @@ export class StoreController {
       this.pool.query(query);
     }
 
-    return 'Sucess';
+    response.send('Success');
   }
 
-  @Post('disconnect_event')
-  async storeDisconnectEventData(@Req() request: Request): Promise<string> {
+  async storeDisconnectEventData(request: Request, response: Response): Promise<void> {
     // eslint-disable-next-line
-    const el_list = request.body as any;
+    const el_list = request.body;
 
     for (const body of el_list) {
       // Some responses do not contain a valid ASN.
@@ -143,13 +139,12 @@ export class StoreController {
       this.pool.query(query);
     }
 
-    return 'Success';
+    response.send('Success');
   }
 
-  @Post('ping')
-  async storePingData(@Req() request: Request): Promise<string> {
+  async storePingData(request: Request, response: Response): Promise<void> {
     // eslint-disable-next-line
-    const el_list = request.body as any;
+    const el_list = request.body;
 
     for (const body of el_list) {
       const msm_id = body.msm_id;
@@ -200,7 +195,6 @@ export class StoreController {
       `;
       this.pool.query(query);
     }
-    return "Success";
+    response.send('Success');
   }
-
 }

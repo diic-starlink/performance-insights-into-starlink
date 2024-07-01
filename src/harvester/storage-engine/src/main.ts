@@ -1,12 +1,45 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import express from 'express';
+import { StoreController } from './store.controller';
 
-async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter()
-  );
-  await app.listen(8001, '0.0.0.0');
-}
-bootstrap();
+const app = express();
+const port = 8001;
+// Parse request bodies as JSON
+app.use(express.json({
+	limit: '1mb'
+}));
+
+const main = async () => {
+	await new Promise((resolve) => setTimeout(resolve, 5000));
+	const storage_controller = new StoreController();
+	await new Promise((resolve) => setTimeout(resolve, 2000));
+
+	app.get('/', (req, res) => {
+		res.send('Request should come via POST method.');
+	});
+
+	app.post('/', (req, res) => {
+		res.send('1');
+	});
+
+	app.post('/store/ping', (req, res) => {
+		storage_controller.storePingData(req, res);
+	});
+
+	app.post('/store/traceroute', (req, res) => {
+		storage_controller.storeTracerouteData(req, res);
+	});
+
+	app.post('/store/satellite', (req, res) => {
+		storage_controller.storeSatelliteData(req, res);
+	});
+
+	app.post('/store/disconnect_event', (req, res) => {
+		storage_controller.storeDisconnectEventData(req, res);
+	});
+
+	app.listen(port, '0.0.0.0', () => {
+		console.log(`Listening on port ${port}`);
+	});
+};
+
+main();
