@@ -62,7 +62,7 @@ export class StoreController {
   }
 
   async storeTracerouteData(request: Request, response: Response): Promise<void> {
-    // eslint-disable-next-line
+     
     const el_list = request.body;
 
     for (const body of el_list) {
@@ -101,7 +101,7 @@ export class StoreController {
   }
 
   async storeDisconnectEventData(request: Request, response: Response): Promise<void> {
-    // eslint-disable-next-line
+     
     const el_list = request.body;
 
     for (const body of el_list) {
@@ -143,7 +143,7 @@ export class StoreController {
   }
 
   async storePingData(request: Request, response: Response): Promise<void> {
-    // eslint-disable-next-line
+     
     const el_list = request.body;
 
     for (const body of el_list) {
