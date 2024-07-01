@@ -11,7 +11,7 @@ const storePingData = async (data: object) => {
   });
 
   // POST requests to NestJS always yield a 201 status code by default.
-  if (response.status !== 201) {
+  if (response.status > 201) {
     console.error('Failed to store data.');
     console.error(response.statusText);
     console.error(await response.text());
