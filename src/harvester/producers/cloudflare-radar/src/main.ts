@@ -27,12 +27,12 @@ const main = async () => {
 		"Authorization": `Bearer ${API_KEY}`
 	};
 
-	for (let year of [2022, 2023, 2024]) {
+	for (const year of [2022, 2023, 2024]) {
 		for (let month = 1; month <= 11; ++month) {
 			if (year === 2024 && month === 7) break;
 
-			let smonth = month < 10 ? `0${month}` : `${month}`;
-			let smonth_next = (month + 1) < 10 ? `0${month + 1}` : `${month + 1}`;
+			const smonth = month < 10 ? `0${month}` : `${month}`;
+			const smonth_next = (month + 1) < 10 ? `0${month + 1}` : `${month + 1}`;
 
 			const START_TIMESTAMP = new Date(`${year}-${smonth}-01T00:00:00.000Z`);
 			let STOP_TIMESTAMP = new Date(`${year}-${smonth_next}-01T00:00:00.000Z`);
