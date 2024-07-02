@@ -40,9 +40,10 @@ jobs:
       - name: Build Proposal Document
         run: |
           cd ${{ github.workspace }}
+          mkdir artifacts
 
           nix-build proposal.nix
-          cp result/main.pdf proposal.pdf
+          cp result/main.pdf ./artifacts/proposal.pdf
 
       # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
@@ -50,7 +51,7 @@ jobs:
           cd ${{ github.workspace }}
 
           nix-build tex.nix
-          cp result/main.pdf .
+          cp result/main.pdf ./artifacts/thesis.pdf
 
       - name: Deploy to branch
         if: github.ref == 'refs/heads/main'
@@ -68,7 +69,8 @@ jobs:
           git switch static-html
 
           rm -rf *
-          cp -r ../result/* .
+          rm -rf .*
+          cp -r ../artifacts/* .
 
           git add .
           git diff-index --quiet HEAD || git commit -m "Deployment of current artifacts"
