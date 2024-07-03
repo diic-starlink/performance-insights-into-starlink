@@ -13,11 +13,11 @@ const main = async () => {
 	const storage_controller = new StoreController();
 	await new Promise((resolve) => setTimeout(resolve, 2000));
 
-	app.get('/', (req, res) => {
+	app.get('/', (_, res) => {
 		res.send('Request should come via POST method.');
 	});
 
-	app.post('/', (req, res) => {
+	app.post('/', (_, res) => {
 		res.send('1');
 	});
 
