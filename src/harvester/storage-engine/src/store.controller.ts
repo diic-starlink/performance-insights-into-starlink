@@ -62,10 +62,7 @@ export class StoreController {
   }
 
   async storeTracerouteData(request: Request, response: Response): Promise<void> {
-     
-    const el_list = request.body;
-
-    for (const body of el_list) {
+    for (const body of request.body) {
       const responded = body.destination_ip_responded ? true : false;
 
       const query = `
@@ -96,44 +93,40 @@ export class StoreController {
 
       this.pool.query(query);
     }
-
     response.send('Success');
   }
 
   async storeDisconnectEventData(request: Request, response: Response): Promise<void> {
-     
-    const el_list = request.body;
-
-    for (const body of el_list) {
+    for (const body of request.body) {
       // Some responses do not contain a valid ASN.
       if (!body.asn) body.asn = 14593;
 
       const query = `
-      INSERT INTO disconnect_event_data (
-        timestamp,
-        stored_timestamp,
-        prb_id,
-        msm_id,
-        type,
-        event,
-        controller,
-        asn,
-        prefix,
-        prb_country,
-        source_platform
-      ) VALUES (
-        ${body.timestamp},
-        ${body.stored_timestamp},
-        ${body.prb_id},
-        ${body.msm_id},
-        '${body.type}',
-        '${body.event}',
-        '${body.controller}',
-        ${body.asn},
-        '${body.prefix}',
-        '${body.country}',
-        '${body.source_platform}'
-      )
+        INSERT INTO disconnect_event_data (
+          timestamp,
+          stored_timestamp,
+          prb_id,
+          msm_id,
+          type,
+          event,
+          controller,
+          asn,
+          prefix,
+          prb_country,
+          source_platform
+        ) VALUES (
+          ${body.timestamp},
+          ${body.stored_timestamp},
+          ${body.prb_id},
+          ${body.msm_id},
+          '${body.type}',
+          '${body.event}',
+          '${body.controller}',
+          ${body.asn},
+          '${body.prefix}',
+          '${body.country}',
+          '${body.source_platform}'
+        )
       `;
 
       this.pool.query(query);
@@ -143,55 +136,41 @@ export class StoreController {
   }
 
   async storePingData(request: Request, response: Response): Promise<void> {
-     
-    const el_list = request.body;
-
-    for (const body of el_list) {
-      const msm_id = body.msm_id;
-      const destination = body.dst_addr;
-      const source = body.from;
-      const result = JSON.stringify(body.result);
+    for (const body of request.body) {
       let timestamp = body.timestamp;
       if (timestamp === undefined) {
         // If timestamp not provided, use the current time.
         timestamp = new Date().toISOString();
       }
-      const step = body.step;
-      const sent_packets = body.sent;
-      const received_packets = body.rcvd;
-      const source_platform = body.source_platform;
-      const country = body.country;
-      const prb_id = body.prb_id;
-
       const query = `
-      INSERT INTO ping_data (
-        msm_id,
-        destination,
-        source,
-        country,
-        prb_id,
-        result,
-        timestamp,
-        msm_type,
-        step,
-        sent_packets,
-        received_packets,
-        source_platform
-      )
-      VALUES (
-        ${msm_id},
-        '${destination}',
-        '${source}',
-        '${country}',
-        ${prb_id},
-        '${result}',
-        '${timestamp}',
-        'ping',
-        ${step},
-        ${sent_packets},
-        ${received_packets},
-        '${source_platform}'
-      );
+        INSERT INTO ping_data (
+          msm_id,
+          destination,
+          source,
+          country,
+          prb_id,
+          result,
+          timestamp,
+          msm_type,
+          step,
+          sent_packets,
+          received_packets,
+          source_platform
+        )
+        VALUES (
+          ${body.msm_id},
+          '${body.dst_addr}',
+          '${body.from}',
+          '${body.country}',
+          ${body.prb_id},
+          '${JSON.stringify(body.result)}',
+          '${timestamp}',
+          'ping',
+          ${body.step},
+          ${body.sent},
+          ${body.rcvd},
+          '${body.source_platform}'
+        );
       `;
       this.pool.query(query);
     }
