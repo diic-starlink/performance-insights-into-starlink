@@ -1,0 +1,20 @@
+{
+  "name": "ooni-producer",
+  "version": "1.0.0",
+  "description": "The producer for downloading OONI artifacts about Starlink.",
+  "scripts": {
+    "start": "npm run compile && node built/main.js",
+    "compile": "tsc"
+  },
+  "author": "Robert Richter",
+  "dependencies": {
+    "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.6",
+    "pg": "^8.11.5",
+    "typescript": "^5.4.5"
+  },
+  "optionalDependencies": {
+    "all": "^0.0.0",
+    "bufferutil": "^4.0.8"
+  }
+}
