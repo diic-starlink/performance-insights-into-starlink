@@ -14,7 +14,8 @@ const backendUp = async (): Promise<boolean> => {
 
 const storeData = async (data: object, endpoint: string) => {
   if (!data) return;
-  while (!backendUp) await new Promise((resolve) => setTimeout(resolve, 2000));
+  // If Backend is not up, it will likely not be up for a while. Wait for 30s
+  while (!backendUp) await new Promise((resolve) => setTimeout(resolve, 1000 * 30));
 
   try {
     const body = JSON.stringify(data);
@@ -34,7 +35,7 @@ const storeData = async (data: object, endpoint: string) => {
       process.exitCode = 1;
     }
   } catch (e) {
-    console.warn('Failed to send data to database.');
+    await storeData(data, endpoint);
   }
 };
 
