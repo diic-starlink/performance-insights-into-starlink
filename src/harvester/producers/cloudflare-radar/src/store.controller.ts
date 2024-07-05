@@ -13,7 +13,7 @@ const pool = new Pool(db_config);
 
 const storePingData = (data: DataPoint[]) => {
   for (const body of data) {
-    let timestamp = body.timestamp;
+    const timestamp = body.timestamp;
 
     const query = `
       INSERT INTO ping_data (
