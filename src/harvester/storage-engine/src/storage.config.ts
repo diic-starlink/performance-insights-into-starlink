@@ -47,7 +47,8 @@ const SETUP_QUERIES = `
     size INTEGER,
     paris_id INTEGER,
     result VARCHAR,
-    destination_ip_responded BOOLEAN
+    destination_ip_responded BOOLEAN,
+    source_platform VARCHAR
   );
 
   CREATE TABLE IF NOT EXISTS satellite_data (
