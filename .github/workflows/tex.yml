@@ -6,7 +6,7 @@ on:
     paths:
       - proposal.nix
       - tex.nix
-      - .github/workflows/tex.nix
+      - .github/workflows/tex.yml
       - proposal/**
       - thesis/**
 
