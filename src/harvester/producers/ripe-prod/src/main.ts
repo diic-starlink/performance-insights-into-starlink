@@ -107,8 +107,8 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 
 			current_timestamp += TIMEFRAME;
 		}
-		// Ethical crawling
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		// Ethical crawling.
+		await new Promise((resolve) => setTimeout(resolve, 1000 * 1));
 	}
 
 };

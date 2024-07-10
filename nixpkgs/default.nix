@@ -9,6 +9,6 @@ let
 in
 
 # Keep line 12 as it is! Only modify it by running update-default-nix.py. The updating script depends on the next line being as it is on line 12.
-import (fetchCommit "0681051769c729c31b7576eccf746399f6dedd4c") {
+import (fetchCommit "bedbc6e36edd7934df5e09612c245e5783084427") {
 
 }

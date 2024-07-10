@@ -6,7 +6,7 @@ on:
     paths:
       - proposal.nix
       - tex.nix
-      - .github/workflows/tex.nix
+      - .github/workflows/tex.yml
       - proposal/**
       - thesis/**
 
@@ -54,7 +54,6 @@ jobs:
           cp result/main.pdf ./artifacts/thesis.pdf
 
       - name: Deploy to branch
-        if: github.ref == 'refs/heads/main'
         run: |
           cd ${{ github.workspace }}
 
@@ -69,7 +68,7 @@ jobs:
           git switch static-html
 
           rm -rf *
-          rm -rf .*
+          rm -rf .github
           cp -r ../artifacts/* .
 
           git add .
