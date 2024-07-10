@@ -1,8 +1,8 @@
-FROM node:22-bookworm-slim
+FROM python:latest
 
 COPY . /app
 WORKDIR /app
 
-RUN cd /app && npm install
+RUN cd /app && pip install -r requirements.txt
 
-CMD ["npm", "run", "start"]
+CMD python3 main.py
