@@ -43,7 +43,7 @@ const main = async () => {
 	const current_year = new Date().getFullYear();
 	const current_month = new Date().getMonth();
 
-	let years = [];
+	const years = [];
 	for (let year = 2022; year <= current_year; ++year) years.push(year);
 
 	for (const year of years) {
