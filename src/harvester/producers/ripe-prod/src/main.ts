@@ -3,7 +3,7 @@ import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSER
 import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { storeDisconnectEventData, storePingData, storeTlsData, storeTracerouteData } from "./store.controller";
+import { storeDisconnectEventData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
@@ -59,6 +59,7 @@ const get_starlink_probes = async (): Promise<Probe[]> => {
 				id: probe.id,
 				status: string_to_probestatus(probe.status.name),
 				ipv4: probe.address_v4,
+				asn: ASN
 			});
 		}
 
@@ -132,9 +133,13 @@ const main = async (threads = 1) => {
 	assert(START_TIMESTAMP < STOP_TIMESTAMP, "Invalid timeframe");
 	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
 
+	// Wait for 10 seconds to ensure that the database API is ready.
+	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
+
 	// Splits the probe-server pairs into individual chunks.
 	const chunks: Chunk[] = [];
 	const probes: Probe[] = await get_starlink_probes();
+	storeProbeData(probes);
 
 	const get_chunks = (servers: number[]): ProbeServerPair[][] => {
 		const probe_server_pairs: ProbeServerPair[] = [];
@@ -184,9 +189,6 @@ const main = async (threads = 1) => {
 		++traceroute_crt;
 		++tls_ctr;
 	}
-
-	// Wait for 10 seconds to ensure that the database API is ready.
-	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
 
 	for (const chunk of chunks) {
 		// Spawns a new worker that will download and send the data.

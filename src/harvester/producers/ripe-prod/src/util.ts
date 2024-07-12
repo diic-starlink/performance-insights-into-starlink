@@ -91,6 +91,7 @@ interface Probe {
 	id: number;
 	status: ProbeStatus;
 	ipv4: string;
+	asn: number;
 }
 
 export {
