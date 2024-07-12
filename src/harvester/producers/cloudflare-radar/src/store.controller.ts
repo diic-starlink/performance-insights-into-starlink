@@ -49,4 +49,21 @@ const storePingData = (data: DataPoint[]) => {
   }
 };
 
-export { storePingData };
+const getTableCount = async (): Promise<number> => {
+  const query = `
+    SELECT COUNT(*) FROM ping_data WHERE source_platform = 'Cloudflare RADAR (timeseries groups)';
+  `;
+  const result = await pool.query(query);
+  return result.rows[0].count;
+};
+
+const getMaxTimestamp = async (): Promise<number> => {
+  if (await getTableCount() === 0) return 0;
+  const query = `
+    SELECT MAX(timestamp) FROM ping_data WHERE source_platform = 'Cloudflare RADAR (timeseries groups)';
+  `;
+  const result = await pool.query(query);
+  return result.rows[0].max;
+};
+
+export { storePingData, getTableCount, getMaxTimestamp };

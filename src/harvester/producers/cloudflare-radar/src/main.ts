@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { storePingData } from './store.controller';
+import { getTableCount, storePingData } from './store.controller';
 dotenv.config();
 
 const API_KEY = process.env.API_KEY;
@@ -30,9 +30,25 @@ const main = async () => {
 		"Authorization": `Bearer ${API_KEY}`
 	};
 
-	for (const year of [2022, 2023, 2024]) {
-		for (let month = 1; month <= 11; ++month) {
-			if (year === 2024 && month === 7) break;
+	// Wait for DB to be ready.
+	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
+
+	// Determine if DB is in debug mode. Only reinsert data if it is.
+	const number_of_rows = await getTableCount();
+	if (number_of_rows > 0) {
+		console.log('Data already exists in the database. Terminating ...');
+		process.exit(0);
+	}
+
+	const current_year = new Date().getFullYear();
+	const current_month = new Date().getMonth();
+
+	let years = [];
+	for (let year = 2022; year <= current_year; ++year) years.push(year);
+
+	for (const year of years) {
+		for (let month = 1; month < 12; ++month) {
+			if (year === current_year && month === current_month) break;
 
 			const smonth = month < 10 ? `0${month}` : `${month}`;
 			const smonth_next = (month + 1) < 10 ? `0${month + 1}` : `${month + 1}`;
