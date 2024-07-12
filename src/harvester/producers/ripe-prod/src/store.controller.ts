@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DisconnectEventData, PingData, TracerouteData } from "./util";
+import { DisconnectEventData, PingData, TLSData, TracerouteData } from "./util";
 
 const db_config = {
   user: 'postgres',
@@ -124,4 +124,44 @@ const storeTracerouteData = (data: TracerouteData[]) => {
   }
 };
 
-export { storePingData, storeDisconnectEventData, storeTracerouteData };
+const storeTlsData = (data: TLSData[]) => {
+  for (const body of data) {
+    const rt = body.rt ? body.rt : 0;
+    const ttc = body.ttc ? body.ttc : 0;
+    let af = 0;
+    if (body.msm_id === 14001 || body.msm_id === 14002) af = 4;
+    if (body.msm_id === 15001 || body.msm_id === 15002) af = 6;
+
+    const query = `
+      INSERT INTO tls_data (
+        af,
+        dst_name,
+        dst_port,
+        src_name,
+        method,
+        msm_id,
+        msm_name,
+        prb_id,
+        rt,
+        ttc,
+        source_platform
+      ) VALUES (
+        ${af},
+        '${body.dst_name}',
+        '${body.dst_port}',
+        '${body.from}',
+        '${body.method}',
+        ${body.msm_id},
+        '${body.msm_name}',
+        ${body.prb_id},
+        ${rt},
+        ${ttc},
+        '${body.source_platform}'
+      );
+    `;
+
+    pool.query(query);
+  }
+};
+
+export { storePingData, storeDisconnectEventData, storeTracerouteData, storeTlsData };

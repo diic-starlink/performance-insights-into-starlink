@@ -54,6 +54,20 @@ interface TracerouteData {
 	destination_ip_responded: boolean;
 };
 
+interface TLSData {
+	af: number;
+	dst_name: string;
+	dst_port: string;
+	from: string;
+	method: string;
+	msm_id: number;
+	msm_name: string;
+	prb_id: number;
+	rt: number;
+	ttc: number;
+	source_platform: string;
+};
+
 enum ProbeStatus {
 	CONNECTED = 'Connected',
 	DISCONNECTED = 'Disconnected',
@@ -87,4 +101,5 @@ export {
 	PingData,
 	DisconnectEventData,
 	TracerouteData,
+	TLSData,
 };
