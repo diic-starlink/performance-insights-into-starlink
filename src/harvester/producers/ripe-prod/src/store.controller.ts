@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DisconnectEventData, PingData, TLSData, TracerouteData } from "./util";
+import { DisconnectEventData, PingData, Probe, TLSData, TracerouteData } from "./util";
 
 const db_config = {
   user: 'postgres',
@@ -164,4 +164,28 @@ const storeTlsData = (data: TLSData[]) => {
   }
 };
 
-export { storePingData, storeDisconnectEventData, storeTracerouteData, storeTlsData };
+const storeProbeData = (data: Probe[]) => {
+  for (const probe of data) {
+    const query = `
+      INSERT INTO ripe_atlas_probe_data (
+        id,
+        ipv4,
+        asn,
+        longitude,
+        latitude,
+        country
+      ) VALUES (
+        ${probe.id},
+        '${probe.ipv4}',
+        ${probe.asn},
+        ${probe.geometry[0]},
+        ${probe.geometry[1]},
+        '${probe.country}'
+      );
+    `;
+
+    pool.query(query);
+  }
+};
+
+export { storePingData, storeDisconnectEventData, storeTracerouteData, storeTlsData, storeProbeData };

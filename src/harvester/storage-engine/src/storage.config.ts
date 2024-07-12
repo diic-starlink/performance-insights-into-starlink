@@ -6,6 +6,7 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS traceroute_data;
   DROP TABLE IF EXISTS satellite_data;
   DROP TABLE IF EXISTS tls_data;
+  DROP TABLE IF EXISTS ripe_atlas_probe_data;
 `;
 
 const SETUP_QUERIES = `
@@ -72,6 +73,15 @@ const SETUP_QUERIES = `
     rt FLOAT,
     ttc FLOAT,
     source_platform VARCHAR
+  );
+
+  CREATE TABLE IF NOT EXISTS ripe_atlas_probe_data (
+    id INTEGER,
+    ipv4 VARCHAR,
+    asn INTEGER,
+    longitude FLOAT,
+    latitude FLOAT,
+    country VARCHAR
   );
 `;
 
