@@ -5,6 +5,7 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS disconnect_event_data;
   DROP TABLE IF EXISTS traceroute_data;
   DROP TABLE IF EXISTS satellite_data;
+  DROP TABLE IF EXISTS tls_data;
 `;
 
 const SETUP_QUERIES = `
@@ -57,6 +58,20 @@ const SETUP_QUERIES = `
     launch_date VARCHAR,
     decay_date VARCHAR,
     classification VARCHAR
+  );
+
+  CREATE TABLE IF NOT EXISTS tls_data (
+    af INTEGER,
+    dst_name VARCHAR,
+    dst_port VARCHAR,
+    src_name VARCHAR,
+    method VARCHAR,
+    msm_id INTEGER,
+    msm_name VARCHAR,
+    prb_id INTEGER,
+    rt FLOAT,
+    ttc FLOAT,
+    source_platform VARCHAR
   );
 `;
 

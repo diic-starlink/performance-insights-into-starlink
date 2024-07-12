@@ -1,9 +1,9 @@
 import assert from "assert";
-import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
+import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
 import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { storeDisconnectEventData, storePingData, storeTracerouteData } from "./store.controller";
+import { storeDisconnectEventData, storePingData, storeTlsData, storeTracerouteData } from "./store.controller";
 
 const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
@@ -12,8 +12,9 @@ const API = "https://atlas.ripe.net/api/v2";
 
 enum SourcePlatforms {
 	ping = 'RIPE ATLAS (builtin ping)',
-	disconnect_event = 'RIPE ATLAS (disconnect event)',
-	traceroute = 'RIPE ATLAS (builtin traceroute)'
+	disconnect_event = 'RIPE ATLAS (builtin disconnect event)',
+	traceroute = 'RIPE ATLAS (builtin traceroute)',
+	tls = 'RIPE ATLAS (builtin tls)'
 };
 
 const ripe_up = async () => {
@@ -118,6 +119,7 @@ interface Chunk {
 	ping_chunk: ProbeServerPair[];
 	disconnect_event_chunk: ProbeServerPair[];
 	traceroute_chunk: ProbeServerPair[];
+	tls_chunk: ProbeServerPair[];
 };
 
 const main = async (threads = 1) => {
@@ -154,27 +156,33 @@ const main = async (threads = 1) => {
 	const ping_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVERS_BUILTIN_PING);
 	const de_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_DISCONNECT_EVENTS);
 	const traceroute_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TRACEROUTE);
+	const tls_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TLS);
 
 	let de_ctr = 0;
 	let ping_ctr = 0;
 	let traceroute_crt = 0;
-	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt) {
+	let tls_ctr = 0;
+	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr) {
 		let de_chunk: ProbeServerPair[] = [];
 		let ping_chunk: ProbeServerPair[] = [];
 		let traceroute_chunk: ProbeServerPair[] = [];
+		let tls_chunk: ProbeServerPair[] = [];
 		if (de_ctr < de_chunks.length) de_chunk = de_chunks[de_ctr];
 		if (ping_ctr < ping_chunks.length) ping_chunk = ping_chunks[ping_ctr];
 		if (traceroute_crt < traceroute_chunks.length) traceroute_chunk = traceroute_chunks[traceroute_crt];
+		if (tls_ctr < tls_chunks.length) tls_chunk = tls_chunks[tls_ctr];
 
 		chunks.push({
 			ping_chunk: ping_chunk,
 			disconnect_event_chunk: de_chunk,
-			traceroute_chunk: traceroute_chunk
+			traceroute_chunk: traceroute_chunk,
+			tls_chunk: tls_chunk
 		});
 
 		++de_ctr;
 		++ping_ctr;
 		++traceroute_crt;
+		++tls_ctr;
 	}
 
 	// Wait for 10 seconds to ensure that the database API is ready.
@@ -195,6 +203,8 @@ const main = async (threads = 1) => {
 				case SourcePlatforms.traceroute:
 					storeTracerouteData(data);
 					break;
+				case SourcePlatforms.tls:
+					storeTlsData(data);
 			}
 		});
 	}
@@ -202,8 +212,9 @@ const main = async (threads = 1) => {
 };
 
 const workerMain = async () => {
-	await download_and_store(workerData.ping_chunk, 'RIPE ATLAS (builtin ping)');
-	await download_and_store(workerData.disconnect_event_chunk, 'RIPE ATLAS (builtin disconnect event)');
+	await download_and_store(workerData.tls_chunk, SourcePlatforms.tls);
+	await download_and_store(workerData.ping_chunk, SourcePlatforms.ping);
+	await download_and_store(workerData.disconnect_event_chunk, SourcePlatforms.disconnect_event);
 	await download_and_store(workerData.traceroute_chunk, SourcePlatforms.traceroute);
 };
 
