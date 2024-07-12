@@ -15,7 +15,10 @@ interface DataPoint {
 	msm_id: number,
 	prb_id: number,
 	sent: number,
-	rcvd: number
+	rcvd: number,
+	dst_addr: string,
+	country: string,
+	from: string
 };
 
 const main = async () => {
@@ -71,7 +74,10 @@ const main = async () => {
 					msm_id: 0,
 					prb_id: 0,
 					sent: 0,
-					rcvd: 0
+					rcvd: 0,
+					country: "unknown",
+					dst_addr: "unknown",
+					from: "unknown",
 				};
 				results.push(point);
 			}
@@ -82,3 +88,5 @@ const main = async () => {
 };
 
 main();
+
+export { DataPoint };

@@ -12,6 +12,62 @@ interface Measurement {
 	result: unknown;
 }
 
+interface PingData {
+	msm_id: number;
+	dst_addr: string;
+	from: string;
+	country: string;
+	prb_id: number;
+	result: unknown;
+	timestamp: string;
+	step: number;
+	sent: number;
+	rcvd: number;
+	source_platform: string;
+};
+
+interface DisconnectEventData {
+	timestamp: number;
+	stored_timestamp: number;
+	prb_id: number;
+	msm_id: number;
+	type: string;
+	event: string;
+	controller: string;
+	asn: number;
+	prefix: string;
+	country: string;
+	source_platform: string;
+}
+
+interface TracerouteData {
+	msm_id: number;
+	prb_id: number;
+	dst_addr: string;
+	from: string;
+	proto: string;
+	af: number;
+	size: number;
+	paris_id: number;
+	result: unknown;
+	source_platform: string;
+	destination_ip_responded: boolean;
+};
+
+interface TLSData {
+	af: number;
+	dst_name: string;
+	dst_port: string;
+	from: string;
+	method: string;
+	msm_id: number;
+	msm_name: string;
+	prb_id: number;
+	rt: number;
+	ttc: number;
+	source_platform: string;
+};
+
 enum ProbeStatus {
 	CONNECTED = 'Connected',
 	DISCONNECTED = 'Disconnected',
@@ -35,6 +91,7 @@ interface Probe {
 	id: number;
 	status: ProbeStatus;
 	ipv4: string;
+	asn: number;
 }
 
 export {
@@ -42,4 +99,8 @@ export {
 	Probe,
 	string_to_probestatus,
 	Measurement,
+	PingData,
+	DisconnectEventData,
+	TracerouteData,
+	TLSData,
 };
