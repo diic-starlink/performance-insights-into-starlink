@@ -1,5 +1,5 @@
 {
-  "name": "storage-engine",
+  "name": "db-schema-controller",
   "version": "0.0.1",
   "author": "Robert Richter",
   "scripts": {
