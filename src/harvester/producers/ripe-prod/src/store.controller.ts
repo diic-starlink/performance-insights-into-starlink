@@ -1,5 +1,6 @@
 import { Pool } from "pg";
 import { DisconnectEventData, PingData, Probe, TLSData, TracerouteData } from "./util";
+import { START_TIMESTAMP } from "./timeframe_config";
 
 const db_config = {
   user: 'postgres',
@@ -11,6 +12,14 @@ const db_config = {
 
 const pool = new Pool(db_config);
 
+enum Tables {
+  PING_DATA = 'ping_data',
+  DISCONNECT_EVENT_DATA = 'disconnect_event_data',
+  TRACEROUTE_DATA = 'traceroute_data',
+  TLS_DATA = 'tls_data',
+  PROBE_DATA = 'ripe_atlas_probe_data'
+}
+
 const storePingData = (data: PingData[]) => {
   for (const body of data) {
     let timestamp = body.timestamp;
@@ -19,7 +28,7 @@ const storePingData = (data: PingData[]) => {
       timestamp = new Date().toISOString();
     }
     const query = `
-      INSERT INTO ping_data (
+      INSERT INTO ${Tables.PING_DATA} (
         msm_id,
         destination,
         source,
@@ -58,32 +67,32 @@ const storeDisconnectEventData = (data: DisconnectEventData[]) => {
     if (!body.asn) body.asn = 14593;
 
     const query = `
-            INSERT INTO disconnect_event_data (
-              timestamp,
-              stored_timestamp,
-              prb_id,
-              msm_id,
-              type,
-              event,
-              controller,
-              asn,
-              prefix,
-              prb_country,
-              source_platform
-            ) VALUES (
-              ${body.timestamp},
-              ${body.stored_timestamp},
-              ${body.prb_id},
-              ${body.msm_id},
-              '${body.type}',
-              '${body.event}',
-              '${body.controller}',
-              ${body.asn},
-              '${body.prefix}',
-              '${body.country}',
-              '${body.source_platform}'
-            )
-          `;
+      INSERT INTO ${Tables.DISCONNECT_EVENT_DATA} (
+        timestamp,
+        stored_timestamp,
+        prb_id,
+        msm_id,
+        type,
+        event,
+        controller,
+        asn,
+        prefix,
+        prb_country,
+        source_platform
+      ) VALUES (
+        ${body.timestamp},
+        ${body.stored_timestamp},
+        ${body.prb_id},
+        ${body.msm_id},
+        '${body.type}',
+        '${body.event}',
+        '${body.controller}',
+        ${body.asn},
+        '${body.prefix}',
+        '${body.country}',
+        '${body.source_platform}'
+      )
+    `;
     pool.query(query);
   }
 };
@@ -93,32 +102,32 @@ const storeTracerouteData = (data: TracerouteData[]) => {
     const responded = body.destination_ip_responded ? true : false;
 
     const query = `
-        INSERT INTO traceroute_data (
-          msm_id,
-          prb_id,
-          destination,
-          source,
-          protocol,
-          af,
-          size,
-          paris_id,
-          result,
-          destination_ip_responded,
-          source_platform
-        ) VALUES (
-          ${body.msm_id},
-          ${body.prb_id},
-          '${body.dst_addr}',
-          '${body.from}',
-          '${body.proto}',
-          ${body.af},
-          ${body.size},
-          ${body.paris_id},
-          '${JSON.stringify(body.result)}',
-          ${responded},
-          '${body.source_platform}'
-        );
-      `;
+      INSERT INTO ${Tables.TRACEROUTE_DATA} (
+        msm_id,
+        prb_id,
+        destination,
+        source,
+        protocol,
+        af,
+        size,
+        paris_id,
+        result,
+        destination_ip_responded,
+        source_platform
+      ) VALUES (
+        ${body.msm_id},
+        ${body.prb_id},
+        '${body.dst_addr}',
+        '${body.from}',
+        '${body.proto}',
+        ${body.af},
+        ${body.size},
+        ${body.paris_id},
+        '${JSON.stringify(body.result)}',
+        ${responded},
+        '${body.source_platform}'
+      );
+    `;
 
     pool.query(query);
   }
@@ -133,7 +142,7 @@ const storeTlsData = (data: TLSData[]) => {
     if (body.msm_id === 15001 || body.msm_id === 15002) af = 6;
 
     const query = `
-      INSERT INTO tls_data (
+      INSERT INTO ${Tables.TLS_DATA} (
         af,
         dst_name,
         dst_port,
@@ -167,7 +176,7 @@ const storeTlsData = (data: TLSData[]) => {
 const storeProbeData = (data: Probe[]) => {
   for (const probe of data) {
     const query = `
-      INSERT INTO ripe_atlas_probe_data (
+      INSERT INTO ${Tables.PROBE_DATA} (
         id,
         ipv4,
         asn,
@@ -188,4 +197,31 @@ const storeProbeData = (data: Probe[]) => {
   }
 };
 
-export { storePingData, storeDisconnectEventData, storeTracerouteData, storeTlsData, storeProbeData };
+/**
+ * Get the count of rows in a table.
+ */
+const getTableCount = async (table: Tables): Promise<number> => {
+  const query = `SELECT COUNT(*) FROM ${table};`;
+  const result = await pool.query(query);
+  return result.rows[0].count;
+};
+
+const getMaxTimestamp = async (): Promise<number> => {
+  if ((await getTableCount(Tables.PING_DATA)) > 0) {
+    const query = `SELECT MAX(timestamp) FROM ${Tables.PING_DATA};`;
+    const result = await pool.query(query);
+    return result.rows[0].max / 1000;
+  }
+
+  return START_TIMESTAMP;
+};
+
+export {
+  storePingData,
+  storeDisconnectEventData,
+  storeTracerouteData,
+  storeTlsData,
+  storeProbeData,
+  getTableCount,
+  getMaxTimestamp
+};

@@ -1,14 +1,17 @@
 import assert from "assert";
 import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
-import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
+import { STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { storeDisconnectEventData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
+import { getMaxTimestamp, storeDisconnectEventData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
 
-const URL = "https://atlas.ripe.net/api/v2/";
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day in seconds
-const API = "https://atlas.ripe.net/api/v2";
+const RIPE_ATLAS_URL = "https://atlas.ripe.net/api"
+const API = `${RIPE_ATLAS_URL}/v2`;
+
+let start_timestamp: number;
+let stop_timestamp: number;
 
 enum SourcePlatforms {
 	ping = 'RIPE ATLAS (builtin ping)',
@@ -18,7 +21,7 @@ enum SourcePlatforms {
 };
 
 const ripe_up = async () => {
-	const response = await fetch(URL);
+	const response = await fetch(RIPE_ATLAS_URL);
 	if (response.status !== 200) {
 		return false;
 	}
@@ -47,7 +50,7 @@ const fetch_data = async (url: string, retries = 3): Promise<Response> => {
  * 		Returns a list of probes.
  */
 const get_starlink_probes = async (): Promise<Probe[]> => {
-	const url = URL + "probes/?asn_v4=" + ASN;
+	const url = `${API}/probes/?asn_v4=${ASN}`;
 	let response = await (await fetch(url)).json();
 
 	const probes: Probe[] = [];
@@ -83,9 +86,9 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 		const probe = pair.probe;
 		const server = pair.server;
 
-		let current_timestamp = START_TIMESTAMP;
-		while (current_timestamp < STOP_TIMESTAMP) {
-			const stop = Math.min(STOP_TIMESTAMP, current_timestamp + TIMEFRAME);
+		let current_timestamp = start_timestamp;
+		while (current_timestamp < stop_timestamp) {
+			const stop = Math.min(stop_timestamp, current_timestamp + TIMEFRAME);
 			const prb_id = probe.id;
 
 			const url = `${API}/measurements/${server}/results/?probe_ids=${prb_id}&start=${current_timestamp}&stop=${stop}&format=json`;
@@ -117,6 +120,8 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 
 
 interface Chunk {
+	start_timestamp: number;
+	stop_timestamp: number;
 	ping_chunk: ProbeServerPair[];
 	disconnect_event_chunk: ProbeServerPair[];
 	traceroute_chunk: ProbeServerPair[];
@@ -129,12 +134,18 @@ const main = async (threads = 1) => {
 		process.exit(1);
 	}
 
-	assert(threads > 0, "Invalid number of threads");
-	assert(START_TIMESTAMP < STOP_TIMESTAMP, "Invalid timeframe");
-	assert(STOP_TIMESTAMP < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
-
 	// Wait for 10 seconds to ensure that the database API is ready.
 	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
+
+	start_timestamp = await getMaxTimestamp();
+	stop_timestamp = STOP_TIMESTAMP;
+
+	console.log(`Start Timestamp: ${start_timestamp}`);
+	console.log(`Stop Timestamp: ${stop_timestamp}`);
+
+	assert(threads > 0, "Invalid number of threads");
+	assert(start_timestamp < STOP_TIMESTAMP, "Invalid timeframe");
+	assert(stop_timestamp < Date.now(), "Stop Timestamp is in the future. Choose something from the past.");
 
 	// Splits the probe-server pairs into individual chunks.
 	const chunks: Chunk[] = [];
@@ -178,6 +189,8 @@ const main = async (threads = 1) => {
 		if (tls_ctr < tls_chunks.length) tls_chunk = tls_chunks[tls_ctr];
 
 		chunks.push({
+			start_timestamp: start_timestamp,
+			stop_timestamp: stop_timestamp,
 			ping_chunk: ping_chunk,
 			disconnect_event_chunk: de_chunk,
 			traceroute_chunk: traceroute_chunk,
@@ -214,6 +227,9 @@ const main = async (threads = 1) => {
 };
 
 const workerMain = async () => {
+	start_timestamp = workerData.start_timestamp;
+	stop_timestamp = workerData.stop_timestamp;
+
 	await download_and_store(workerData.tls_chunk, SourcePlatforms.tls);
 	await download_and_store(workerData.ping_chunk, SourcePlatforms.ping);
 	await download_and_store(workerData.disconnect_event_chunk, SourcePlatforms.disconnect_event);
