@@ -4,7 +4,7 @@
 #
 
 let
-  pkgs = import ../../nixpkgs {};
+  pkgs = import ../nixpkgs {};
 in pkgs.mkShell {
   pname = "runProducers";
   version = "0.0.1";
@@ -29,7 +29,7 @@ in pkgs.mkShell {
 
     runAll() {
       runDockerCompose
-      sleep 5 # Wait for the backend to start
+      sleep 30 # Wait for the backend to start
       runProducers
     }
   '';

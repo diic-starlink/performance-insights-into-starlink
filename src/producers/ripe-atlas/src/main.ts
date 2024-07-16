@@ -226,14 +226,25 @@ const main = async (threads = 1) => {
 	console.log('Work has been distributed among workers and workers start working now.');
 };
 
+interface ProbeServerSourcePair {
+	chunk: ProbeServerPair[];
+	source_platform: SourcePlatforms;
+};
+
 const workerMain = async () => {
 	start_timestamp = workerData.start_timestamp;
 	stop_timestamp = workerData.stop_timestamp;
 
-	await download_and_store(workerData.tls_chunk, SourcePlatforms.tls);
-	await download_and_store(workerData.ping_chunk, SourcePlatforms.ping);
-	await download_and_store(workerData.disconnect_event_chunk, SourcePlatforms.disconnect_event);
-	await download_and_store(workerData.traceroute_chunk, SourcePlatforms.traceroute);
+	const chunks: ProbeServerSourcePair[] = [
+		{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
+		{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
+		{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
+		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls }
+	].sort(() => 0.5 - Math.random());; // Shuffle the chunks.
+
+	for (const chunk of chunks) {
+		await download_and_store(chunk.chunk, chunk.source_platform);
+	}
 };
 
 if (isMainThread) {
