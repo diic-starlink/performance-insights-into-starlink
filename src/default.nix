@@ -32,6 +32,19 @@ in pkgs.mkShell {
       sleep 30 # Wait for the backend to start
       runProducers
     }
+
+    help() {
+      echo ""
+      echo "Welcome to the producers shell 🚀 !"
+      echo ""
+      echo "Following commands are available:"
+      echo "   - runDockerCompose: Start the backend services in the 'dbbackend' tmux session."
+      echo "   - runProducers: Start the producers in the 'producers' directory."
+      echo "   - runAll: Execute the previously two mentioned commands with a sleep of 30s in between."
+      echo "   - help: Display this help message."
+    }
+
+    help
   '';
 }
 
