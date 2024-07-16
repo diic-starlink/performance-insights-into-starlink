@@ -1,0 +1,43 @@
+name: db-controller
+
+services:
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres:16
+    shm_size: 8G
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  jupyter:
+    container_name: jupyter
+    image: jupyter/datascience-notebook
+    ports:
+      - 8888:8888
+    volumes:
+      - ./notebooks:/home/jovyan/work
+
+  duckdb:
+    container_name: duckdb
+    build: ./duckdb-image
+    ports:
+      - 5433:5000
+    volumes:
+      - ./data/duckdb/:/app/data
+
+  schema-generator:
+    container_name: schema-generator
+    build: ./schema-generator
+

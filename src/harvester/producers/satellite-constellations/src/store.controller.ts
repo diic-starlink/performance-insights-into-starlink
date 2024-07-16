@@ -4,7 +4,7 @@ import { Satellite } from './util';
 const db_config = {
   user: 'postgres',
   password: 'postgres',
-  host: 'postgres',
+  host: 'localhost',
   port: 5432,
   database: 'postgres'
 };
