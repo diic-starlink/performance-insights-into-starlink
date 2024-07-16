@@ -12,17 +12,19 @@ in pkgs.mkShell {
   buildInputs = with pkgs; [
     docker-compose
     nodejs_22
-    tmux
   ];
 
   shellHook = ''
     runDockerCompose() {
-      tmux new-session -d -s dbbackend -c db-controller 'docker-compose up --build'
+      tmux new-session -d -s dbbackend -c $(pwd)/db-controller
+      tmux send 'newgrp docker' ENTER # For some reason this is required
+      tmux send 'docker-compose up --build' ENTER
     }
 
     runProducers() {
       cd ./producers
       ./startall.sh
+      cd ..
     }
 
     runAll() {
