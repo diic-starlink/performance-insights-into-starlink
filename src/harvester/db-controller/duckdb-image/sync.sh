@@ -6,8 +6,7 @@ mkdir -p data
 while true; do
 	# Sleep for 3 hours before syncing again.
 	# This is not precise, but it also does not have to be.
-	a=$(( 1 ))
-	sleep $a
+	sleep 10800
 
 	duckdb data/data.db "\
 		INSTALL postgres; LOAD postgres; \
