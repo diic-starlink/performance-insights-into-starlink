@@ -240,7 +240,7 @@ const workerMain = async () => {
 		{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
 		{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
 		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls }
-	].sort((a, b) => 0.5 - Math.random());; // Shuffle the chunks.
+	].sort(() => 0.5 - Math.random());; // Shuffle the chunks.
 
 	for (const chunk of chunks) {
 		await download_and_store(chunk.chunk, chunk.source_platform);
