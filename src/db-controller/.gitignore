@@ -1,1 +1,11 @@
 /data
+
+# Jupyter
+/.cache
+/.config
+/.ipynb_checkpoints
+/.jupyter
+/.local
+/.npm
+/.ipython
+/.bash_history
