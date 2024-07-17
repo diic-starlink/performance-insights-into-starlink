@@ -1,0 +1,8 @@
+pycountry
+pg
+numpy
+pandas
+sqlalchemy
+matplotlib
+psycopg2-binary
+seaborn

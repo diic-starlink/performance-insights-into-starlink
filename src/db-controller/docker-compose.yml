@@ -27,7 +27,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./notebooks:/home/jovyan/work
+      - .:/home/jovyan
 
   duckdb:
     container_name: duckdb
