@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export HOST=vm-robert-richter.cloud.dhclab.i.hpi.de
+export HOST=postgres
 
 mkdir -p data
 while true; do
