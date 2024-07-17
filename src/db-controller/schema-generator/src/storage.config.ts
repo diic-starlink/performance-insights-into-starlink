@@ -50,6 +50,7 @@ const SETUP_QUERIES = `
     paris_id INTEGER,
     result VARCHAR,
     destination_ip_responded BOOLEAN,
+    timestamp INTEGER,
     source_platform VARCHAR
   );
 
@@ -72,6 +73,7 @@ const SETUP_QUERIES = `
     prb_id INTEGER,
     rt FLOAT,
     ttc FLOAT,
+    timestamp INTEGER,
     source_platform VARCHAR
   );
 

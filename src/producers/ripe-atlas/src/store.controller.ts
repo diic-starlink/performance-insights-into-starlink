@@ -113,6 +113,7 @@ const storeTracerouteData = (data: TracerouteData[]) => {
         paris_id,
         result,
         destination_ip_responded,
+        timestamp,
         source_platform
       ) VALUES (
         ${body.msm_id},
@@ -125,6 +126,7 @@ const storeTracerouteData = (data: TracerouteData[]) => {
         ${body.paris_id},
         '${JSON.stringify(body.result)}',
         ${responded},
+        ${body.timestamp},
         '${body.source_platform}'
       );
     `;
@@ -153,6 +155,7 @@ const storeTlsData = (data: TLSData[]) => {
         prb_id,
         rt,
         ttc,
+        timestamp,
         source_platform
       ) VALUES (
         ${af},
@@ -165,6 +168,7 @@ const storeTlsData = (data: TLSData[]) => {
         ${body.prb_id},
         ${rt},
         ${ttc},
+        ${body.timestamp},
         '${body.source_platform}'
       );
     `;

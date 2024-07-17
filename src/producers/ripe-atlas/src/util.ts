@@ -52,6 +52,7 @@ interface TracerouteData {
 	result: unknown;
 	source_platform: string;
 	destination_ip_responded: boolean;
+	timestamp: unknown;
 };
 
 interface TLSData {
@@ -66,6 +67,7 @@ interface TLSData {
 	rt: number;
 	ttc: number;
 	source_platform: string;
+	timestamp: number;
 };
 
 enum ProbeStatus {
