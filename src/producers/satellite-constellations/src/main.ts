@@ -78,7 +78,7 @@ const crawl_satellites = async (last_norad_id = 1) => {
 		// Build Satellite Object from HTML
 		const launch_date = get_launch_date(html);
 		const decay_date = get_decay_date(html);
-		const name = get_name(html).replace(",", ""); // Remove commas from the name as CSV uses ',' for seperator.
+		const name = get_name(html);
 		const classification = get_classification(html);
 
 		// Definition of Satellite: see util.ts.

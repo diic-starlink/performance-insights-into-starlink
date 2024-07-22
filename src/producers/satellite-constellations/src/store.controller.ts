@@ -20,21 +20,17 @@ const pool = new Pool(db_config);
 const storeData = (sat_data: Satellite) => {
   if (!sat_data.norad_id) sat_data.norad_id = -1;
 
-  const query = `
-    INSERT INTO satellite_data (
-      name,
-      norad_id,
-      launch_date,
-      decay_date,
-      classification
-    ) VALUES (
-      '${sat_data.name}',
-      ${sat_data.norad_id},
-      '${sat_data.launch_date}',
-      '${sat_data.decay_date}',
-      '${sat_data.classification}'
-    );
-  `;
+  const query = {
+    text: `INSERT INTO satellite_data (name, norad_id, launch_date, decay_date, classification)
+           VALUES($1,$2,$3,$4,$5);`,
+    values: [
+      sat_data.name,
+      sat_data.norad_id,
+      sat_data.launch_date,
+      sat_data.decay_date,
+      sat_data.classification
+    ]
+  }
 
   pool.query(query);
 };
