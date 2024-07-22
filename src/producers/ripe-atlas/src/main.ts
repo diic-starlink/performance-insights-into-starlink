@@ -1,9 +1,9 @@
 import assert from "assert";
-import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
-import { STOP_TIMESTAMP } from "./timeframe_config";
+import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_HTTP, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
+import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { getMaxTimestamp, storeDisconnectEventData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
+import { storeDisconnectEventData, storeHttpData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
 
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day in seconds
@@ -17,7 +17,8 @@ enum SourcePlatforms {
 	ping = 'RIPE ATLAS (builtin ping)',
 	disconnect_event = 'RIPE ATLAS (builtin disconnect event)',
 	traceroute = 'RIPE ATLAS (builtin traceroute)',
-	tls = 'RIPE ATLAS (builtin tls)'
+	tls = 'RIPE ATLAS (builtin tls)',
+	http = 'RIPE ATLAS (builtin http)'
 };
 
 const ripe_up = async () => {
@@ -126,6 +127,7 @@ interface Chunk {
 	disconnect_event_chunk: ProbeServerPair[];
 	traceroute_chunk: ProbeServerPair[];
 	tls_chunk: ProbeServerPair[];
+	http_chunk: ProbeServerPair[];
 };
 
 const main = async (threads = 1) => {
@@ -137,7 +139,7 @@ const main = async (threads = 1) => {
 	// Wait for 10 seconds to ensure that the database API is ready.
 	await (new Promise((resolve) => { setTimeout(resolve, 10000) }));
 
-	start_timestamp = await getMaxTimestamp();
+	start_timestamp = START_TIMESTAMP;
 	stop_timestamp = STOP_TIMESTAMP;
 
 	console.log(`Start Timestamp: ${start_timestamp}`);
@@ -173,20 +175,19 @@ const main = async (threads = 1) => {
 	const de_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_DISCONNECT_EVENTS);
 	const traceroute_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TRACEROUTE);
 	const tls_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TLS);
+	const http_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_HTTP);
 
 	let de_ctr = 0;
 	let ping_ctr = 0;
 	let traceroute_crt = 0;
 	let tls_ctr = 0;
-	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr) {
-		let de_chunk: ProbeServerPair[] = [];
-		let ping_chunk: ProbeServerPair[] = [];
-		let traceroute_chunk: ProbeServerPair[] = [];
-		let tls_chunk: ProbeServerPair[] = [];
-		if (de_ctr < de_chunks.length) de_chunk = de_chunks[de_ctr];
-		if (ping_ctr < ping_chunks.length) ping_chunk = ping_chunks[ping_ctr];
-		if (traceroute_crt < traceroute_chunks.length) traceroute_chunk = traceroute_chunks[traceroute_crt];
-		if (tls_ctr < tls_chunks.length) tls_chunk = tls_chunks[tls_ctr];
+	let http_ctr = 0;
+	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr || http_chunks.length > http_ctr) {
+		const de_chunk: ProbeServerPair[] = (de_ctr < de_chunks.length) ? de_chunks[de_ctr] : [];
+		const ping_chunk: ProbeServerPair[] = (ping_ctr < ping_chunks.length) ? ping_chunks[ping_ctr] : [];
+		const traceroute_chunk: ProbeServerPair[] = (traceroute_crt < traceroute_chunks.length) ? traceroute_chunks[traceroute_crt] : [];
+		const tls_chunk: ProbeServerPair[] = (tls_ctr < tls_chunks.length) ? tls_chunks[tls_ctr] : [];
+		const http_chunk: ProbeServerPair[] = (http_ctr < http_chunks.length) ? http_chunks[http_ctr] : [];
 
 		chunks.push({
 			start_timestamp: start_timestamp,
@@ -194,13 +195,15 @@ const main = async (threads = 1) => {
 			ping_chunk: ping_chunk,
 			disconnect_event_chunk: de_chunk,
 			traceroute_chunk: traceroute_chunk,
-			tls_chunk: tls_chunk
+			tls_chunk: tls_chunk,
+			http_chunk: http_chunk
 		});
 
 		++de_ctr;
 		++ping_ctr;
 		++traceroute_crt;
 		++tls_ctr;
+		++http_ctr;
 	}
 
 	for (const chunk of chunks) {
@@ -220,6 +223,10 @@ const main = async (threads = 1) => {
 					break;
 				case SourcePlatforms.tls:
 					storeTlsData(data);
+					break;
+				case SourcePlatforms.http:
+					storeHttpData(data);
+					break;
 			}
 		});
 	}
@@ -239,8 +246,9 @@ const workerMain = async () => {
 		{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
 		{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
 		{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
-		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls }
-	].sort(() => 0.5 - Math.random());; // Shuffle the chunks.
+		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls },
+		{ chunk: workerData.http_chunk, source_platform: SourcePlatforms.http }
+	].sort(() => 0.5 - Math.random()); // Shuffle the chunks.
 
 	for (const chunk of chunks) {
 		await download_and_store(chunk.chunk, chunk.source_platform);
