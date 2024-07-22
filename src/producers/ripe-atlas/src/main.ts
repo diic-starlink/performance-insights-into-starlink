@@ -183,11 +183,11 @@ const main = async (threads = 1) => {
 	let tls_ctr = 0;
 	let http_ctr = 0;
 	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr || http_chunks.length > http_ctr) {
-		let de_chunk: ProbeServerPair[] = (de_ctr < de_chunks.length) ? de_chunks[de_ctr] : [];
-		let ping_chunk: ProbeServerPair[] = (ping_ctr < ping_chunks.length) ? ping_chunks[ping_ctr] : [];
-		let traceroute_chunk: ProbeServerPair[] = (traceroute_crt < traceroute_chunks.length) ? traceroute_chunks[traceroute_crt] : [];
-		let tls_chunk: ProbeServerPair[] = (tls_ctr < tls_chunks.length) ? tls_chunks[tls_ctr] : [];
-		let http_chunk: ProbeServerPair[] = (http_ctr < http_chunks.length) ? http_chunks[http_ctr] : [];
+		const de_chunk: ProbeServerPair[] = (de_ctr < de_chunks.length) ? de_chunks[de_ctr] : [];
+		const ping_chunk: ProbeServerPair[] = (ping_ctr < ping_chunks.length) ? ping_chunks[ping_ctr] : [];
+		const traceroute_chunk: ProbeServerPair[] = (traceroute_crt < traceroute_chunks.length) ? traceroute_chunks[traceroute_crt] : [];
+		const tls_chunk: ProbeServerPair[] = (tls_ctr < tls_chunks.length) ? tls_chunks[tls_ctr] : [];
+		const http_chunk: ProbeServerPair[] = (http_ctr < http_chunks.length) ? http_chunks[http_ctr] : [];
 
 		chunks.push({
 			start_timestamp: start_timestamp,
