@@ -1,6 +1,6 @@
 import { Pool } from "pg";
-import { DisconnectEventData, PingData, Probe, TLSData, TracerouteData } from "./util";
-import { START_TIMESTAMP } from "./timeframe_config";
+import { DisconnectEventData, HttpData, PingData, Probe, TLSData, TracerouteData } from "./util";
+import { v6 as uuidv6 } from "uuid";
 
 const db_config = {
   user: 'postgres',
@@ -17,7 +17,9 @@ enum Tables {
   DISCONNECT_EVENT_DATA = 'disconnect_event_data',
   TRACEROUTE_DATA = 'traceroute_data',
   TLS_DATA = 'tls_data',
-  PROBE_DATA = 'ripe_atlas_probe_data'
+  PROBE_DATA = 'ripe_atlas_probe_data',
+  HTTP_DATA = 'http_data',
+  HTTP_RESULT_DATA = 'http_result_data',
 }
 
 const storePingData = (data: PingData[]) => {
@@ -201,6 +203,87 @@ const storeProbeData = (data: Probe[]) => {
   }
 };
 
+const storeHttpData = async (data: HttpData[]) => {
+  for (const body of data) {
+    const uuid = uuidv6();
+
+    // Measurement meta data.
+    const query = {
+      text: `
+        INSERT INTO ${Tables.HTTP_DATA} (
+          data_id,
+          src,
+          prb_id,
+          msm_id,
+          timestamp,
+          uri,
+          source_platform
+        ) VALUES (
+          $1,
+          $2,
+          $3,
+          $4,
+          $5,
+          $6,
+          $7
+        );
+      `,
+      values: [
+        uuid,
+        body.from,
+        body.prb_id,
+        body.msm_id,
+        body.timestamp,
+        body.uri,
+        body.source_platform
+      ]
+    };
+
+    await pool.query(query);
+
+    // Measurement data.
+    for (const result of body.result) {
+      const data_query = {
+        text: `
+          INSERT INTO ${Tables.HTTP_RESULT_DATA} (
+            data_id,
+            msm_id,
+            af,
+            bsize,
+            dst_addr,
+            hsize,
+            method,
+            http_status_code,
+            rt
+          ) VALUES (
+            $1,
+            $2,
+            $3,
+            $4,
+            $5,
+            $6,
+            $7,
+            $8,
+            $9
+          );
+        `, values: [
+          uuid,
+          body.msm_id,
+          result.af,
+          result.bsize,
+          result.dst_addr,
+          result.hsize,
+          result.method,
+          result.status_code,
+          result.rt,
+        ]
+      };
+
+      pool.query(data_query);
+    }
+  }
+};
+
 /**
  * Get the count of rows in a table.
  */
@@ -210,22 +293,12 @@ const getTableCount = async (table: Tables): Promise<number> => {
   return result.rows[0].count;
 };
 
-const getMaxTimestamp = async (): Promise<number> => {
-  if ((await getTableCount(Tables.PING_DATA)) > 0) {
-    const query = `SELECT MAX(timestamp) FROM ${Tables.PING_DATA};`;
-    const result = await pool.query(query);
-    return result.rows[0].max / 1000;
-  }
-
-  return START_TIMESTAMP;
-};
-
 export {
   storePingData,
   storeDisconnectEventData,
   storeTracerouteData,
   storeTlsData,
   storeProbeData,
+  storeHttpData,
   getTableCount,
-  getMaxTimestamp
 };

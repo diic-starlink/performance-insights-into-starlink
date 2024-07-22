@@ -19,10 +19,14 @@
     "sqlite3": "^5.1.7",
     "stream-json": "^1.8.0",
     "typescript": "^5.4.5",
+    "uuid": "^10.0.0",
     "ws": "^8.17.0"
   },
   "optionalDependencies": {
     "all": "^0.0.0",
     "bufferutil": "^4.0.8"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0"
   }
 }

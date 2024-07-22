@@ -1,3 +1,5 @@
+import internal from "stream";
+
 interface Measurement {
 	measurement_id: number;
 	probe_id: number;
@@ -56,7 +58,7 @@ interface TracerouteData {
 };
 
 interface TLSData {
-	af: number;
+	af: 4 | 6;
 	dst_name: string;
 	dst_port: string;
 	from: string;
@@ -68,6 +70,29 @@ interface TLSData {
 	ttc: number;
 	source_platform: string;
 	timestamp: number;
+};
+
+interface HttpData {
+	from: string;
+	lts: number;
+	msm_id: number;
+	msm_name: string;
+	prb_id: number;
+	timestamp: number;
+	uri: string;
+	result: HttpResultData[];
+	source_platform: string;
+};
+
+interface HttpResultData {
+	af: 4 | 6;
+	bsize: number;
+	dst_addr: string;
+	hsize: number;
+	method: "GET" | "HEAD" | "POST";
+	status_code: number;
+	rt: number;
+	src_addr: string;
 };
 
 enum ProbeStatus {
@@ -105,4 +130,6 @@ export {
 	DisconnectEventData,
 	TracerouteData,
 	TLSData,
+	HttpData,
+	HttpResultData
 };

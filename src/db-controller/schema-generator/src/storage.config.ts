@@ -7,8 +7,8 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS satellite_data;
   DROP TABLE IF EXISTS tls_data;
   DROP TABLE IF EXISTS ripe_atlas_probe_data;
+  DROP TABLE IF EXISTS http_result_data;
   DROP TABLE IF EXISTS http_data;
-  DROP TABLE IF EXISTS http_result_data; 
 `;
 
 const SETUP_QUERIES = `
@@ -89,22 +89,26 @@ const SETUP_QUERIES = `
   );
 
   CREATE TABLE IF NOT EXISTS http_data (
+    data_id VARCHAR PRIMARY KEY,
     src VARCHAR,
     prb_id INTEGER,
-    msm_id INTEGER
+    msm_id INTEGER,
     timestamp INTEGER,
-    uri VARCHAR
+    uri VARCHAR,
+    source_platform VARCHAR
   );
 
   CREATE TABLE IF NOT EXISTS http_result_data (
-    msm_id INTEGER,
+    data_id VARCHAR,
     af INTEGER,
+    msm_id INTEGER,
     bsize INTEGER,
     dst_addr VARCHAR,
     hsize INTEGER,
     method VARCHAR,
     http_status_code INTEGER,
-    rt FLOAT
+    rt FLOAT,
+    CONSTRAINT fk_data_id FOREIGN KEY (data_id) REFERENCES http_data(data_id)
   );
 `;
 
