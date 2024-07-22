@@ -1,5 +1,3 @@
-import internal from "stream";
-
 interface Measurement {
 	measurement_id: number;
 	probe_id: number;
