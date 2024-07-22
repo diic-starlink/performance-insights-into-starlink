@@ -7,6 +7,8 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS satellite_data;
   DROP TABLE IF EXISTS tls_data;
   DROP TABLE IF EXISTS ripe_atlas_probe_data;
+  DROP TABLE IF EXISTS http_data;
+  DROP TABLE IF EXISTS http_result_data; 
 `;
 
 const SETUP_QUERIES = `
@@ -84,6 +86,25 @@ const SETUP_QUERIES = `
     longitude FLOAT,
     latitude FLOAT,
     country VARCHAR
+  );
+
+  CREATE TABLE IF NOT EXISTS http_data (
+    src VARCHAR,
+    prb_id INTEGER,
+    msm_id INTEGER
+    timestamp INTEGER,
+    uri VARCHAR
+  );
+
+  CREATE TABLE IF NOT EXISTS http_result_data (
+    msm_id INTEGER,
+    af INTEGER,
+    bsize INTEGER,
+    dst_addr VARCHAR,
+    hsize INTEGER,
+    method VARCHAR,
+    http_status_code INTEGER,
+    rt FLOAT
   );
 `;
 
