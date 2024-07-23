@@ -6,12 +6,21 @@ const DROP_QUERIES = `
   DROP TABLE IF EXISTS traceroute_data;
   DROP TABLE IF EXISTS satellite_data;
   DROP TABLE IF EXISTS tls_data;
-  DROP TABLE IF EXISTS ripe_atlas_probe_data;
   DROP TABLE IF EXISTS http_result_data;
   DROP TABLE IF EXISTS http_data;
+  DROP TABLE IF EXISTS ripe_atlas_probe_data;
 `;
 
 const SETUP_QUERIES = `
+   CREATE TABLE IF NOT EXISTS ripe_atlas_probe_data (
+    id INTEGER PRIMARY KEY,
+    ipv4 VARCHAR,
+    asn INTEGER,
+    longitude FLOAT,
+    latitude FLOAT,
+    country VARCHAR
+  );
+
   CREATE TABLE IF NOT EXISTS ping_data (
     msm_id INTEGER,
     destination VARCHAR,
@@ -24,7 +33,8 @@ const SETUP_QUERIES = `
     step INTEGER,
     sent_packets INTEGER,
     received_packets INTEGER,
-    source_platform VARCHAR
+    source_platform VARCHAR,
+    CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
   );
 
   CREATE TABLE IF NOT EXISTS disconnect_event_data (
@@ -38,7 +48,8 @@ const SETUP_QUERIES = `
     asn INTEGER,
     prefix VARCHAR,
     prb_country VARCHAR,
-    source_platform VARCHAR
+    source_platform VARCHAR,
+    CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
   );
 
   CREATE TABLE IF NOT EXISTS traceroute_data (
@@ -53,7 +64,8 @@ const SETUP_QUERIES = `
     result VARCHAR,
     destination_ip_responded BOOLEAN,
     timestamp INTEGER,
-    source_platform VARCHAR
+    source_platform VARCHAR,
+    CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
   );
 
   CREATE TABLE IF NOT EXISTS satellite_data (
@@ -76,16 +88,8 @@ const SETUP_QUERIES = `
     rt FLOAT,
     ttc FLOAT,
     timestamp INTEGER,
-    source_platform VARCHAR
-  );
-
-  CREATE TABLE IF NOT EXISTS ripe_atlas_probe_data (
-    id INTEGER,
-    ipv4 VARCHAR,
-    asn INTEGER,
-    longitude FLOAT,
-    latitude FLOAT,
-    country VARCHAR
+    source_platform VARCHAR,
+    CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
   );
 
   CREATE TABLE IF NOT EXISTS http_data (
@@ -95,7 +99,8 @@ const SETUP_QUERIES = `
     msm_id INTEGER,
     timestamp INTEGER,
     uri VARCHAR,
-    source_platform VARCHAR
+    source_platform VARCHAR,
+    CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
   );
 
   CREATE TABLE IF NOT EXISTS http_result_data (
