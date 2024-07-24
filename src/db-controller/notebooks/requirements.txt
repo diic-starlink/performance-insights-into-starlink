@@ -6,3 +6,11 @@ sqlalchemy
 matplotlib
 psycopg2-binary
 seaborn
+geocoder
+ipinfo
+countryinfo
+geopandas
+cartopy
+geodatasets
+folium
+geoip2
