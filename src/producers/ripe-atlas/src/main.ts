@@ -107,7 +107,7 @@ const download_and_store = async (chunk: ProbeServerPair[], source_platform: str
 						parentPort.postMessage(data);
 					}
 				} catch (e) {
-					console.warn('Was not able to parse JSON returned from ${url}.');
+					console.warn(`Was not able to parse JSON returned from ${url}.`);
 				}
 			}
 
