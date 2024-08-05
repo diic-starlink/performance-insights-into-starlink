@@ -1,6 +1,6 @@
 # How is Starlink Manoeuvering?
 
-See [Paper](../papers/how_is_starlink_manoeuvring.pdf).
+See [Paper](../../papers/how_is_starlink_manoeuvring.pdf).
 
 - Analysis of Starlink's manoeuvering behavior
 - Uses TLE data from Space-Track

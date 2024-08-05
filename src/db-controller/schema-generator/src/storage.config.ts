@@ -115,6 +115,10 @@ const SETUP_QUERIES = `
     rt FLOAT,
     CONSTRAINT fk_data_id FOREIGN KEY (data_id) REFERENCES http_data(data_id)
   );
+
+  CREATE TABLE IF NOT EXISTS dns_data (
+    :q
+  );
 `;
 
 export {
