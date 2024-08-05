@@ -1,0 +1,33 @@
+\section{Satellite Network Simulators} \label{sec:satellite_network_simulators}
+
+Amongst concrete measurements, one can also simulate networked satellite systems. This
+became increasingly interesting when the constellations were composed of many more
+satellites compared to traditional \ac{GEO} satellite constellations. For example,
+\ac{LEO} constellations comprise hundreds to thousands of satellites, which implies
+a highly complex system.
+
+Sadly, measurements are often highly difficult as they either require acquiring satellite
+hardware or recruiting users that already posses the required hardware. Simulation would
+tackle both problems, while maintaining low cost. To the best of our knowledge, we found
+two networked satellite simulators for \ac{LEO} constellations.
+
+\subsection{StarPerf} \label{sec:starperf}
+
+\textit{StarPerf}\footnote{\href{https://github.com/SpaceNetLab/StarPerf\_Simulator}{SpaceNetLab/StarPerf\_Simulator}} \cite{DBLP:conf/icnp/LaiLL20} is a mega-constellation performance simulation platform.
+It specifically aims at measuring the impact of the movements of satellites.
+Also, it measures performance in different areas. However, setting it up required, amongst others, Matlab and STK. This made the project difficult and expensive to test. Therefore, we did not advance in trying out \textit{StarPerf}.
+
+\subsection{Hypatia} \label{sec:hypatia}
+
+\textit{Hypatia}\footnote{\href{https://github.com/snkas/hypatia}{snkas/hypatia}} \cite{DBLP:conf/imc/KassingBASS20} is another LEO network simulation framework, released in 2020 just like \textit{StarPerf}.
+It aims at a low-level simulation on packet-level and visualizes the data. Unlike \textit{StarPerf}, it only requires a Python3 installation. Sadly, running simulations with Hypatia is highly complex as it requires the user to define, amongst others, the satellites, ground stations, and points of presence. This information is hardly available, which renders the simulations barely usable.
+
+\subsection{Problems of Network Simulators}
+
+To the best of our knowledge, research has stopped relying on simulators since 2020.
+There is proper hardware available that allows testing in the real world. Testing in the
+real world has the advantage as it takes more variables into account. Crucial factors
+for the performance of a networked satellite system are the weather, congestion, solar magnetic
+storms, material failure, and many more. Those cannot be ideally tested with simulations
+and will eventually produce wrong results. Therefore, for further research of this thesis,
+simulations will not be used.
