@@ -16,3 +16,4 @@ build
 # Eventual Builds by hand (should not be done!)
 main.pdf
 src/main.pdf
+.obsidian
