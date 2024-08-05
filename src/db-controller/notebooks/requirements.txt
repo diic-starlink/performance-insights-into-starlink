@@ -14,3 +14,4 @@ cartopy
 geodatasets
 folium
 geoip2
+requests
