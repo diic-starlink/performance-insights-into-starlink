@@ -103,7 +103,7 @@ const crawl_satellites = async (last_norad_id = 1) => {
 		const satellite: Satellite = { name, norad_id, launch_date, decay_date, classification };
 
 		// Store satellite data in database directly.
-		storeData(satellite); // TODO(rrcomtech): Do not do this, if satellite is already in DB
+		await storeData(satellite); // TODO(rrcomtech): Do not do this, if satellite is already in DB
 
 		++norad_id;
 		html = await fetch_satellite(norad_id);
