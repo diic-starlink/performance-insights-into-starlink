@@ -63,12 +63,30 @@ const get_classification = (html: string): boolean | string => {
 	return line[1];
 }
 
+const get_maximum_norad_id = (html: string) => {
+	// N2YO holds in the head a dropdown menu with the most recent satellite launches.
+	// Each of these dropdown entries has the form /satellite/?s=12345
+	// This includes the highest norad id entry N2YO knows about and that is the one
+	// we want.
+	const regex = /\/satellite\/\?s=[0-9]+/g;
+	const matches = html.match(regex);
+
+	let max_id = 0;
+	for (const match of matches) {
+		const id = parseInt(match.match(/[0-9]+/)[0]);
+		if (id) max_id = Math.max(id, max_id);
+	}
+	return max_id;
+}
 
 const crawl_satellites = async (last_norad_id = 1) => {
 	let norad_id = last_norad_id;
 
 	let html = await fetch_satellite(norad_id);
-	while (norad_id < 59507) {
+	const maximum_norad_id = get_maximum_norad_id(html);
+	console.log(`Maximum Norad ID: ${maximum_norad_id}`);
+
+	while (norad_id < maximum_norad_id) {
 		if (!html) {
 			++norad_id;
 			html = await fetch_satellite(norad_id);
@@ -85,7 +103,7 @@ const crawl_satellites = async (last_norad_id = 1) => {
 		const satellite: Satellite = { name, norad_id, launch_date, decay_date, classification };
 
 		// Store satellite data in database directly.
-		storeData(satellite);
+		storeData(satellite); // TODO(rrcomtech): Do not do this, if satellite is already in DB
 
 		++norad_id;
 		html = await fetch_satellite(norad_id);
