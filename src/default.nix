@@ -46,7 +46,7 @@ in pkgs.mkShell {
 
     help() {
       echo ""
-      echo "Welcome to the producers shell 🚀 !"
+      echo "🚀 Welcome to the producers shell 🚀"
       echo ""
       echo "Be aware, you need to be in the /src dir of the repository outside a tmux session."
       echo "Following commands are available:"
@@ -54,7 +54,7 @@ in pkgs.mkShell {
       echo "   - runProducers: Start the producers in the 'producers' directory."
       echo "   - runAll: Execute the previously two mentioned commands with a sleep of 30s in between."
       echo "   - killAll: Kill 'dbbackend' and 'producers' tmux sessions."
-      echo "   - killBackend: Cancels processes and jills 'dbbackend' tmux session."
+      echo "   - killBackend: Cancels processes and kills 'dbbackend' tmux session."
       echo "   - killProducers: Kills 'producers' tmux session."
       echo "   - help: Display this help message."
     }
