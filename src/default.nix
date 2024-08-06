@@ -46,7 +46,7 @@ in pkgs.mkShell {
 
     help() {
       echo ""
-      echo "Welcome to the producers shell 🚀 !"
+      echo "🚀 Welcome to the producers shell 🚀"
       echo ""
       echo "Be aware, you need to be in the /src dir of the repository outside a tmux session."
       echo "Following commands are available:"
