@@ -22,6 +22,7 @@ export class StoreController {
     console.log("Database ready ... Preparing the database ...");
 
     if (DROP_TABLES) {
+      // TODO: Make this lower case
       console.log("INFO: Storage Engine is configured to drop all tables before preparing the DB.");
       await pool.query(DROP_QUERIES);
     }
