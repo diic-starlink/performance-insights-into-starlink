@@ -8,7 +8,7 @@ while true; do
 	# This is not precise, but it also does not have to be.
 	sleep 10800
 
-	duckdb data/data.db "\
+	duckdb data/duck.db "\
 		INSTALL postgres; LOAD postgres; \
 		ATTACH 'dbname=postgres user=postgres host=$HOST password=postgres port=5432' AS postgres (TYPE POSTGRES, READ_ONLY); \
 		ATTACH 'data/duck.db' AS duckdb (TYPE DUCKDB, READ_WRITE); \
