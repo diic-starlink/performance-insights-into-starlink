@@ -1,9 +1,9 @@
 import assert from "assert";
-import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_HTTP, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
+import { ROOTSERVERS_BUILTIN_PING, ROOTSERVER_BUILTIN_DISCONNECT_EVENTS, ROOTSERVER_BUILTIN_DNS, ROOTSERVER_BUILTIN_HTTP, ROOTSERVER_BUILTIN_TLS, ROOTSERVER_BUILTIN_TRACEROUTE } from "./root_server_config";
 import { START_TIMESTAMP, STOP_TIMESTAMP } from "./timeframe_config";
 import { Probe, string_to_probestatus } from "./util";
 import { Worker, isMainThread, workerData, parentPort } from "worker_threads";
-import { storeDisconnectEventData, storeHttpData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
+import { storeDisconnectEventData, storeDnsData, storeHttpData, storePingData, storeProbeData, storeTlsData, storeTracerouteData } from "./store.controller";
 
 const ASN = 14593;
 const TIMEFRAME = 60 * 60 * 24; // 1 day in seconds
@@ -18,7 +18,8 @@ enum SourcePlatforms {
 	disconnect_event = 'RIPE ATLAS (builtin disconnect event)',
 	traceroute = 'RIPE ATLAS (builtin traceroute)',
 	tls = 'RIPE ATLAS (builtin tls)',
-	http = 'RIPE ATLAS (builtin http)'
+	http = 'RIPE ATLAS (builtin http)',
+	dns = 'RIPE ATLAS (builtin dns)'
 };
 
 const ripe_up = async () => {
@@ -29,6 +30,7 @@ const ripe_up = async () => {
 	return true;
 };
 
+// TODO: Describe function
 const fetch_data = async (url: string, retries = 3): Promise<Response> => {
 	try {
 		const response = await fetch(url);
@@ -128,6 +130,7 @@ interface Chunk {
 	traceroute_chunk: ProbeServerPair[];
 	tls_chunk: ProbeServerPair[];
 	http_chunk: ProbeServerPair[];
+	dns_chunk: ProbeServerPair[];
 };
 
 const main = async (threads = 1) => {
@@ -171,23 +174,27 @@ const main = async (threads = 1) => {
 		return res;
 	};
 
+	// TODO: Refactor that shit
 	const ping_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVERS_BUILTIN_PING);
 	const de_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_DISCONNECT_EVENTS);
 	const traceroute_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TRACEROUTE);
 	const tls_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_TLS);
 	const http_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_HTTP);
+	const dns_chunks: ProbeServerPair[][] = get_chunks(ROOTSERVER_BUILTIN_DNS);
 
+	let dns_ctr = 0;
 	let de_ctr = 0;
 	let ping_ctr = 0;
 	let traceroute_crt = 0;
 	let tls_ctr = 0;
 	let http_ctr = 0;
-	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr || http_chunks.length > http_ctr) {
+	while (de_chunks.length > de_ctr || ping_chunks.length > ping_ctr || traceroute_chunks.length > traceroute_crt || tls_chunks.length > tls_ctr || http_chunks.length > http_ctr || dns_chunks.length > dns_ctr) {
 		const de_chunk: ProbeServerPair[] = (de_ctr < de_chunks.length) ? de_chunks[de_ctr] : [];
 		const ping_chunk: ProbeServerPair[] = (ping_ctr < ping_chunks.length) ? ping_chunks[ping_ctr] : [];
 		const traceroute_chunk: ProbeServerPair[] = (traceroute_crt < traceroute_chunks.length) ? traceroute_chunks[traceroute_crt] : [];
 		const tls_chunk: ProbeServerPair[] = (tls_ctr < tls_chunks.length) ? tls_chunks[tls_ctr] : [];
 		const http_chunk: ProbeServerPair[] = (http_ctr < http_chunks.length) ? http_chunks[http_ctr] : [];
+		const dns_chunk: ProbeServerPair[] = (dns_ctr < dns_chunks.length) ? dns_chunks[dns_ctr] : [];
 
 		chunks.push({
 			start_timestamp: start_timestamp,
@@ -196,7 +203,8 @@ const main = async (threads = 1) => {
 			disconnect_event_chunk: de_chunk,
 			traceroute_chunk: traceroute_chunk,
 			tls_chunk: tls_chunk,
-			http_chunk: http_chunk
+			http_chunk: http_chunk,
+			dns_chunk: dns_chunk
 		});
 
 		++de_ctr;
@@ -204,6 +212,7 @@ const main = async (threads = 1) => {
 		++traceroute_crt;
 		++tls_ctr;
 		++http_ctr;
+		++dns_ctr;
 	}
 
 	for (const chunk of chunks) {
@@ -227,6 +236,9 @@ const main = async (threads = 1) => {
 				case SourcePlatforms.http:
 					storeHttpData(data);
 					break;
+				case SourcePlatforms.dns:
+					storeDnsData(data);
+					break;
 			}
 		});
 	}
@@ -243,11 +255,12 @@ const workerMain = async () => {
 	stop_timestamp = workerData.stop_timestamp;
 
 	const chunks: ProbeServerSourcePair[] = [
-		{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
-		{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
-		{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
-		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls },
-		{ chunk: workerData.http_chunk, source_platform: SourcePlatforms.http }
+		//{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
+		//{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
+		//{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
+		//{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls },
+		//{ chunk: workerData.http_chunk, source_platform: SourcePlatforms.http },
+		{ chunk: workerData.dns_chunk, source_platform: SourcePlatforms.dns }
 	].sort(() => 0.5 - Math.random()); // Shuffle the chunks.
 
 	for (const chunk of chunks) {
