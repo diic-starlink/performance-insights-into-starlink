@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DisconnectEventData, HttpData, PingData, Probe, TLSData, TracerouteData } from "./util";
+import { DisconnectEventData, DnsData, DnsResultData, HttpData, PingData, Probe, TLSData, TracerouteData } from "./util";
 import { v6 as uuidv6 } from "uuid";
 
 const db_config = {
@@ -20,6 +20,9 @@ enum Tables {
   PROBE_DATA = 'ripe_atlas_probe_data',
   HTTP_DATA = 'http_data',
   HTTP_RESULT_DATA = 'http_result_data',
+  DNS_DATA = 'dns_data',
+  DNS_RESULT_DATA = 'dns_result_data',
+  DNS_ANSWER_DATA = 'dns_result_answer_data'
 }
 
 const storePingData = (data: PingData[]) => {
@@ -284,6 +287,112 @@ const storeHttpData = async (data: HttpData[]) => {
   }
 };
 
+const storeDnsData = async (data_list: DnsData[]) => {
+  for (let data of data_list) {
+    const uuid = uuidv6();
+
+    // dst_addr is defined as optional in the Format reference.
+    if (!data.dst_addr) data.dst_addr = "Unknown";
+
+    const data_query = {
+      text: `
+        INSERT INTO ${Tables.DNS_DATA} (
+          data_id,
+          af,
+          dst_addr,
+          origin,
+          msm_id,
+          prb_id,
+          proto,
+          timestamp,
+          source_platform
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9
+        );
+      `,
+      values: [
+        uuid,
+        data.af,
+        data.dst_addr,
+        data.from,
+        data.msm_id,
+        data.prb_id,
+        data.proto,
+        data.timestamp,
+        data.source_platform
+      ]
+    };
+    await pool.query(data_query);
+
+    const result_data = data.result;
+    if (!result_data) return;
+
+    const result_data_query = {
+      text: `
+          INSERT INTO ${Tables.DNS_RESULT_DATA} (
+            data_id,
+            answer_count,
+            record_count,
+            query_id,
+            nameserver_count,
+            number_of_queries,
+            answer_payload_buffer,
+            rt,
+            size,
+            ttl
+          ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+          );
+        `,
+      values: [
+        uuid,
+        result_data.ancount,
+        result_data.arcount,
+        result_data.id,
+        result_data.nscount,
+        result_data.qdcount,
+        result_data.abuf,
+        result_data.rt,
+        result_data.size,
+        result_data.ttl
+      ]
+    };
+    await pool.query(result_data_query);
+
+    for (const answer_data of result_data.answers) {
+      const answers_data_query = {
+        text: `
+            INSERT INTO ${Tables.DNS_ANSWER_DATA} (
+              data_id,
+              mname,
+              name,
+              rdata,
+              rname,
+              serial,
+              ttl,
+              type
+            ) VALUES (
+              $1, $2, $3, $4, $5, $6, $7, $8
+            )
+          `,
+        values: [
+          uuid,
+          answer_data.mname,
+          answer_data.name,
+          answer_data.rdata,
+          answer_data.rname,
+          answer_data.serial,
+          answer_data.ttl,
+          answer_data.type
+        ]
+      }
+
+      pool.query(answers_data_query);
+    }
+  }
+};
+
+
 /**
  * Get the count of rows in a table.
  */
@@ -300,5 +409,6 @@ export {
   storeTlsData,
   storeProbeData,
   storeHttpData,
+  storeDnsData,
   getTableCount,
 };

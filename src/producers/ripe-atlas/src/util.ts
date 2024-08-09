@@ -93,6 +93,52 @@ interface HttpResultData {
 	src_addr: string;
 };
 
+interface DnsData {
+	af: 4 | 6;
+	bundle: number;
+	dst_addr: string;
+	dst_name: string;
+	from: string;
+	group_id: number;
+	lts: number;
+	msm_id: number;
+	msm_name: string;
+	prb_id: number;
+	proto: "TCP" | "UDP";
+	qbuf: string;
+	result: DnsResultData;
+	retry: number;
+	src_addr: string;
+	subid: number;
+	submax: number;
+	timestamp: number;
+	type: "dns";
+	source_platform: string;
+};
+
+interface DnsResultData {
+	ancount: number;
+	arcount: number;
+	id: number;
+	nscount: number;
+	qdcount: number;
+	abuf: string;
+	answers: DnsAnswerResultData[];
+	rt: number;
+	size: number;
+	ttl: number;
+};
+
+interface DnsAnswerResultData {
+	mname: string;
+	name: string;
+	rdata: string[];
+	rname: string;
+	serial: number;
+	ttl: number;
+	type: string;
+};
+
 enum ProbeStatus {
 	CONNECTED = 'Connected',
 	DISCONNECTED = 'Disconnected',
@@ -129,5 +175,8 @@ export {
 	TracerouteData,
 	TLSData,
 	HttpData,
-	HttpResultData
+	HttpResultData,
+	DnsData,
+	DnsResultData,
+	DnsAnswerResultData,
 };
