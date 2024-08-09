@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { DisconnectEventData, DnsData, DnsResultData, HttpData, PingData, Probe, TLSData, TracerouteData } from "./util";
+import { DisconnectEventData, DnsData, HttpData, PingData, Probe, TLSData, TracerouteData } from "./util";
 import { v6 as uuidv6 } from "uuid";
 
 const db_config = {
@@ -288,7 +288,7 @@ const storeHttpData = async (data: HttpData[]) => {
 };
 
 const storeDnsData = async (data_list: DnsData[]) => {
-  for (let data of data_list) {
+  for (const data of data_list) {
     const uuid = uuidv6();
 
     // dst_addr is defined as optional in the Format reference.
