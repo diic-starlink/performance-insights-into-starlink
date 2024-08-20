@@ -1,0 +1,27 @@
+\documentclass[a4, 12pt]{article}
+
+\begin{document}
+
+\author{Robert Richter}
+\title{Are there Inter-Satellite Links in Starlink?}
+\maketitle
+
+
+\noindent
+\textbf{RIPE RACI Contribution Proposal} \\
+Chair of \textbf{Data-Intensive Internet Computing} at Hasso Plattner Institute \\
+
+\noindent
+Advisor:~\textit{Dr.~Vasileios~Ververis} \\
+Professor:~\textit{Prof.~Dr.Vaibhav~Bajpai}
+
+\begin{abstract}
+
+	Networked satellite systems have become a promising part of the network landscape of the modern time.
+	Especially, communication among satellites promises a new kind of infrastructure. It allows data exchange at the speed of light without the necessity of crossing borders. Previous literature highlighted the challenges, but also the opportunities coming with this new technology, so-called \textit{Inter-Satellite~Links}~(ISLs).
+	One major player in the industry of networked satellite systems is \textit{Starlink} (having more than 5'500 satellites at the time of writing). Literature approached it from many different angles, but it is not clear (1) whether Starlink actually use ISLs in their satellite constellations and (2) whether Starlink achieves a performance improvement by running ISLs.
+	In this work, we will use traceroute data from RIPE Atlas probes running in the Starlink autonomous system to determine that Starlink runs ISLs. Next, we discuss the performance impact of ISLs in Starlink. Among others, we conclude that Starlink usually routes to the closest available ground station, not always using a distance-optimal route. Even if most of our findings are assumptions, we can therefore conclude that for the Starlink networked satellite system, ISLs most likely do not offer a positive performance impact, despite being a necessity to connect remote regions to the internet.
+
+\end{abstract}
+
+\end{document}
