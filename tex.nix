@@ -4,7 +4,7 @@ in pkgs.stdenv.mkDerivation {
   pname = "starlinkThesisBuild";
   version = "0.0.1";
 
-  src = ./thesis;
+  src = ./tex/thesis;
 
   buildInputs = with pkgs; [
     texliveFull
