@@ -1,0 +1,143 @@
+\section{Latency and Packet Loss Correlation} \label{sec:latency-packetloss-correlation}
+
+Latency and packet loss are closely bonded. An increase of packet loss might yield an increase in latency and vice-versa.
+For the data presented in the previous chapter, we looked at the interval from January 2022 to June 2024.
+For each month, we used the overall packet loss and the median latency.
+We used a Pearson, Kendall, and Spearman correlation to determine possible correlations between latency and packet loss.
+The results are shown in Table~\ref{fig:packetloss-latency-correlation}.
+
+\begin{table}
+	\caption{Packet Loss and Latency Correlation}
+	\label{fig:packetloss-latency-correlation}
+	\begin{tabular}{lrrr}
+		\toprule
+		Country                     & Pearson Correlation & Kendall Correlation & Spearman Correlation \\
+		\midrule
+		Falkland Islands (Malvinas) & 0.447641            & 0.595238            & 0.624282             \\
+		Réunion                     & 0.636822            & 0.716314            & 0.847658             \\
+		Kiribati                    & 0.819596            & 0.794851            & 0.801966             \\
+		Canada                      & -0.090981           & 0.218391            & 0.280534             \\
+		Poland                      & 0.093155            & -0.025287           & -0.073637            \\
+		Haiti                       & 0.383601            & 0.670768            & 0.844964             \\
+		Spain                       & -0.323940           & -0.163650           & -0.179434            \\
+		Czechia                     & 0.700248            & 0.730392            & 0.806351             \\
+		United States               & -0.556997           & -0.425287           & -0.610234            \\
+		France                      & 0.893576            & 0.664368            & 0.840267             \\
+		Italy                       & -0.073752           & 0.181609            & 0.293882             \\
+		United Kingdom              & -0.238013           & -0.227586           & -0.279644            \\
+		Honduras                    & 0.415387            & 0.410256            & 0.575585             \\
+		Australia                   & -0.025590           & 0.013841            & 0.035834             \\
+		Netherlands                 & 0.190923            & 0.055364            & 0.111952             \\
+		Greece                      & 0.249727            & 0.496864            & 0.668590             \\
+		Sweden                      & 0.678500            & 0.726984            & 0.896199             \\
+		Austria                     & 0.054429            & 0.039080            & 0.073192             \\
+		Belgium                     & -0.082786           & -0.029885           & -0.031368            \\
+		Philippines                 & 0.254523            & 0.460118            & 0.676049             \\
+		Virgin Islands, U.S.        & 0.712898            & 0.706384            & 0.878571             \\
+		Germany                     & -0.787348           & -0.549425           & -0.753059            \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+In a correlation, a value close to 1 or -1 shows a strong correlation. Values close to 0 do not appear to be correlated.
+In the results, some countries show a correlation, e.g., France or Czechia. Other countries, e.g., Canada or Australia do not show correlating values.
+As the number of countries with a stronger and those with a weaker correlation is equally distributed, we cannot conclude a correlation between latency and packet loss in Starlink networks.
+
+\subsection{Correlation in Single Years}
+
+Analyzing single years give a better understanding of the development of correlation in the year 2022, 2023, and 2024 (until June).
+The Tables~\ref{fig:packetloss-latency-correlation-2022}, \ref{fig:packetloss-latency-correlation-2023}, and \ref{fig:packetloss-latency-correlation-2024} show the individual correlation values for the year. There are only countries displayed, where a correlation value could be calculated.
+
+\begin{table}
+	\caption{Packet Loss and Latency Correlation in 2022}
+	\label{fig:packetloss-latency-correlation-2022}
+	\begin{tabular}{lrrr}
+		\toprule
+		Country        & Pearson Correlation & Kendall Correlation & Spearman Correlation \\
+		\midrule
+		Canada         & 0.478988            & 0.272727            & 0.307692             \\
+		Poland         & 0.601734            & 0.303030            & 0.342657             \\
+		Spain          & -0.286931           & -0.053571           & -0.037594            \\
+		United States  & -0.241717           & -0.212121           & -0.363636            \\
+		France         & 0.177126            & -0.060606           & -0.083916            \\
+		Italy          & 0.646487            & 0.484848            & 0.587413             \\
+		United Kingdom & 0.514397            & 0.363636            & 0.496503             \\
+		Honduras       & 0.208592            & -0.333333           & -0.426573            \\
+		Australia      & 0.870466            & 0.325669            & 0.450715             \\
+		Netherlands    & 0.159295            & -0.106873           & -0.164624            \\
+		Greece         & 0.811845            & 0.836660            & 0.853766             \\
+		Austria        & 0.013609            & -0.060606           & -0.146853            \\
+		Belgium        & -0.283806           & -0.242424           & -0.272727            \\
+		Germany        & -0.663075           & -0.303030           & -0.517483            \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\caption{Packet Loss and Latency Correlation in 2023}
+	\label{fig:packetloss-latency-correlation-2023}
+	\begin{tabular}{lrrr}
+		\toprule
+		Country                     & Pearson Correlation & Kendall Correlation & Spearman Correlation \\
+		\midrule
+		Falkland Islands (Malvinas) & 0.364389            & 0.466667            & 0.518072             \\
+		Réunion                     & 0.587427            & 0.467801            & 0.592125             \\
+		Canada                      & 0.370590            & 0.363636            & 0.608392             \\
+		Poland                      & -0.261476           & -0.090909           & -0.216783            \\
+		Haiti                       & 0.757392            & 0.390673            & 0.529108             \\
+		Spain                       & -0.413832           & -0.160714           & -0.218045            \\
+		Czechia                     & 0.415844            & 0.383333            & 0.458333             \\
+		United States               & -0.302660           & -0.242424           & -0.251748            \\
+		France                      & 0.779247            & 0.666667            & 0.818182             \\
+		Italy                       & -0.568765           & -0.272727           & -0.412587            \\
+		United Kingdom              & -0.812772           & -0.606061           & -0.748252            \\
+		Honduras                    & 0.343476            & 0.516667            & 0.617754             \\
+		Australia                   & -0.578546           & -0.121212           & -0.258741            \\
+		Netherlands                 & 0.212359            & 0.181818            & 0.314685             \\
+		Greece                      & -0.268072           & 0.212121            & 0.195804             \\
+		Sweden                      & 0.515385            & 0.533333            & 0.717391             \\
+		Austria                     & -0.294406           & -0.121212           & -0.125874            \\
+		Belgium                     & 0.441123            & 0.454545            & 0.573427             \\
+		Philippines                 & -0.196523           & -0.030303           & -0.034965            \\
+		Virgin Islands, U.S.        & 0.553108            & 0.578196            & 0.783080             \\
+		Germany                     & -0.620018           & -0.424242           & -0.622378            \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}
+	\caption{Packet Loss and Latency Correlation in 2024}
+	\label{fig:packetloss-latency-correlation-2024}
+	\begin{tabular}{lrrr}
+		\toprule
+		Country              & Pearson Correlation & Kendall Correlation & Spearman Correlation \\
+		\midrule
+		Réunion              & 0.301680            & -0.066667           & -0.085714            \\
+		Kiribati             & 0.744916            & 0.673575            & 0.718421             \\
+		Canada               & -0.003851           & -0.600000           & -0.771429            \\
+		Poland               & 0.239930            & 0.333333            & 0.371429             \\
+		Haiti                & 0.376160            & 0.200000            & 0.257143             \\
+		Spain                & -0.044513           & -0.333333           & -0.142857            \\
+		United States        & -0.529555           & -0.600000           & -0.771429            \\
+		France               & 0.418669            & 0.200000            & 0.257143             \\
+		Italy                & -0.600898           & -0.866667           & -0.942857            \\
+		United Kingdom       & 0.243811            & 0.333333            & 0.428571             \\
+		Honduras             & 0.431954            & 0.333333            & 0.542857             \\
+		Australia            & -0.155578           & -0.066667           & -0.085714            \\
+		Netherlands          & 0.433624            & 0.466667            & 0.542857             \\
+		Greece               & -0.813812           & -0.466667           & -0.600000            \\
+		Sweden               & 0.280194            & 0.066667            & 0.085714             \\
+		Austria              & 0.915449            & 0.466667            & 0.600000             \\
+		Belgium              & 0.428515            & 0.333333            & 0.371429             \\
+		Philippines          & -0.920833           & -0.466667           & -0.428571            \\
+		Virgin Islands, U.S. & -0.450938           & -0.333333           & -0.428571            \\
+		Germany              & -0.603772           & -0.333333           & -0.485714            \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+In 2022, there was little correlation at all. Likely, other factors like satellite infrastructure or presence of \ac{PoP} might have been more contributing to performance issues.
+2023 showed a stronger correlation compared to 2022. We assume that this is due to a more stable network. The interaction between packet loss and latency might have become more significant.
+In 2024, the correlation decreased once again slightly. This behavior is similar to the one observed for the latencies in recent months. A possible explanation for that is a growing user base of Starlink leading to a congestion of the system. It has to be noted that the growth of number of satellites did not increase from 2023 to 2024 as much as it did from 2022 to 2023, which might be a cause of the issue.
+
