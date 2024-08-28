@@ -2,7 +2,8 @@
 
 let
   hashes = import ./hashes.nix;
-  ref = "nixos-24.05";
+  # nixos-24.05
+  ref = "2527da1ef492c495d5391f3bcf9c1dd9f4514e32";
   hash = "0q96nxw7jg9l9zlpa3wkma5xzmgkdnnajapwhgb2fk2ll224rgs1";
 
   fetchCommit = fetchTarball {
