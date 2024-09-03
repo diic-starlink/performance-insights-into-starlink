@@ -35,7 +35,7 @@
 %    \boldNumberSetsfalse % Use this value if you want variables for number sets (like N or R) to appear in blackboard bold rather than bold.
 
     % The title of the thesis. The first argument is for the English name, the second is for the German name.
-    \myTitle{Evaluating Resiliency and Performance of Networked Satellite Systems}{Evaluierung der Resilienz und Leistung von vernetzten Satelliten Systemen}
+    \myTitle{Evaluating Resiliency and Performance of Networked Satellite Systems}{Evaluierung der Resilienz und Leistung von Vernetzten Satelliten Systemen}
 
     % The author’s name.
     \myName{Robert Alexander Uwe Richter}
@@ -62,8 +62,11 @@
 %% End of options to adjust. %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \input{core/preamble/format}                        % Contains commands that define the general format and layout of the thesis.
+
+\renewcommand{\topfraction}{.8}
+\renewcommand{\floatpagefraction}{.8}
+
 \input{core/bibliography/bibliography_format}       % Contains commands for the layout of the bibliography.
 \input{packages_and_commands/standard_packages}     % Contains the packages that this template provides.
 \input{packages_and_commands/general_commands}      % Contains newly defined commands useful for mathematics.
@@ -96,7 +99,6 @@
 \chapter{Introduction}
 \input{introduction/introduction}
 
-\input{acronyms}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Please add the content of your thesis here. %%
@@ -120,6 +122,8 @@
 
 % Following are the files and commands for the bibliography and the author’s publications.
 \pagestyle{plain}
+
+\input{acronyms}
 
 \renewcommand*{\bibfont}{\small}
 \printbibheading
