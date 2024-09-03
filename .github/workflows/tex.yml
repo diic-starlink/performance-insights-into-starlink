@@ -53,7 +53,7 @@ jobs:
           cp result/main.pdf ./artifacts/thesis.pdf
 
       - name: Deploy to branch
-        if: ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         run: |
           cd ${{ github.workspace }}
 
