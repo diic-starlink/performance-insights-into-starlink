@@ -8,7 +8,7 @@ Looking at traceroute results, we can make conclusions about the routing behavio
 \subsection*{Routing Behavior}
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{chapters/img/kiribati-example-traceroute.pdf}
+	\includegraphics[width=\textwidth]{chapters/results/img/kiribati-example-traceroute.pdf}
 	\caption{Visualization of a Traceroute from Kiribati}
 	\label{fig:kiribati-example-traceroute}
 \end{figure}
@@ -23,7 +23,7 @@ Coming from the first insight, we can also conclude that \ac{ISLs} are enabled. 
 One of the most important responsibilities of an \ac{ISP} is to ensure the privacy of its users. This also includes to route traffic only in trusted countries. In the case of Starlink, we were able to observe a different behavior. We looked at a slice of the built-in traceroute measurements from German Starlink probes and analyzed their most common targets. We filtered for anycasted servers (e.g., *.root-servers.net) and bogon IPs (i.e., IPs that cannot be associated with metadata).
 
 % Input IP Hitlist
-\input{./chapters/img/ip-hitlist.tex}
+\input{./chapters/results/img/ip-hitlist.tex}
 
 In Table~\ref{fig:ip-hitlist-traceroute}, the top twenty most frequent hits of IP addresses are shown. The IP addresses are joined with data from IPInfo. As traffic goes from a German probe to an anycasted server, located in Germany, one would expect little traffic outside Germany, and none outside Europe. The top five IP addresses are located within or close to Germany, but the next five already involve traffic to the United~States. Here, we observe an unexpected behavior. Assuming that the data is not flawed, this is a clear violation of guiding privacy principles.
 
