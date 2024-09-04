@@ -255,11 +255,11 @@ const workerMain = async () => {
 	stop_timestamp = workerData.stop_timestamp;
 
 	const chunks: ProbeServerSourcePair[] = [
-		//{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
-		//{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
-		//{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
-		//{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls },
-		//{ chunk: workerData.http_chunk, source_platform: SourcePlatforms.http },
+		{ chunk: workerData.ping_chunk, source_platform: SourcePlatforms.ping },
+		{ chunk: workerData.disconnect_event_chunk, source_platform: SourcePlatforms.disconnect_event },
+		{ chunk: workerData.traceroute_chunk, source_platform: SourcePlatforms.traceroute },
+		{ chunk: workerData.tls_chunk, source_platform: SourcePlatforms.tls },
+		{ chunk: workerData.http_chunk, source_platform: SourcePlatforms.http },
 		{ chunk: workerData.dns_chunk, source_platform: SourcePlatforms.dns }
 	].sort(() => 0.5 - Math.random()); // Shuffle the chunks.
 
