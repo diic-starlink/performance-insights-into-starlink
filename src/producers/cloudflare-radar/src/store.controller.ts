@@ -35,7 +35,7 @@ const storePingData = (data: DataPoint[]) => {
         '${body.dst_addr}',
         '${body.from}',
         '${body.country}',
-        ${body.prb_id},
+        null,
         '${JSON.stringify(body.result)}',
         '${timestamp}',
         'ping',

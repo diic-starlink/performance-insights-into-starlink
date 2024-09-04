@@ -140,3 +140,4 @@ CREATE TABLE IF NOT EXISTS dns_result_answer_data (
 	type VARCHAR,
 	CONSTRAINT fk_data_id FOREIGN KEY (data_id) REFERENCES dns_result_data(data_id)
 );
+
