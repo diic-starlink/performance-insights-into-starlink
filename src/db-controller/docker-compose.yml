@@ -23,7 +23,7 @@ services:
 
   jupyter:
     container_name: jupyter
-    user: "$UID:$GID"
+    user: "$USER_ID:$GID"
     image: jupyter/datascience-notebook
     ports:
       - 8888:8888
