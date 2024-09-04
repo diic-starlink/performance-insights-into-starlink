@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS ping_data (
 	result VARCHAR,
 	country VARCHAR,
 	prb_id INTEGER,
-	timestamp VARCHAR,
+	timestamp INTEGER,
 	msm_type VARCHAR,
 	step INTEGER,
 	sent_packets INTEGER,

@@ -54,7 +54,7 @@ const storePingData = (data: PingData[]) => {
         '${body.country}',
         ${body.prb_id},
         '${JSON.stringify(body.result)}',
-        '${timestamp}',
+        ${timestamp},
         'ping',
         ${body.step},
         ${body.sent},
