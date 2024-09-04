@@ -13,7 +13,7 @@ in pkgs.mkShell {
     runBackend() {
       tmux new-session -d -s dbbackend -c $(pwd)/db-controller
       tmux send 'newgrp docker' ENTER # For some reason this is required
-      tmux send 'export USER_ID=13387 && export GID=100 && docker-compose up --build' ENTER
+      tmux send 'docker-compose up --build' ENTER
     }
 
     runProducers() {
