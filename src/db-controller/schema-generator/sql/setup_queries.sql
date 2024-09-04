@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS ping_data (
 	result VARCHAR,
 	country VARCHAR,
 	prb_id INTEGER,
-	timestamp INTEGER,
+	timestamp BIGINT,
 	msm_type VARCHAR,
 	step INTEGER,
 	sent_packets INTEGER,
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS ping_data (
 );
 
 CREATE TABLE IF NOT EXISTS disconnect_event_data (
-	timestamp INTEGER,
-	stored_timestamp INTEGER,
+	timestamp BIGINT,
+	stored_timestamp BIGINT,
 	prb_id INTEGER,
 	msm_id INTEGER,
 	type VARCHAR,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS traceroute_data (
 	paris_id INTEGER,
 	result VARCHAR,
 	destination_ip_responded BOOLEAN,
-	timestamp INTEGER,
+	timestamp BIGINT,
 	source_platform VARCHAR,
 	CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
 );
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS tls_data (
 	prb_id INTEGER,
 	rt FLOAT,
 	ttc FLOAT,
-	timestamp INTEGER,
+	timestamp BIGINT,
 	source_platform VARCHAR,
 	CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
 );
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS http_data (
 	src VARCHAR,
 	prb_id INTEGER,
 	msm_id INTEGER,
-	timestamp INTEGER,
+	timestamp BIGINT,
 	uri VARCHAR,
 	source_platform VARCHAR,
 	CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS dns_data (
 	msm_id INTEGER,
 	prb_id INTEGER,
 	proto VARCHAR,
-	timestamp INTEGER,
+	timestamp BIGINT,
 	source_platform VARCHAR,
 	CONSTRAINT fk_prb_id FOREIGN KEY (prb_id) REFERENCES ripe_atlas_probe_data(id)
 );
