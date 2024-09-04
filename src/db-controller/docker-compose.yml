@@ -27,6 +27,8 @@ services:
     image: jupyter/datascience-notebook
     ports:
       - 8888:8888
+    volumes:
+      - .:/home/joyvan
 
   duckdb:
     container_name: duckdb
