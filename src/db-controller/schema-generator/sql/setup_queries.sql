@@ -7,10 +7,6 @@ CREATE TABLE IF NOT EXISTS ripe_atlas_probe_data (
 	country VARCHAR
 );
 
--- Add a probe with probe_id 0 to represent an unknown probe (for Cloudflare Radar data).
-INSERT INTO ripe_atlas_probe_data (id, ipv4, asn, longitude, latitude, country) 
-VALUES (0, '0.0.0.0', 0, 0.0, 0.0, 'dummy_country');
-
 CREATE TABLE IF NOT EXISTS ping_data (
 	msm_id INTEGER,
 	destination VARCHAR,
