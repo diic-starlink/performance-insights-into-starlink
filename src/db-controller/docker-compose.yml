@@ -30,6 +30,17 @@ services:
     volumes:
       - .:/home/joyvan
 
+  pgadmin:
+    container_name: pgadmin
+    image: elestio/pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: researcher@hpi.de
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 81
+    ports:
+      - 81:81
+
   duckdb:
     container_name: duckdb
     build: ./duckdb-image
