@@ -157,38 +157,39 @@ A possibility is to look at the number of probes being available for each countr
 	\label{fig:packetloss-latency-number-probes-correlation}
 	\begin{tabular}{lrrrr}
 		\toprule
-		Country                     & Pearson     & Kendall     & Spearman         \\
-		January 2022 - June 2024    & Correlation & Correlation & Correlation      \\
+		Country               & Pearson     & Kendall     & Spearman    & Number of \\
+		Jan. 2022 - June 2024 & Correlation & Correlation & Correlation & Probes    \\
 		\midrule
-		Falkland Islands (Malvinas) & 0.447641    & 0.595238    & 0.624282    & 1  \\
-		Réunion                     & 0.636822    & 0.716314    & 0.847658    & 1  \\
-		Kiribati                    & 0.819596    & 0.794851    & 0.801966    & 2  \\
-		Canada                      & -0.090981   & 0.218391    & 0.280534    & 11 \\
-		Poland                      & 0.093155    & -0.025287   & -0.073637   & 1  \\
-		Haiti                       & 0.383601    & 0.670768    & 0.844964    & 3  \\
-		Spain                       & -0.323940   & -0.163650   & -0.179434   & 4  \\
-		Czechia                     & 0.700248    & 0.730392    & 0.806351    & 1  \\
-		United States               & -0.556997   & -0.425287   & -0.610234   & 53 \\
-		France                      & 0.893576    & 0.664368    & 0.840267    & 18 \\
-		Italy                       & -0.073752   & 0.181609    & 0.293882    & 4  \\
-		United Kingdom              & -0.238013   & -0.227586   & -0.279644   & 11 \\
-		Honduras                    & 0.415387    & 0.410256    & 0.575585    & 1  \\
-		Australia                   & -0.025590   & 0.013841    & 0.035834    & 8  \\
-		Netherlands                 & 0.190923    & 0.055364    & 0.111952    & 2  \\
-		Greece                      & 0.249727    & 0.496864    & 0.668590    & 1  \\
-		Sweden                      & 0.678500    & 0.726984    & 0.896199    & 1  \\
-		Austria                     & 0.054429    & 0.039080    & 0.073192    & 4  \\
-		Belgium                     & -0.082786   & -0.029885   & -0.031368   & 2  \\
-		Switzerland                 & NaN         & NaN         & NaN         & 1  \\
-		Philippines                 & 0.254523    & 0.460118    & 0.676049    & 3  \\
-		Benin                       & NaN         & NaN         & NaN         & 2  \\
-		Virgin Islands, U.S.        & 0.712898    & 0.706384    & 0.878571    & 1  \\
-		Germany                     & -0.787348   & -0.549425   & -0.753059   & 10 \\
+		Falkland Islands      & 0.447641    & 0.595238    & 0.624282    & 1         \\
+		(Malvinas)                                                                  \\
+		Réunion               & 0.636822    & 0.716314    & 0.847658    & 1         \\
+		Kiribati              & 0.819596    & 0.794851    & 0.801966    & 2         \\
+		Canada                & -0.090981   & 0.218391    & 0.280534    & 11        \\
+		Poland                & 0.093155    & -0.025287   & -0.073637   & 1         \\
+		Haiti                 & 0.383601    & 0.670768    & 0.844964    & 3         \\
+		Spain                 & -0.323940   & -0.163650   & -0.179434   & 4         \\
+		Czechia               & 0.700248    & 0.730392    & 0.806351    & 1         \\
+		United States         & -0.556997   & -0.425287   & -0.610234   & 53        \\
+		France                & 0.893576    & 0.664368    & 0.840267    & 18        \\
+		Italy                 & -0.073752   & 0.181609    & 0.293882    & 4         \\
+		United Kingdom        & -0.238013   & -0.227586   & -0.279644   & 11        \\
+		Honduras              & 0.415387    & 0.410256    & 0.575585    & 1         \\
+		Australia             & -0.025590   & 0.013841    & 0.035834    & 8         \\
+		Netherlands           & 0.190923    & 0.055364    & 0.111952    & 2         \\
+		Greece                & 0.249727    & 0.496864    & 0.668590    & 1         \\
+		Sweden                & 0.678500    & 0.726984    & 0.896199    & 1         \\
+		Austria               & 0.054429    & 0.039080    & 0.073192    & 4         \\
+		Belgium               & -0.082786   & -0.029885   & -0.031368   & 2         \\
+		Switzerland           & NaN         & NaN         & NaN         & 1         \\
+		Philippines           & 0.254523    & 0.460118    & 0.676049    & 3         \\
+		Benin                 & NaN         & NaN         & NaN         & 2         \\
+		Virgin Islands, U.S.  & 0.712898    & 0.706384    & 0.878571    & 1         \\
+		Germany               & -0.787348   & -0.549425   & -0.753059   & 10        \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-We correlated each of the correlation values with the number of probes per country. This resulted in the following correlation values:
+We correlated the correlation values with the number of probes per country. This resulted in the following correlation values:
 
 \begin{itemize}
 	\item Pearson Correlation: $\approx -0.44$
