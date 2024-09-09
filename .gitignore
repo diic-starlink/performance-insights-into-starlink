@@ -17,3 +17,4 @@ build
 main.pdf
 src/main.pdf
 .obsidian
+*.parquet
