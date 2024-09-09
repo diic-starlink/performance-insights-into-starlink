@@ -2,4 +2,5 @@
 
 A master's thesis aiming at researching of properties of network satellite system. Especially, it puts an emphasis on Starlink satellite system.
 
-[![CI Status](https://github.com/rrcomtech/starlink-thesis/actions/workflows/hugo.yml/badge.svg?branch=main)](https://github.com/rrcomtech/starlink-thesis/actions)
+[![Checks](https://github.com/starlink-thesis-diic/starlink-thesis/actions/workflows/checks.yml/badge.svg)](https://github.com/starlink-thesis-diic/starlink-thesis/actions/workflows/checks.yml)
+[![Deploy Artifacts](https://github.com/starlink-thesis-diic/starlink-thesis/actions/workflows/tex.yml/badge.svg)](https://github.com/starlink-thesis-diic/starlink-thesis/actions/workflows/tex.yml)
