@@ -23,12 +23,11 @@ services:
 
   jupyter:
     container_name: jupyter
-    user: "$USER_ID:$GID"
     image: jupyter/datascience-notebook
     ports:
       - 8888:8888
     volumes:
-      - .:/home/joyvan
+      - ./:/home/jovyan/
 
   pgadmin:
     container_name: pgadmin
