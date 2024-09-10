@@ -4,21 +4,21 @@ The performance of Starlink latency has changed over time. We looked at RIPE Atl
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.47\textwidth}
+	\begin{subfigure}[b]{0.47\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/latency_2022_to_2024_Germany.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Germany.pdf}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.47\textwidth}
+	\begin{subfigure}[b]{0.47\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/latency_2022_to_2024_United States.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_United States.pdf}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.47\textwidth}
+	\begin{subfigure}[b]{0.47\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/latency_2022_to_2024_Poland.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Poland.pdf}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.47\textwidth}
+	\begin{subfigure}[b]{0.47\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/latency_2022_to_2024_Austria.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Austria.pdf}
 	\end{subfigure}
 	\caption{Latency History for Germany, the USA, Poland, and Austria in the period 01/2022 to 06/2024}
 	\label{fig:latency_wholerange}
@@ -30,5 +30,27 @@ One can see that the median latency is usually at around 100 to 150~ms for most 
 
 We assume the reason for a rise of latency in the congestion of the Starlink network. In the recent time Starlink extended their availability across more countries allowing more users, especially those in countries with less networking infrastructure, to access the network.
 On the contrary, Starlink also launched more satellites (2022: 3481, 2024: 5700+) and added more \ac{PoP} which likely reduces the congestion.
+
+Looking at the CDF of a different country results in a similar observation. Figure~\ref{fig:latency-cdfs} illustrates the CDF plots for 2022 -- 2024 for Canada. We observe similar results for other countries, but only chose Canada as it holds sufficient data for a conclusion.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.3\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2022_of_starlink_probes_in_canada.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2023_of_starlink_probes_in_canada.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2024_of_starlink_probes_in_canada.pdf}
+	\end{subfigure}
+	\caption{CDF of Starlink Latencies 2022 (left), 2023 (middle), and 2024 (right).}
+	\label{fig:latency-cdfs}
+\end{figure}
+
+We observe and similar performance of 2022 and 2024, but a drop in performance in 2023, similar to the conclusion we drew before.
+
+Additionally, we conclude that approximately half of the measurement results are below 100 ms, while the other half moves above 100 ms. This opposes research suggesting Starlink performance is mostly in the sub-100 ms area \cite{DBLP:conf/www/MohanFCBRMO24, DBLP:conf/icnp/LaiLL20, DBLP:journals/pacmnet/RamanVCSZ23, DBLP:conf/imc/MichelTGB22}.
+
 
 However, countries still vary a lot in performance. This is due to various different factors, e.g., weather, ground station infrastructure,
