@@ -1,10 +1,12 @@
 \section{Latency and Packet Loss Correlation} \label{sec:latency-packetloss-correlation}
 
-Latency and packet loss are closely bonded. An increase of packet loss might yield an increase in latency and vice-versa.
-For the data presented in the previous chapter, we looked at the interval from January 2022 to June 2024.
-For each month, we used the overall packet loss and the median latency.
-We used a Pearson, Kendall, and Spearman correlation to determine possible correlations between latency and packet loss.
-The results are shown in Table~\ref{fig:packetloss-latency-correlation}.
+Latency and packet loss are closely bonded. An increase of packet loss might
+yield an increase in latency and vice-versa. For the data presented in the
+previous chapter, we looked at the interval from January 2022 to June 2024. For
+each month, we used the overall packet loss and the median latency. We used a
+Pearson, Kendall, and Spearman correlation to determine possible correlations
+between latency and packet loss. The results are shown in
+Table~\ref{fig:packetloss-latency-correlation}.
 
 \begin{table}[ht]
 	\footnotesize
@@ -41,14 +43,22 @@ The results are shown in Table~\ref{fig:packetloss-latency-correlation}.
 	\end{tabular}
 \end{table}
 
-In a correlation, a value close to 1 or -1 shows a strong correlation. Values close to 0 do not appear to be correlated.
-In the results, some countries show a correlation, e.g., France or Czechia. Other countries, e.g., Canada or Australia do not show correlating values.
-As the number of countries with a stronger and those with a weaker correlation is equally distributed, we cannot conclude a correlation between latency and packet loss in Starlink networks.
+In a correlation, a value close to 1 or -1 shows a strong correlation. Values
+close to 0 do not appear to be correlated. In the results, some countries show
+a correlation, e.g., France or Czechia. Other countries, e.g., Canada or
+Australia do not show correlating values. As the number of countries with a
+stronger and those with a weaker correlation is equally distributed, we cannot
+conclude a correlation between latency and packet loss in Starlink networks.
 
 \subsection{Correlation in Single Years}
 
-Analyzing single years give a better understanding of the development of correlation in the year 2022, 2023, and 2024 (until June).
-The Tables~\ref{fig:packetloss-latency-correlation-2022}, \ref{fig:packetloss-latency-correlation-2023}, and \ref{fig:packetloss-latency-correlation-2024} show the individual correlation values for the year. There are only countries displayed, where a correlation value could be calculated.
+Analyzing single years give a better understanding of the development of
+correlation in the year 2022, 2023, and 2024 (until June). The
+Tables~\ref{fig:packetloss-latency-correlation-2022},
+\ref{fig:packetloss-latency-correlation-2023}, and
+\ref{fig:packetloss-latency-correlation-2024} show the individual correlation
+values for the year. There are only countries displayed, where a correlation
+value could be calculated.
 
 \begin{table}
 	\footnotesize
@@ -144,14 +154,26 @@ The Tables~\ref{fig:packetloss-latency-correlation-2022}, \ref{fig:packetloss-la
 	\end{tabular}
 \end{table}
 
-In 2022, there was little correlation at all. Likely, other factors like satellite infrastructure or presence of \ac{PoP} might have been more contributing to performance issues.
-2023 showed a stronger correlation compared to 2022. We assume that this is due to a more stable network. The interaction between packet loss and latency might have become more significant.
-In 2024, the correlation decreased once again slightly. This behavior is similar to the one observed for the latencies in recent months. A possible explanation for that is a growing user base of Starlink leading to a congestion of the system. It has to be noted that the growth of number of satellites did not increase from 2023 to 2024 as much as it did from 2022 to 2023, which might be a cause of the issue.
+In 2022, there was little correlation at all. Likely, other factors like
+satellite infrastructure or presence of \ac{PoP} might have been more
+contributing to performance issues. 2023 showed a stronger correlation compared
+to 2022. We assume that this is due to a more stable network. The interaction
+between packet loss and latency might have become more significant. In 2024,
+the correlation decreased once again slightly. This behavior is similar to the
+one observed for the latencies in recent months. A possible explanation for
+that is a growing user base of Starlink leading to a congestion of the system.
+It has to be noted that the growth of number of satellites did not increase
+from 2023 to 2024 as much as it did from 2022 to 2023, which might be a cause
+of the issue.
 
 \subsection{Correlation with the Number of Probes} \label{sec:number-of-probes-correlation}
 
-It is possible that the data is insufficient resulting in a correlation between latency and packet loss being invisible.
-A possibility is to look at the number of probes being available for each country. Therefore, we took the data from Table~\ref{fig:packetloss-latency-correlation} and correlated it with the number of probes available for RIPE Atlas in each country. The resulting table is shown in Figure~\ref{fig:packetloss-latency-number-probes-correlation}.
+It is possible that the data is insufficient resulting in a correlation between
+latency and packet loss being invisible. A possibility is to look at the number
+of probes being available for each country. Therefore, we took the data from
+Table~\ref{fig:packetloss-latency-correlation} and correlated it with the
+number of probes available for RIPE Atlas in each country. The resulting table
+is shown in Figure~\ref{fig:packetloss-latency-number-probes-correlation}.
 
 \begin{table}[ht]
 	\footnotesize
@@ -191,7 +213,8 @@ A possibility is to look at the number of probes being available for each countr
 	\end{tabular}
 \end{table}
 
-We correlated the correlation values with the number of probes per country. This resulted in the following correlation values:
+We correlated the correlation values with the number of probes per country.
+This resulted in the following correlation values:
 
 \begin{itemize}
 	\item Pearson Correlation: $\approx -0.44$
@@ -199,9 +222,11 @@ We correlated the correlation values with the number of probes per country. This
 	\item Spearman Correlation: $\approx -0.53$
 \end{itemize}
 
-As the correlation does not reach values close to 0, 1, or -1, we cannot conclude a correlation with the number of probes.
+As the correlation does not reach values close to 0, 1, or -1, we cannot
+conclude a correlation with the number of probes.
 
 \begin{takeaway}{The correlation of latency and packet loss.}
-	Starlink does not show a clear pattern that indicates a correlation between latency and packet loss.
-	However, this is highly dependent on the country of origin.
+	Starlink does not show a clear pattern that indicates a correlation
+	between latency and packet loss. However, this is highly dependent on
+	the country of origin.
 \end{takeaway}
