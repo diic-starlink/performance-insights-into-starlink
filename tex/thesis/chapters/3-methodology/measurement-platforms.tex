@@ -65,8 +65,23 @@ fixed set of Cloudflare servers.
 	Measurements performed in \ac{CFR} and RIPE Atlas differentiate in the
 	targeted servers (root servers vs. Cloudflare servers), the measurement
 	probe (RIPE Atlas probe vs. browser), and the metric used (TLS vs. Time
-	to First Byte).
+	to First Byte). Cloudflare's servers are expected to have a better
+	latency (they claim to be ~50ms away from 95 \% of the earth's
+	population; State September 17, 2024).
 \end{takeaway}
+
+\begin{figure}
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{./chapters/3-methodology/img/rootserver-locations.png}
+		\caption{Locations of Root Servers (all *.root-servers.org
+			together) \cite{rootservers092024}}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.48\textwidth}
+		\includegraphics[width=\textwidth]{./chapters/3-methodology/img/cloudflare-datacenter-locations.png}
+		\caption{Locations of Cloudflare Data Centers
+			\cite{CloudflareGlobalNetwork2024}}
+	\end{subfigure}
+\end{figure}
 
 % TODO: Do I actually need this?
 \subsection{OONI} \label{sec:ooni}
