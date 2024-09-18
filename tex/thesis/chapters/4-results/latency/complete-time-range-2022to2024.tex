@@ -25,7 +25,7 @@ time interval).
 	\end{subfigure}
 	\caption{Latency History for Germany, the USA, Poland, and Austria in the period 01/2022 to 06/2024}
 	\label{fig:latency_wholerange}
-\end{figure}
+\end{figure}s
 
 Figure~\ref{fig:latency_wholerange} shows the history of median latencies from
 January~2022 until June~2024 for Germany, the United States, Poland, and
@@ -36,16 +36,36 @@ countries. However, in 2022 the latency was lower compared to 2023. Most of the
 countries observed show an upwards trend in the late months of 2022 (most of
 the time in December). In the late months of 2023, the latency starts to
 decline again. In the last couple of months, we observe an increase in latency
-once again.
+once again. We assume the reason for a rise of latency in the congestion of the
+Starlink network. In the recent time Starlink extended their availability
+across more countries allowing more users, especially those in countries with
+less networking infrastructure, to access the network. On the contrary,
+Starlink also launched more satellites (2022: 3481, 2024: 5700+) and added more
+\ac{PoP} which likely reduces the congestion.
 
-We assume the reason for a rise of latency in the congestion of the Starlink
-network. In the recent time Starlink extended their availability across more
-countries allowing more users, especially those in countries with less
-networking infrastructure, to access the network.
-On the contrary, Starlink also launched more satellites (2022: 3481, 2024:
-5700+) and added more \ac{PoP} which likely reduces the congestion.
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{0.47\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/heatmap-median-latencies-2024.pdf}
+		\caption{Median}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.47\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/heatmap-average-latencies-2024.pdf}
+		\caption{Average}
+	\end{subfigure}
+	\caption{Heatmap of Median and Average Latencies in 2024 in Europe.}
+	\label{fig:heatmap-latencies-europe}
+\end{figure}
 
-Looking at the CDF of a different country results in a similar observation.
+Figure~\ref{fig:heatmap-latencies-europe} shows the median and average
+latencies in European countries. It shows that the north west of Europe
+experiences the best latencies, likely due to the presence of various \ac{GS}s.
+The southern and eastern european countries experience worse latencies.
+Especially Greece has a high median latency. A cause could be the absence of
+\ac{GS}s in the east-european region. Italy on the other hand side experiences
+a high average latency, even with \ac{GS}s being present in the country.
+
+Looking at the CDF of Canada results in a similar observation.
 Figure~\ref{fig:latency-cdfs-canada} illustrates the CDF plots for 2022 -- 2024
 for Canada. We observe similar results for other countries, but only chose
 Canada as it holds sufficient data for a conclusion.
