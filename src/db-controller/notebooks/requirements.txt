@@ -16,3 +16,4 @@ folium
 geoip2
 requests
 geopy
+deep-translator
