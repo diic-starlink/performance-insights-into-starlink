@@ -23,6 +23,43 @@ RIPE Atlas offers the following basic types of measurements:
 	\item TLS (SSL) GET Certificate
 \end{itemize}
 
+\begin{wraptable}{r}{7cm}
+	\caption{Number of Probes per Country with ASN 14593 on RIPE Atlas}
+	\label{fig:probes-per-country}
+	\begin{tabular}{lr}
+		\toprule
+		Country                     & Count \\
+		\midrule
+		Falkland Islands (Malvinas) & 1     \\
+		Réunion                     & 1     \\
+		Kiribati                    & 2     \\
+		Canada                      & 13    \\
+		Poland                      & 1     \\
+		Haiti                       & 3     \\
+		Spain                       & 4     \\
+		Czechia                     & 1     \\
+		United States               & 55    \\
+		France                      & 18    \\
+		Italy                       & 3     \\
+		United Kingdom              & 10    \\
+		Guam                        & 1     \\
+		Australia                   & 9     \\
+		Chile                       & 1     \\
+		Netherlands                 & 2     \\
+		Sweden                      & 2     \\
+		Greece                      & 1     \\
+		Austria                     & 3     \\
+		Belgium                     & 2     \\
+		Switzerland                 & 1     \\
+		Philippines                 & 3     \\
+		Benin                       & 2     \\
+		Virgin Islands, U.S.        & 1     \\
+		Germany                     & 9     \\
+		Madagascar                  & 1     \\
+		\bottomrule
+	\end{tabular}
+\end{wraptable}
+
 RIPE Atlas offers the possibility to start measurements via the web interface
 or an API. While the web interface is sufficient for most use cases, it is also
 quite limited. Using the API offers more possibilities (e.g., turning DoH
@@ -40,11 +77,13 @@ June 2024).
 Downloading the results of a measurement also works by accessing the API. For
 previous results, one can access the REST API that stores all results ever
 measured. For more up-to-date results, one can use the Streaming API that sends
-the most recent results to a subscribed socket.
+the most recent results to a subscribed socket. Theoretically, the API is
+rate-limited, but we did not encounter problems even when bulk-downloading
+larger datasets. Still, ethical crawling was used.
 
-Theoretically, the API is rate-limited, but we did not encounter problems even
-when bulk-downloading larger datasets. Still, ethical crawling was used.
-
+RIPE Atlas offered 150 Starlink probes (i.e., probes with ASN14593) at the time
+of writing. Table~\ref{fig:probes-per-country} shows the number of probes per
+country. The originating country is determined by RIPE Atlas.
 \subsection{Cloudflare Radar} \label{sec:cloudflare-radar}
 
 Cloudflare manages a vast amount of traffic on the internet. Initially, it
