@@ -7,7 +7,8 @@ disconnect events might indicate an unhealthy network connection.
 
 We analyzed the number of disconnect events for the Starlink probes in RIPE
 Atlas. Figure~\ref{fig:disconnect-events-absolute} shows the number of
-disconnect events per month in the time from January 2022 to July 2024.
+disconnect events per month in the time from January 2022 to July 2024 for the
+USA, Germany, the United~Kingdom, and France.
 
 \begin{figure}
 	\centering
@@ -23,8 +24,12 @@ disconnect events per month in the time from January 2022 to July 2024.
 		\includegraphics[width=\linewidth]{./chapters/4-results/disconnect_events/GB.pdf}
 		\caption{United Kingdom}
 	\end{subfigure}
-	\caption{Number of Disconnect Events in the USA, Germany, and the
-		United Kingdom from January 2022 to July 2024.}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{./chapters/4-results/disconnect_events/FR.pdf}
+		\caption{France}
+	\end{subfigure}
+	\caption{Number of Disconnect Events in the USA, Germany, the
+		United Kingdom, and France from January 2022 to July 2024.}
 	\label{fig:disconnect-events-absolute}
 \end{figure}
 
@@ -36,9 +41,9 @@ May to August 2022. A clear pattern is not visible here. On the other side,
 Germany experiences a high number of disconnect events in May to August 2022
 (which also happens in the USA), while the United Kingdom does not show such a
 behavior. The UK experiences a higher number of disconnect events in March
-2024, but never before that. There is no clear pattern observable, when
-comparing those three countries. A similar behavior was observed for other
-countries.
+2024, but never before that. France and the United~Kingdom show a very similar
+pattern. There is no clear pattern observable, when comparing those three
+countries. A similar behavior was observed for other countries.
 
 Still, accumulating the number of disconnect events over all countries show
 significant spikes. Figure~\ref{fig:disconnect-events-absolute-all-countries}
