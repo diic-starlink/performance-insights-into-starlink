@@ -1,0 +1,36 @@
+\subsection{Solarmagnetic Storms} \label{sec:solarmagnetic-storms}
+
+Ma et al. \cite{DBLP:conf/infocom/MaCZCML23} claimed solarmagnetic storms have
+a significant impact on the performance of Starlink. To check on that, we
+conducted a study to see an actual correlation. We used the TLS latency data we
+aquired from RIPE Atlas to correlate it with the intensity of solar magnetic
+storms. Solar magnetic storms are usually identified by the Kp index
+\cite{Bartels1957}. It is a number between zero and nine, where nine indicates
+the strongest kind of storm. We found data historic Kp indexes on the website
+of the Helmholtz-Zentrum Potsdam Deutsches GeoForschungsZentrum, G. F. Z.
+\cite{GFZ2023}.
+
+To get an understanding of the influences of solarmagnetic storms on Starlink
+performance, we will look at the intensity of the solarmagnetic storm in
+comparison to the TLS latency. We expect that with increasing intensity of
+solarmagnetic storms (i.e., higher Kp index), the latency will also increase.
+Therefore, we used the average Kp index from GFZ database over a single day and
+correlated it with the mean TLS latency over each single day observed in our
+dataset. The following correlation values resulted:
+
+\begin{itemize}
+	\item Pearson Correlation: $0.03$
+	\item Kendall Correlation: $0.01$
+	\item Spearman Correlation: $0.01$
+\end{itemize}
+
+One can see that the values are nearly zero. That implies that the dimensions
+are nearly orthogonal. Therefore, we were not able to observe a correlation
+between latency and Kp index. In its extreme, the data does not correlate at
+all and observations form Ma~et~al.~\cite{DBLP:conf/infocom/MaCZCML23} are most
+likely incorrect.
+
+\begin{takeaway}
+	Starlink latency and solar magnetic storms do not correlate.
+\end{takeaway}
+
