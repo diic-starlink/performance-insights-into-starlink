@@ -1,4 +1,4 @@
-\section{Latency over whole Data Range} \label{sec:latency-wholerange}
+\subsection{Latency over whole Data Range} \label{sec:latency-wholerange}
 
 The performance of Starlink latency has changed over time. We looked at RIPE
 Atlas TLS data that has been collected by built-in measurements (i.e.,
@@ -8,24 +8,24 @@ time interval).
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.47\linewidth}
-		\centering
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Germany.pdf}
+		\caption{Germany}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.47\linewidth}
-		\centering
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_United States.pdf}
+		\caption{USA}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.47\linewidth}
-		\centering
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Poland.pdf}
+		\caption{Poland}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.47\linewidth}
-		\centering
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/latency_2022_to_2024_Austria.pdf}
+		\caption{Austria}
 	\end{subfigure}
 	\caption{Latency History for Germany, the USA, Poland, and Austria in the period 01/2022 to 06/2024}
 	\label{fig:latency_wholerange}
-\end{figure}s
+\end{figure}
 
 Figure~\ref{fig:latency_wholerange} shows the history of median latencies from
 January~2022 until June~2024 for Germany, the United States, Poland, and
@@ -40,7 +40,7 @@ once again. We assume the reason for a rise of latency in the congestion of the
 Starlink network. In the recent time Starlink extended their availability
 across more countries allowing more users, especially those in countries with
 less networking infrastructure, to access the network. On the contrary,
-Starlink also launched more satellites (2022: 3481, 2024: 5700+) and added more
+Starlink also launched more satellites (2022: 3481, 2024: 6000+) and added more
 \ac{PoP} which likely reduces the congestion.
 
 \begin{figure}
@@ -68,7 +68,7 @@ a high average latency, even with \ac{GS}s being present in the country.
 Looking at the CDF of Canada results in a similar observation.
 Figure~\ref{fig:latency-cdfs-canada} illustrates the CDF plots for 2022 -- 2024
 for Canada. We observe similar results for other countries, but only chose
-Canada as it holds sufficient data for a conclusion.
+Canada as it holds sufficient data for a conclusion.a
 
 \begin{figure}
 	\centering
@@ -127,14 +127,17 @@ ms.
 	\centering
 	\begin{subfigure}[b]{0.3\linewidth}
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2022_of_starlink_probes_in_united_states.pdf}
+		\caption{2022}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.3\linewidth}
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2023_of_starlink_probes_in_united_states.pdf}
+		\caption{2023}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.3\linewidth}
 		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2024_of_starlink_probes_in_united_states.pdf}
+		\caption{2024}
 	\end{subfigure}
-	\caption{EquiWidth Histogram of Starlink Latencies 2022 (left), 2023 (middle), and 2024 (right).}
+	\caption{EquiWidth Histogram of Starlink Latencies 2022, 2023, and 2024.}
 	\label{fig:latency-histogram-usa}
 \end{figure}
 

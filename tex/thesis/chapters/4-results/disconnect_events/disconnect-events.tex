@@ -1,4 +1,4 @@
-\section{Disconnect Events of RIPE Atlas Probes} \label{sec:disconnect-events}
+\subsection{Disconnect Events of RIPE Atlas Probes} \label{sec:disconnect-events}
 
 Probes in RIPE Atlas automatically monitor the events when they are
 disconnected from RIPE Atlas and when they re-connect again. Those disconnect
@@ -13,12 +13,15 @@ disconnect events per month in the time from January 2022 to July 2024.
 	\centering
 	\begin{subfigure}[b]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{./chapters/4-results/disconnect_events/US.pdf}
+		\caption{USA}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{./chapters/4-results/disconnect_events/DE.pdf}
+		\caption{Germany}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\linewidth}
 		\includegraphics[width=\linewidth]{./chapters/4-results/disconnect_events/GB.pdf}
+		\caption{United Kingdom}
 	\end{subfigure}
 	\caption{Number of Disconnect Events in the USA, Germany, and the
 		United Kingdom from January 2022 to July 2024.}
@@ -66,7 +69,7 @@ explains this problem in more detail.
 	interval, but this was not done as it is not an easy task.
 \end{takeaway}
 
-\subsection{Correlation of Disconnect Events with other Metrics}
+\subsection*{Correlation of Disconnect Events with other Metrics}
 \label{sec:correlation-disconnect-events}
 
 One could correlate the occurrences of disconnect events with other metrics
@@ -83,7 +86,7 @@ occurrences of disconnect events. Others might be connected for a very short
 interval with many disconnects. Both scenarios compromise the normalization of
 the disconnect event occurrences, leading to not meaningful results.\footnote{It
 	might be well-possible to find a normalization method for disconnect events,
-	but we did not invest in this direction.}.
+	but we did not invest in this direction.}
 
 Therefore, we did not proceed further in correlating disconnect events with
 other metrics.
