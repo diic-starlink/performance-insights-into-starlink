@@ -58,6 +58,10 @@ disconnect events is expected. To draw conclusions for Starlink behavior, the
 data needs to be normalized. Chapter~\ref{sec:correlation-disconnect-events}
 explains this problem in more detail.
 
+Also, the spikes in disconnection events may have been because of RIPE Atlas
+system problems, which occur from time to time and cause many probes to
+arbitrarily disconnect.
+
 \begin{takeaway}{Usage of Disconnect Events}
 	Accumulating Disconnect Events of Starlink probes seem to show a
 	behavior that causes time intervals with higher occurrences. However,
@@ -66,7 +70,7 @@ explains this problem in more detail.
 	interval, but this was not done as it is not an easy task.
 \end{takeaway}
 
-\subsection{Correlation of Disconnect Events with other Metrics}
+\subsection*{Correlation of Disconnect Events with other Metrics}
 \label{sec:correlation-disconnect-events}
 
 One could correlate the occurrences of disconnect events with other metrics
@@ -81,9 +85,9 @@ However, the number of probes connected within a time interval is hard to find.
 Some probes might be connected for a longer time than others dominating the
 occurrences of disconnect events. Others might be connected for a very short
 interval with many disconnects. Both scenarios compromise the normalization of
-the disconnect event occurrences, leading to not meaningful results.\footnote{It
-	might be well-possible to find a normalization method for disconnect events,
-	but we did not invest in this direction.}.
+the disconnect event occurrences, leading to not meaningful results. It might
+be well-possible to find a normalization method for disconnect events, but we
+did not invest in this direction.
 
 Therefore, we did not proceed further in correlating disconnect events with
 other metrics.
