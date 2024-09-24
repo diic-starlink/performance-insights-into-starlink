@@ -5,7 +5,11 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ["**/built/*", "**/hugo-pages/*"]
+    ignores: [
+      "**/built/*",
+      "**/hugo-pages/*",
+      "src/dashboard*"
+    ]
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
