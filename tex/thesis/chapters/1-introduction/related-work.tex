@@ -1,1 +1,40 @@
 \section{Related Work} \label{sec:related-work}
+
+Network satellite operators exist for quite a while, starting the late 90s,
+when Iridium launched their plans to deploy a mega satellite constellation
+\cite{Chan2002}. Even if their plan did not work out, modern times face newer
+technologies, giving other providers the possibility to achieve what Iridium
+couldn't. With the rise of Starlink, OneWeb, Orbcomm, and others, research has
+made steps to figuring out how "satellite internet" might work. In 2020,
+research started to make their first steps by building the first mega
+constellation simulators \cite{DBLP:conf/icnp/LaiLL20,
+	DBLP:conf/imc/KassingBASS20}. However, research did not advance in this
+direction as too many variables have to be taken into consideration. Therefore,
+research turned to performing measurements on existing constellations.
+Performance of networked satellite operators was presented in \cite{Segan2020, DBLP:conf/infocom/MaCZCML23,
+	Pekhterev2021, DBLP:journals/pacmnet/RamanVCSZ23, DBLP:conf/leo-net/0001SCB23,
+	DBLP:conf/imc/MichelTGB22, DBLP:conf/www/MohanFCBRMO24, Izhikevich2024,
+	Omorogiuwa2024}.
+However, it has to be noted that most measurements on existing systems were
+performed on the Starlink constellation, due to low cost and high availability.
+Resilience against catastrophes has been described by Stevens et al. \cite{DBLP:conf/pam/StevensIBD24}.
+It is also worthwhile mentioning the influence of weather
+\cite{DBLP:conf/tma/LaniewskiLMRA24, }, mobility
+\cite{DBLP:journals/corr/abs-2403-13497}, and solar magnetic storms
+\cite{DBLP:conf/infocom/MaCZCML23, Fang2022, Hapgood2022}. All these factors
+have to be taken into consideration when performing routing
+\cite{DBLP:conf/hotnets/Handley18, DBLP:journals/comcom/ZhangY22,
+	DBLP:conf/pam/BhosaleSBG23}. This includes looking at \ac{ISLs}
+\cite{DBLP:conf/hotnets/HauriBGS20, Stock2022}, the navigation of satellites
+\cite{DBLP:conf/plans/KassasKKSHNKK23,DBLP:conf/iotbd/ShortenKR24}, and the positioning of \ac{GS}s \cite{DBLP:conf/sigcomm/VasishtSC21}.
+
+In perfect conditions, this might supplement 6G deployment
+\cite{DBLP:journals/cm/LinCCCHB21}. However, the most dominant problem is the
+lack of knowledge about the functionality of Starlink. Therefore, people tried
+to extract the firmware \cite{WoutersDumpingUserTerminalFirmware,
+	QuarkslabsBlogUserTerminalFirmsware}.
+
+Also, with the start of the war in Ukrained, people observed a new problem with
+satellite networked being used in conflicts as they are independent of a
+terrestrial infrastructure in the conflict zone \cite{Lab2024, Walsh2024,
+	Abels2024}.
