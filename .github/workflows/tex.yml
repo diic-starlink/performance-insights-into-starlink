@@ -2,7 +2,7 @@
 name: Deploy Artifacts
 
 on:
-  push:
+  pull_request:
     paths:
       - proposal.nix
       - tex.nix
@@ -40,17 +40,23 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           mkdir artifacts
+          cd tex/proposal
 
-          nix-build proposal.nix
-          cp result/main.pdf ./artifacts/proposal.pdf
+          nix-build
+          cp result/main.pdf ../../artifacts/proposal.pdf
+
+          cd ../..
 
       # Builds main.pdf and saves it in workspace root
       - name: Build LaTeX Document
         run: |
           cd ${{ github.workspace }}
+          cd tex/thesis
 
           nix-build tex.nix
-          cp result/main.pdf ./artifacts/thesis.pdf
+          cp result/main.pdf ../../artifacts/thesis.pdf
+
+          cd ../..
 
       - name: Deploy to branch
         if: github.ref == 'refs/heads/main'
