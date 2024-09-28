@@ -53,7 +53,7 @@ jobs:
           cd ${{ github.workspace }}
           cd tex/thesis
 
-          nix-build tex.nix
+          nix-build
           cp result/main.pdf ../../artifacts/thesis.pdf
 
           cd ../..
