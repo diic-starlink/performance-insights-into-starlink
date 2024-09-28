@@ -1,9 +1,10 @@
 \subsection{Packet Loss from 2022 to 2024} \label{sec:packet-loss}
 
 We looked at the packet loss for the time range from 2022 to June 2024. We use
-the Ping measurement, which by default sends three packets and collects the
-number of received packets. Table~\ref{fig:packetloss-total} shows the
-resulting packet losses in percent per country.
+the Ping measurement from the RIPE Atlas built-in measurements, which by
+default send three packets and collect the number of received packets.
+Table~\ref{fig:packetloss-total} shows the resulting packet losses in percent
+per country.
 
 \begin{table}
 	\footnotesize
@@ -44,18 +45,18 @@ resulting packet losses in percent per country.
 	\end{tabular}
 \end{table}
 
-The results are quite surprising as some countries experience very high packet
-losses, which other neighboring countries have rather low packet loss ratios.
+The results are surprising as some countries experience very high packet
+losses, while other neighboring countries have rather low packet loss ratios.
 For example, Germany and Netherlands are well-developed countries with a
 relatively high number of \ac{GS}es. One would expect a low packet loss, which
 is not the case. Both countries hold packet loss ratios above ten percent. On
 the other hand, neighboring countries like Austria do not show such a pattern.
-Another country with high packet loss are the Philippines, which have the
-highest packet loss ratio of all countries.
+Another country with remarkably high packet loss are the Philippines, which
+have the highest packet loss ratio of all countries.
 
 Overall, most countries experience packet loss ratios at one to four percent,
-with some having an even lower value. The lowest value has Czechia with 0.23
-\%, while Chile has 0.24 \%.
+with some having an even lower value. The lowest value has Czechia with
+0.23~\%, while Chile has 0.24~\%.
 
 However, the time range is quite long. Therefore, we looked at the time range
 in a more fine-grained interval for the above-mentioned countries.
