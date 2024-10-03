@@ -2,6 +2,13 @@
 name: Deploy Artifacts
 
 on:
+  push:
+    paths:
+      - proposal.nix
+      - tex.nix
+      - .github/workflows/tex.yml
+      - tex/thesis/**
+      - tex/proposal/**
   pull_request:
     paths:
       - proposal.nix
