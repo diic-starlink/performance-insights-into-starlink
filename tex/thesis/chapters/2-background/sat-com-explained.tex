@@ -1,8 +1,7 @@
 \section{Satellite Communication Explained} \label{sec:satellite-communication-explained}
 
-A satellite communication system has the target to send packets from a sender
-connected via a networked satellite ISP to a receiver connected to a terrestrial
-ISP.
+A satellite communication system has the target to send packets from a sender,
+connected via a \ac{SNO}, to a receiver connected to a terrestrial ISP.
 
 \begin{figure}[!ht]
 	\centering
@@ -13,33 +12,34 @@ ISP.
 
 The structure is illustrated in Figure~\ref{fig:sat-com-explained}.
 Initially, there is a sender connected to a satellite antenna provided by the
-specific networked satellite ISP. The satellite antenna is also colloquially
-called "dishy". From the senders' perspective, there is no different use
-compared to a traditional terrestrial internet connection. The antenna will
-send packets to a satellite that might either forward the packets to another
-satellite or directly send them to a nearby \ac{GS} (also called \ac{PoP}). The
-\ac{GS} serves as an "entry point" to the terrestrial internet. A \ac{GS} can
-forward packets through wired connections, so they will reach the receiver
-eventually.
+specific \ac{SNO}. The satellite antenna is also colloquially called "dishy".
+From the senders' perspective, there is no different use compared to a
+traditional terrestrial internet connection. The antenna sends packets to a
+satellite that might either forward the packets to another satellite or
+directly send them to a nearby \ac{GS} (also called \ac{PoP}). The \ac{GS}
+serves as an "entry point" to the terrestrial internet. A \ac{GS} can forward
+packets through wired connections, so they will reach the receiver eventually.
 
 The technology of communicating with satellites will not be explained here.
-Amongst others, it is described by Pratt~et~al. \cite{pratt2019satellite}.
+Amongst others, it is described by Pratt~et~al.~\cite{pratt2019satellite}.
 
 Theoretically, the propagation of data in satellite communication happens at
 the speed of light. However, the latencies still vary a lot depending on the
-choice of networked satellite ISP. Each of them provides a different satellite
-constellation. One of the dominating factors is the altitude of the
+choice of \ac{SNO}. Each of them provides a different satellite constellation.
+One of the dominating factors is the altitude of the satellites in the
 constellation. The higher the satellites are positioned, the more region a
 single satellite covers. Therefore, fewer satellites are required to cover a
-specific region, which reduces costs. Usually, satellite providers strcuture
-the earth's surface in cells that receive coverage by at least one satellite.
-In the case of Starlink, the world is divided in cells in the form of a hexagon
-with a diameter of $\approx 24.13~km$. That translates to a single satellite
-being able to cover approximately $379~km^2$ \cite{Pekhterev2021}.
+specific region, which reduces costs. Usually, \ac{SNO}s structure the earth's
+surface in cells that receive coverage by at least one satellite. In the case
+of Starlink, the world is divided in cells in the form of a hexagon with a
+diameter of $\approx 24.13~km$. That translates to a single satellite being
+able to cover approximately $379~km^2$ \cite{Pekhterev2021}.
 
 Overall, one differentiates between \ac{GEO} (35'786 km altitude), \ac{MEO}
 (2'000 - 35'786 km altitude), and \ac{LEO} (< 2'000 km altitude) satellite
-constellations. One can see that this has a significant impact on the latency.
+constellations. One can see in Equation~\ref{eq:geo-min-latency} and
+\ref{eq:starlink-min-latency} that this has a significant impact on the
+latency.
 
 \begin{equation}
 	\frac{2 \cdot 35'786 km}{300'000 \frac{km}{s}} \approx 0.240 s
@@ -55,10 +55,10 @@ Equation~\ref{eq:geo-min-latency}, assuming a packet needs to reach a satellite
 in GEO altitude and get back to the earth's surface. On the other hand,
 Equation~\ref{eq:starlink-min-latency} shows that a \ac{LEO} satellite
 constellation at an altitude of 550 km (like in the case of Starlink) has a
-minimum latency of only 4 ms. Research has shown that even in practice \ac{LEO}
+minimum latency of only 4 ms. Research has shown that also in practice \ac{LEO}
 constellations are superior compared to \ac{GEO} constellations, especially in
 terms of latency \cite{DBLP:journals/pacmnet/RamanVCSZ23, Segan2020}. However,
-terrestrial internet performed better compared to \ac{LEO} constellations
+terrestrial internet still performed better compared to \ac{LEO} constellations
 \cite{DBLP:conf/www/MohanFCBRMO24, DBLP:conf/infocom/MaCZCML23}.
 
 \subsection{Bent-Pipes} \label{sec:bent-pipes}
@@ -73,6 +73,6 @@ there is only a single satellite involved, it is a 1-hop-bent-pipe.
 % TODO: Find more sources pro and con
 It is in question how the bent-pipe influences the performance and behavior of
 a networked satellite system. Research still discusses whether bent-pipes
-provide a positive (\cite{Hauri2020}) or negative
+provide a positive (\cite{DBLP:conf/hotnets/HauriBGS20}) or negative
 (\cite{DBLP:conf/www/MohanFCBRMO24}) impact.
 
