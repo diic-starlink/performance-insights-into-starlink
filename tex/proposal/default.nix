@@ -1,10 +1,10 @@
 let
-  pkgs = import ./nixpkgs {};
-in pkgs.stdenv.mkDerivation {
-  pname = "starlinkThesisBuild";
+  pkgs = import ../../nixpkgs {};
+in pkgs.stdenv.mkDerivation rec {
+  pname = "proposalBuild";
   version = "0.0.1";
 
-  src = ./tex/thesis;
+  src = ./.;
 
   buildInputs = with pkgs; [
     texliveFull

@@ -1,12 +1,12 @@
 \subsection{Latency and Packet Loss Correlation} \label{sec:latency-packetloss-correlation}
 
-Latency and packet loss are closely bonded. An increase of packet loss might
-yield an increase in latency and vice-versa. For the data presented in the
-previous chapter, we looked at the interval from January 2022 to June 2024. For
-each month, we used the overall packet loss and the median latency. We used a
-Pearson, Kendall, and Spearman correlation to determine possible correlations
-between latency and packet loss. The results are shown in
-Table~\ref{fig:packetloss-latency-correlation}.
+TLS handshake latency and packet loss are closely bonded. An increase of packet
+loss might yield an increase in latency and vice-versa. For the data presented
+in the previous chapter, we looked at the interval from January 2022 to June
+2024. For each month, we used the overall packet loss and the median TLS
+handshake latency. We used a Pearson, Kendall, and Spearman correlation to
+determine possible correlations between latency and packet loss. The results
+are shown in Table~\ref{fig:packetloss-latency-correlation}.
 
 \begin{table}[ht]
 	\footnotesize
@@ -204,9 +204,7 @@ is shown in Figure~\ref{fig:packetloss-latency-number-probes-correlation}.
 		Sweden                & 0.678500    & 0.726984    & 0.896199    & 1         \\
 		Austria               & 0.054429    & 0.039080    & 0.073192    & 4         \\
 		Belgium               & -0.082786   & -0.029885   & -0.031368   & 2         \\
-		Switzerland           & NaN         & NaN         & NaN         & 1         \\
 		Philippines           & 0.254523    & 0.460118    & 0.676049    & 3         \\
-		Benin                 & NaN         & NaN         & NaN         & 2         \\
 		Virgin Islands, U.S.  & 0.712898    & 0.706384    & 0.878571    & 1         \\
 		Germany               & -0.787348   & -0.549425   & -0.753059   & 10        \\
 		\bottomrule
@@ -227,6 +225,6 @@ conclude a correlation with the number of probes.
 
 \begin{takeaway}{The correlation of latency and packet loss.}
 	Starlink does not show a clear pattern that indicates a correlation
-	between latency and packet loss. However, this is highly dependent on
-	the country of origin.
+	between TLS handshake latency and packet loss. However, this is highly
+	dependent on the country of origin.
 \end{takeaway}

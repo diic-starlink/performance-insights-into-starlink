@@ -1,6 +1,7 @@
 \subsection{Latency over whole Data Range} \label{sec:latency-wholerange}
 
-The performance of Starlink latency has changed over time. We looked at RIPE
+The performance of Starlink latency has changed over time. To determine
+latency, we looked at TLS handshake latency. The data originates from the RIPE
 Atlas TLS data that has been collected by built-in measurements (i.e.,
 measurements that are continuously running in each individual probe in a fixed
 time interval).
@@ -27,21 +28,23 @@ time interval).
 	\label{fig:latency_wholerange}
 \end{figure}
 
-Figure~\ref{fig:latency_wholerange} shows the history of median latencies from
-January~2022 until June~2024 for Germany, the United States, Poland, and
-Austria\footnote{These countries were chosen due to the completeness of data}.
+Figure~\ref{fig:latency_wholerange} shows the history of median TLS handshake
+latencies from January~2022 until June~2024 for Germany, the United States,
+Poland, and Austria\footnote{These countries were chosen due to the
+	completeness of data}.
 
-One can see that the median latency is usually at around 100 to 150~ms for most
+One can see that the median TLS handshake latency is usually at around 100 to 150~ms for most
 countries. However, in 2022 the latency was lower compared to 2023. Most of the
 countries observed show an upwards trend in the late months of 2022 (most of
 the time in December). In the late months of 2023, the latency starts to
 decline again. In the last couple of months, we observe an increase in latency
-once again. We assume the reason for a rise of latency in the congestion of the
-Starlink network. In the recent time Starlink extended their availability
-across more countries allowing more users, especially those in countries with
-less networking infrastructure, to access the network. On the contrary,
-Starlink also launched more satellites (2022: 3481, 2024: 6000+) and added more
-\ac{PoP} which likely reduces the congestion.
+once again. We assume the reason for the rise is the congestion of the Starlink
+network. In the recent time, Starlink extended their availability across more
+countries allowing more users, especially those in countries with less
+networking infrastructure, to access the network. On the contrary, Starlink
+also launched more satellites (2022: 3481, 2024: 6000+; see
+Chapter~\ref{sec:satellite-constellations}) and added more \ac{PoP} which
+likely reduces the congestion.
 
 \begin{figure}
 	\centering
@@ -57,13 +60,14 @@ Starlink also launched more satellites (2022: 3481, 2024: 6000+) and added more
 	\label{fig:heatmap-latencies-europe}
 \end{figure}
 
-Figure~\ref{fig:heatmap-latencies-europe} shows the median and average
-latencies in European countries. It shows that the north west of Europe
-experiences the best latencies, likely due to the presence of various \ac{GS}s.
-The southern and eastern european countries experience worse latencies.
-Especially Greece has a high median latency. A cause could be the absence of
-\ac{GS}s in the east-european region. Italy on the other hand side experiences
-a high average latency, even with \ac{GS}s being present in the country.
+Figure~\ref{fig:heatmap-latencies-europe} shows the median and average TLS
+handshake latencies in European countries. It shows that the north west of
+Europe experiences the best latencies, likely due to the presence of various
+\ac{GS}s. The southern and eastern european countries experience worse
+latencies. Especially Greece has a high median latency. A cause could be the
+absence of \ac{GS}s in the east-european region. Italy on the other hand side
+experiences a high average latency, even with \ac{GS}s being present in the
+country.
 
 Looking at the CDF of Canada results in a similar observation.
 Figure~\ref{fig:latency-cdfs-canada} illustrates the CDF plots for 2022 -- 2024
@@ -88,8 +92,8 @@ Canada as it holds sufficient data for a conclusion.a
 	\label{fig:latency-cdfs-canada}
 \end{figure}
 
-We observe and similar performance of 2022 and 2024, but a drop in performance
-in 2023, similar to the conclusion we drew before.
+We observe and similar performance of 2022 and 2024, but a drop in TLS
+handshake latency in 2023, similar to the conclusion we drew before.
 
 Additionally, we conclude that approximately half of the measurement results
 are below 100 ms, while the other half moves above 100 ms. This opposes
@@ -97,13 +101,12 @@ research suggesting Starlink performance is mostly in the sub-100 ms area
 \cite{DBLP:conf/www/MohanFCBRMO24, DBLP:conf/icnp/LaiLL20,
 	DBLP:journals/pacmnet/RamanVCSZ23, DBLP:conf/imc/MichelTGB22}.
 
-The CDF has is continuous, up to a specific point, where it flattens, followed
-by a stronger increase once again. This is similarly observed for curves of
-other countries (e.g., for the USA in Figure~\ref{fig:latency-cdfs-usa}). This
-observation suggests that there is a region of latencies Starlink does not
-serve equally to other latencies. The specific location of the flattening
-behavior varies between countries, but is usually located between 150 and 250
-ms.
+The CDF is continuous, up to a specific point, where it flattens, followed by a
+stronger increase once again. This is similarly observed for curves of other
+countries (e.g., for the USA in Figure~\ref{fig:latency-cdfs-usa}). This
+observation suggests that there is a region of latencies that Starlink does not
+serve equally. The specific location of the flattening behavior varies between
+countries, but is usually located between 150 and 250 ms.
 
 \begin{figure}
 	\centering
@@ -147,10 +150,10 @@ histogram\footnote{A histogram that puts all values in a pre-defined number of
 most frequent latencies. Figure~\ref{fig:latency-histogram-usa} shows the
 histogram for the USA. It becomes apparent that there is actually a major gap
 between the latencies. This gap appears for every country, for every year
-analyzed. It does not matter how large the country.
+analyzed.
 
-As this behavior appears to be independent of time and location, it must
-originate from Starlink itself. As we lack the possibility to measure other
-networked satellite ISPs, we do not know whether this is a general property of
-networked satellite internet.
+As this behavior appears to be independent of time and location, we assume the
+behavior to originate from Starlink itself. As we lack the possibility to
+measure other networked satellite ISPs, we do not know whether this is a
+general property of networked satellite internet.
 

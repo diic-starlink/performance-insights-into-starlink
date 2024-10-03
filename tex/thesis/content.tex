@@ -34,9 +34,9 @@
 %	- IPInfo
 \chapter{Methodology}
 
+\input{./chapters/3-methodology/measurement-platforms.tex}
 \input{./chapters/3-methodology/methodology.tex}
 \input{./chapters/3-methodology/reproducability.tex}
-\input{./chapters/3-methodology/measurement-platforms.tex}
 
 % Results
 %	- Satellite Constellations
@@ -45,7 +45,7 @@
 %	- Correlation of Packet Loss and Latency
 %	- Routing with Starlink
 %	- TODO(robert): What more?
-\chapter{Results}
+\chapter{Results} \label{sec:results}
 
 \section{Performance of Networked Satellite Systems}
 
@@ -61,6 +61,9 @@
 % Packet Loss
 \input{./chapters/4-results/packet-loss/complete-time-range-2022to2024.tex}
 
+% Correlation of Packet Loss and Latency
+\input{./chapters/4-results/latency-packet-loss-correlation.tex}
+
 \section{Resilience of Networked Satellite Systems}
 
 %
@@ -73,13 +76,8 @@
 % Solarmagnetic Storms
 \input{./chapters/4-results/solarmagnetic-storms/storms.tex}
 
-% Correlation of Packet Loss and Latency
-\input{./chapters/4-results/latency-packet-loss-correlation.tex}
-
 % Routing
 \input{./chapters/4-results/traceroute/starlink-traceroutes.tex}
-
-
 
 % Limitations and Future Work
 %	- Limitation of Probe Availability (only selected ones on RIPE Atlas)

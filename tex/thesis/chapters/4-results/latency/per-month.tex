@@ -1,10 +1,10 @@
 \subsection{Latencies on Different Weekdays}
 \label{sec:latency-weekdays}
 
-It is in question whether latencies vary at different days of the week. For
-example, the latency might be different comparing Mondays and Sundays. In the
-case of Starlink, we were not able to find such a pattern.
-Figure~\ref{fig:latencies-per-weekday} illustrates the latencies that occurr in
+It is in question whether TLS handshake latencies vary at different days of the
+week. For example, the latency might be different comparing Mondays and
+Sundays. In the case of Starlink, we were not able to find such a pattern.
+Figure~\ref{fig:latencies-per-weekday} illustrates the latencies that occur in
 each weekday.
 
 \begin{figure}
@@ -61,21 +61,21 @@ minimum latency). The results are shown in Table~\ref{fig:weekday-statistics}.
 \end{table}
 
 They show that the latency does not vary on the individual days. Therefore, you
-will not have a worse latency on working days (Mon. -- Fri.) compared to the
-weekend (Sat. and Sun.).
+will not have a worse latency on working days (Monday -- Friday) compared to
+the weekend (Saturday and Sunday).
 
 However, the table also allows for an interesting comparison between the years
-2022, 2023, and 2024. In 2022, the median latency was between 81 and 84 ms. The
-average latency was about 20 ms higher. Peak latencies achieved up to 43 ms. In
-2023, the median latencies were significantly higher at 94 to 98 ms. The
-average latency was in the worst case 14 ms higher, which indicates a more
-stable connection, even if the performance was worse compared to 2022. However,
-2023 achieved much better peak performance at 26 ms. In 2024, Starlink achieved
-similar median and average latencies compared to 2022, but also achieving the
-peak performances from 2023.
+2022, 2023, and 2024. In 2022, the median TLS handshake latency was between 81
+and 84 ms. The average latency was about 20 ms higher. Peak latencies achieved
+up to 43 ms. In 2023, the median latencies were significantly higher at 94 to
+98 ms. The average latency was in the worst case 14 ms higher, which indicates
+a more stable connection, even if the performance was worse compared to 2022.
+However, 2023 achieved much better peak performance at 26 ms. In 2024, Starlink
+achieved similar median and average latencies compared to 2022, but also
+achieving the peak performances from 2023.
 
 \begin{takeaway}{Peak and Average Latency since 2022.}
-	Starlink has managed to improve their peak latency compared to 2022 by
-	nearly 20 ms while maintaining their median and average latencies.
+	Starlink has managed to improve their peak latency by nearly 20 ms
+	compared to 2022 while maintaining their median and average latencies.
 \end{takeaway}
 
