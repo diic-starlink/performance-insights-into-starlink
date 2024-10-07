@@ -4,41 +4,34 @@
 	\label{fig:tls-analysis-individual-day}
 \end{figure}
 
-\begin{wraptable}{r}{7cm}
-	\caption{Number of Probes per Country with ASN 14593 on RIPE Atlas}
-	\label{fig:probes-per-country}
-	\begin{tabular}{lr}
-		\toprule
-		Country                     & Count \\
-		\midrule
-		Falkland Islands (Malvinas) & 1     \\
-		Réunion                     & 1     \\
-		Kiribati                    & 2     \\
-		Canada                      & 13    \\
-		Poland                      & 1     \\
-		Haiti                       & 3     \\
-		Spain                       & 4     \\
-		Czechia                     & 1     \\
-		United States               & 55    \\
-		France                      & 18    \\
-		Italy                       & 3     \\
-		United Kingdom              & 10    \\
-		Guam                        & 1     \\
-		Australia                   & 9     \\
-		Chile                       & 1     \\
-		Netherlands                 & 2     \\
-		Sweden                      & 2     \\
-		Greece                      & 1     \\
-		Austria                     & 3     \\
-		Belgium                     & 2     \\
-		Switzerland                 & 1     \\
-		Philippines                 & 3     \\
-		Benin                       & 2     \\
-		Virgin Islands, U.S.        & 1     \\
-		Germany                     & 9     \\
-		Madagascar                  & 1     \\
-		\bottomrule
-	\end{tabular}
-\end{wraptable}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-PL.pdf}
+		\caption{Poland}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-KI.pdf}
+		\caption{Kiribati}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-IT.pdf}
+		\caption{Italy}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-ES.pdf}
+		\caption{Spain}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-CZ.pdf}
+		\caption{Czech Republic}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-GB.pdf}
+		\caption{United Kingom}
+	\end{subfigure}
+	\caption{Average Latency per Hop}
+	\label{fig:latency-change-per-hop-appendix}
+\end{figure}
 
 
