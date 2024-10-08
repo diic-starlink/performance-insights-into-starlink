@@ -69,28 +69,10 @@ absence of \ac{GS}s in the east-european region. Italy on the other hand side
 experiences a high average latency, even with \ac{GS}s being present in the
 country.
 
-Looking at the CDF of Canada results in a similar observation.
-Figure~\ref{fig:latency-cdfs-canada} illustrates the CDF plots for 2022 -- 2024
-for Canada. We observe similar results for other countries, but only chose
-Canada as it holds sufficient data for a conclusion.a
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2022_of_starlink_probes_in_canada.pdf}
-		\caption{2022}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2023_of_starlink_probes_in_canada.pdf}
-		\caption{2023}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2024_of_starlink_probes_in_canada.pdf}
-		\caption{2024}
-	\end{subfigure}
-	\caption{CDF of Starlink Latencies each year in Canada.}
-	\label{fig:latency-cdfs-canada}
-\end{figure}
+Looking at the CDFs of the USA and Canada results in a similar observation.
+Figure~\ref{fig:latency-cdfs-1} illustrates the CDF plots for 2022 -- 2024
+for the USA and Canada. We observe similar results for other countries, but
+only chose Canada as it holds sufficient data for a conclusion.
 
 We observe and similar performance of 2022 and 2024, but a drop in TLS
 handshake latency in 2023, similar to the conclusion we drew before.
@@ -103,57 +85,81 @@ research suggesting Starlink performance is mostly in the sub-100 ms area
 
 The CDF is continuous, up to a specific point, where it flattens, followed by a
 stronger increase once again. This is similarly observed for curves of other
-countries (e.g., for the USA in Figure~\ref{fig:latency-cdfs-usa}). This
-observation suggests that there is a region of latencies that Starlink does not
-serve equally. The specific location of the flattening behavior varies between
-countries, but is usually located between 150 and 250 ms.
+countries (e.g., for France and Germany in Figure~\ref{fig:latency-cdfs-2}).
+This observation suggests that there is a region of latencies that Starlink
+does not serve equally. The specific location of the flattening behavior varies
+between countries, but is usually located between 150 and 250 ms.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2022_of_starlink_probes_in_united_states.pdf}
-		\caption{2022}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_of_starlink_probes_in_united_states.pdf}
+		\caption{USA}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2023_of_starlink_probes_in_united_states.pdf}
-		\caption{2023}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_of_starlink_probes_in_canada.pdf}
+		\caption{Canada}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_in_2024_of_starlink_probes_in_united_states.pdf}
-		\caption{2024}
-	\end{subfigure}
-	\caption{CDF of Starlink Latencies each year in the USA.}
-	\label{fig:latency-cdfs-usa}
+	\caption{CDF of Latencies in the USA and Canada}
+	\label{fig:latency-cdfs-1}
 \end{figure}
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2022_of_starlink_probes_in_united_states.pdf}
-		\caption{2022}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_of_starlink_probes_in_germany.pdf}
+		\caption{Germany}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2023_of_starlink_probes_in_united_states.pdf}
-		\caption{2023}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/cdf_latencies_of_starlink_probes_in_france.pdf}
+		\caption{France}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_in_2024_of_starlink_probes_in_united_states.pdf}
-		\caption{2024}
+	\caption{CDF of Latencies in Germany and France}
+	\label{fig:latency-cdfs-2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_of_starlink_probes_in_united_states.pdf}
+		\caption{USA}
 	\end{subfigure}
-	\caption{EquiWidth Histogram of Starlink Latencies 2022, 2023, and 2024.}
-	\label{fig:latency-histogram-usa}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_of_starlink_probes_in_canada.pdf}
+		\caption{Canada}
+	\end{subfigure}
+	\caption{EquiWidth Histogram of Latencies in the USA and Canada}
+	\label{fig:latency-histogram-1}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_of_starlink_probes_in_germany.pdf}
+		\caption{Germany}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.8\linewidth}
+		\includegraphics[width=\linewidth]{chapters/4-results/latency/img/histogram_of_latencies_of_starlink_probes_in_france.pdf}
+		\caption{France}
+	\end{subfigure}
+	\caption{EquiWidth Histogram of Latencies in Germany and France}
+	\label{fig:latency-histogram-2}
 \end{figure}
 
 Analyzing the flattening behavior in more detail, we used an EquiWidth
 histogram\footnote{A histogram that puts all values in a pre-defined number of
 	bins, where all bins cover an equally wide data-range.} to plot the
-most frequent latencies. Figure~\ref{fig:latency-histogram-usa} shows the
-histogram for the USA. It becomes apparent that there is actually a major gap
-between the latencies. This gap appears for every country, for every year
-analyzed.
+most frequent latencies. Figure~\ref{fig:latency-histogram-1} and
+\ref{fig:latency-histogram-2} show the histograms for the USA, Canada, France,
+and Germany. It becomes apparent that there is actually a major gap between
+within the latencies. This gap appears for most countries. In 2024, it became
+even more apparent (e.g., looking at Germany, the gap was not visible in 2022,
+but appeared in 2024). For further countries, the appendix holds further plots
+(see Figures~\ref{fig:latency-cdf-3} -- \ref{fig:latency-cdf-7} and
+\ref{fig:latency-histogram-3} -- \ref{fig:latency-histogram-7}).
 
-As this behavior appears to be independent of time and location, we assume the
-behavior to originate from Starlink itself. As we lack the possibility to
-measure other networked satellite ISPs, we do not know whether this is a
-general property of networked satellite internet.
+Currently, it is unclear why the gap appears, but we assume that either
+the measurements were consistent enough for such a pattern to occur or the gap
+is a special trait of the Starlink system. The latter would infer that Starlink
+serves specific latencies better than others.
 
