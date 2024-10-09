@@ -3,9 +3,15 @@
 
 It is in question whether TLS handshake latencies vary at different days of the
 week. For example, the latency might be different comparing Mondays and
-Sundays. In the case of Starlink, we were not able to find such a pattern.
+Sundays. To analyze that, we looked at RIPE~Atlas data and Cloudflare~Radar
+data.
+
+\subsubsection*{RIPE Atlas}
+
+Using the RIPE Atlas data, we compare different weekdays over the time range of
+2022 -- 2024. We were not able to find differences in individual weekdays.
 Figure~\ref{fig:latencies-per-weekday} illustrates the latencies that occur in
-each weekday.
+each weekday as measured by the built-in TLS measurements.
 
 \begin{figure}
 	\centering
@@ -30,8 +36,6 @@ statistical aggregates (number of measurements, median, average, maximum, and
 minimum latency). The results are shown in Table~\ref{fig:weekday-statistics}.
 
 \begin{table}
-	\caption{Weekday Statistics in Germany}
-	\label{fig:weekday-statistics}
 	\begin{tabular}{llllllll}
 		\toprule
 		               & Mon. & Tue. & Wed. & Thu. & Fri. & Sat. & Sun. \\
@@ -58,6 +62,8 @@ minimum latency). The results are shown in Table~\ref{fig:weekday-statistics}.
 		Minimum        & 26   & 26   & 26   & 26   & 26   & 27   & 26   \\
 		\bottomrule
 	\end{tabular}
+	\caption{Weekday Statistics in Germany}
+	\label{fig:weekday-statistics}
 \end{table}
 
 They show that the latency does not vary on the individual days. Therefore, you
@@ -78,4 +84,14 @@ achieving the peak performances from 2023.
 	Starlink has managed to improve their peak latency by nearly 20 ms
 	compared to 2022 while maintaining their median and average latencies.
 \end{takeaway}
+
+\subsubsection*{Cloudflare Radar}
+
+Cloudflare offers a different perspective on the data as the data is acquired
+differently. We use the Cloudflare Radar data to analyze how Starlink
+performance changes over the course of a day. We do that with Cloudflare Radar
+data as it offers aggregated data. Similar results are expected for RIPE~Atlas
+measurements.
+
+
 
