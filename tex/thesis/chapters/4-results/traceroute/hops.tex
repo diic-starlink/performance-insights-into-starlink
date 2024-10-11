@@ -40,44 +40,61 @@ correlation that is part of the Starlink network.
 
 We want to a closer look on how Starlink latency behaves in each hop. To do so,
 we looked at each hop of the built-in measurements of RIPE~Atlas and the change
-in round trip time from hop to hop. Figure~\ref{fig:latency-change-per-hop}
-show how the round trip time measured in the traceroute measurement behaves
-with more hops. It is important to note that in rare cases the RTT does not
-increase with more hops, as traceroute measurements work with repetitive
-measurements that might yield inconsistent results in consecutive runs.
+in round trip time from hop to hop. Figure~\ref{fig:latency-change-per-hop-1}
+and \ref{fig:latency-change-per-hop-2} show how the round trip time measured in
+the traceroute measurement behaves in consecutive hops. It is important to note
+that in rare cases the RTT does not increase with more hops, as traceroute
+measurements work with repetitive measurements that might yield inconsistent
+results in consecutive runs. Also, we noticed a severe difference among the
+target root servers. Therefore, we additionally differentiated by target. The
+target is defined by RIPE Atlas in their documentation by measurement
+ID\footnote{See
+	\href{https://atlas.ripe.net/docs/built-in-measurements/\#traceroute-5-000-6-999}{RIPE Atlas Built-In Traceroute Measurements}}.
+For this chapter, we focused on the measurement 5001 (traceroutes to
+k.root-servers.net). Further figures are listed in the appendix (Figures
+\ref{fig:latency-change-per-hop-appendix-1} --
+\ref{fig:latency-change-per-hop-appendix-16}).
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-CA.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-CA-5001.pdf}
 		\caption{Canada}
+		\label{fig:latency-change-per-hop-1-ca}
 	\end{subfigure}
 	\begin{subfigure}[b]{\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-PH.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-PH-5001.pdf}
 		\caption{Philippines}
 	\end{subfigure}
+	\caption{Latencies per Hop in Canada and Philippines}
+	\label{fig:latency-change-per-hop-1}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-FR.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-FR-5001.pdf}
 		\caption{France}
 	\end{subfigure}
 	\begin{subfigure}[b]{\linewidth}
-		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-DE.pdf}
+		\includegraphics[width=\linewidth]{chapters/4-results/traceroute/img/latency-per-hop-DE-5001.pdf}
 		\caption{Germany}
 	\end{subfigure}
-	\caption{Average Latency per Hop}
-	\label{fig:latency-change-per-hop}
+	\caption{Average Latency per Hop in France and Germany}
+	\label{fig:latency-change-per-hop-2}
 \end{figure}
 
 One can see that overall each hop increases the RTT slightly, but in most cases
 there is a hop that strongly increases the RTT. We assume that this usually is
-the hop from the entry into the satellite constellation toward the \ac{GS}. It
-is not clear why this step often appears in a later hop, as the entry into the
-satellite constellation should appear as first or second hop.
-
-Also, it is important to note that the behavior is different from country to
-country. The appendix shows further countries in
-Figure~\ref{fig:latency-change-per-hop-appendix}.
+the hop from the entry into the satellite constellation toward the \ac{GS}. We
+also observe that the strong increase sometimes appears in a later hop (e.g.,
+in Figure~\ref{fig:latency-change-per-hop-1-ca}). Therefore, we looked at the
+\ac{ASN} for each of the hops. We list the most frequent and, if it exists,
+also the second most frequent \ac{ASN} under the hop. The \ac{ASN} is acquired
+by using \href{https://ipinfo.io/}{IPinfo} data for IPs given by each hop. The
+\ac{ASN} allows determining, which autonomous system manages most of the
+traffic. Therefore, we can determine whether Starlink is part of the traffic,
+which does not seem to be the case for most plots. Usually, Starlink
+(\ac{ASN}14593) is not part of the trace after the fifth hop at latest.
+Therefore, we assume other factors are responsible for the strong increase at
+later hops, i.e., they are not caused by Starlink.
