@@ -1,1 +1,45 @@
 \section{Motivation} \label{sec:motivation}
+
+The internet plays a major role in our everyday's life. There are many
+technologies available that allow to connect to the web addressing different
+use cases (e.g., Wi-Fi for local area networks \cite{Henry2002} or \ac{FTTH}
+for high-speed wired connections to an end user's home \cite{Aleksic2010}).
+
+However, there are several challenges with such a setup. First, it requires
+wired infrastructure, which is quite expensive for networks in remote areas.
+For single end users, it is not affordable. Second, should the wired infrastructure be in place, it is vulnerable to attacks or natural catastrophes that render the service unusable.
+
+Therefore, people came up with the idea of using satellites for communication.
+The idea is not new as satellites are used for communication for quite a while
+(e.g., radio signals in the 1970s \cite{Davies1980}). Satellites are resilient
+to human attacks or natural catastrophes as satellites are largely inaccessible
+in space. Therefore, governments installed dedicated satellite constellations
+to maintain communication in any given scenario. Prominent examples of
+governmental satellite constellations are \textit{Beidou} and \textit{Galileo}.
+
+Aside from crisis intervention, also the private sector discovered the
+opportunities of satellite communication. Providing communication over
+satellite allows users mobile access to information that usually requires
+complex infrastructure. Users can access services like geographical data, radio
+frequencies, and even the internet. Especially the demand for web access is
+growing, while \ac{SNO}s failed at providing acceptable latencies in the past.
+
+However, also the demand for low latency access grew. Practice showed that
+\ac{GEO} satellites (35'786 km altitude) only provided the most basic service
+necessary to operator communication. However, \ac{LEO} satellites (200 --
+1200~km altitude) were able to provide competitive latencies comparing with
+current terrestrial access. On the other hand side, building a \ac{LEO}
+satellite constellation is highly expensive, as it requires hundreds to
+thousands of satellites around the global. At the moment of writing, there are
+only two companies taking on this challenge: OneWeb and Starlink. Amazon also
+plans to construct their own satellite constellation Kuiper, but it is not
+clear whether this will become reality in the near future.
+
+Aside from many earlier business failures \cite{Chan2002, Barboza2000}, it is
+still in question how well networked satellite systems actually work and
+whether they offer practical advantages. Previous work reported competitive
+latencies for \ac{LEO} systems, accompanied by increased packet loss
+\cite{DBLP:conf/imc/MichelTGB22}. Therefore, we will explore the performance
+and resilience of \ac{SNO}s. Also, we will try to determine the correlation
+between individual properties, e.g., a correlation between latency and packet
+loss.
