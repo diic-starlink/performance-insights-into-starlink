@@ -93,5 +93,23 @@ performance changes over the course of a day. We do that with Cloudflare Radar
 data as it offers aggregated data. Similar results are expected for RIPE~Atlas
 measurements.
 
+Due to the completeness and availability, we chose to analyze the data from
+April 2024. We analyzed individual days as well as the development over the
+week. Figure~\ref{fig:latency-per-weekday-1st-2nd-april} shows the latency
+development for the first two days in April 2024. It uses the aggregated data
+from Cloudflare Radar, which has a resolution of 15 minute intervals.
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/cf_radar_latency_2024-04-01.pdf}
+		\caption{April 1, 2024 (0:00 -- 24:00)}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/cf_radar_latency_2024-04-02.pdf}
+		\caption{April 2, 2024 (0:00 -- 24:00)}
+	\end{subfigure}
+	\caption{Latencies of the first two days of April 2024.}
+	\label{fig:latency-per-weekday-1st-2nd-april}
+\end{figure}
 
