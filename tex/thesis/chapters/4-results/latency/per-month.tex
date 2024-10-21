@@ -1,4 +1,4 @@
-\subsection{Latencies on Different Weekdays}
+\subsection{Latencies on Different Weekdays and Diurnal Variation}
 \label{sec:latency-weekdays}
 
 It is in question whether TLS handshake latencies vary at different days of the
@@ -102,14 +102,69 @@ from Cloudflare Radar, which has a resolution of 15 minute intervals.
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/cf_radar_latency_2024-04-01.pdf}
-		\caption{April 1, 2024 (0:00 -- 24:00)}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-01_2024-04-02.pdf}
+		\caption{Monday, April 1, 2024 (0:00 -- 24:00)}
 	\end{subfigure}
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{chapters/4-results/latency/img/cf_radar_latency_2024-04-02.pdf}
-		\caption{April 2, 2024 (0:00 -- 24:00)}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-02_2024-04-03.pdf}
+		\caption{Tuesday, April 2, 2024 (0:00 -- 24:00)}
 	\end{subfigure}
-	\caption{Latencies of the first two days of April 2024.}
+	\caption{Cloudflare Radar Latencies of the First Two Days of April 2024}
 	\label{fig:latency-per-weekday-1st-2nd-april}
 \end{figure}
 
+We expect to observe diurnal variation, as it is also the case for terrestrial
+internet connections. While on the first of April, the diurnal variation is
+clearly visible, the diurnal variation cannot be clearly seen for the second of
+April. However, this day might be an outlier. To further observe diurnal
+variation, we observe the rest of the month.
+Figures~\ref{fig:latency-per-weekday-weeks-1} and
+\ref{fig:latency-per-weekday-weeks-2} show the weeks between April 1 and April
+28, 2024.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-01_2024-04-08.pdf}
+		\caption{April 1, 2024, to April 8, 2024}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-08_2024-04-15.pdf}
+		\caption{April 8, 2024, to April 15, 2024}
+	\end{subfigure}
+	\caption{Cloudflare Radar Latencies of the First Two Weeks of April 2024}
+	\label{fig:latency-per-weekday-weeks-1}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-15_2024-04-22.pdf}
+		\caption{April 15, 2024, to April 22, 2024}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chapters/4-results/latency/img/cf_radar_latencies_2024-04-22_2024-04-29.pdf}
+		\caption{April 22, 2024, to April 29, 2024}
+	\end{subfigure}
+	\caption{Cloudflare Radar Latencies of the Third and Fourth Week of April 2024}
+	\label{fig:latency-per-weekday-weeks-2}
+\end{figure}
+
+It is quite clearly visible that in the following weeks there is a strong
+variation. This is likely due to diurnal variation. Therefore, we conclude that
+Starlink shows a diurnal variation only over the hours of the day, but not
+among different weekdays (as shown in Figure~\ref{fig:latencies-per-weekday}
+and Table~\ref{fig:weekday-statistics}).
+
+\begin{takeaway}{Diurnal Variation of Starlink}
+	Similar to terrestrial internet access, Starlink also shows a clear
+	diurnal variation, but only among the hours of the day. The latency
+	increases during peak utilization times and is lowest during the night.
+	However, there was no observable difference among different weekdays.
+\end{takeaway}
