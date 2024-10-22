@@ -2,20 +2,18 @@
 
 For analysis, we create a dataset containing measurements from various sources
 about networked satellite systems. Sadly, only data from Starlink devices was
-included in the thesis as other satellite network systems did not have
-sufficient data openly available.
+included in the thesis as other \ac{SNO}s did not have sufficient data openly
+available.
 
 The data originates from RIPE Atlas, Cloudflare Radar, and N2YO. While
 N2YO provides data about satellites, the others hold measurement results. In
 the case of N2YO, the website was crawled, while the others provide API
-access.
-
-The process of data collection is illustrated in
+access. The process of data collection is illustrated in
 Figure~\ref{fig:data-collection-process}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{./chapters/3-methodology/img/architecture.drawio.pdf}
+	\includegraphics[width=\textwidth]{./chapters/3-methodology/img/architecture.drawio.pdf}
 	\caption{Architecture of Data Collection}
 	\label{fig:data-collection-process}
 \end{figure}
@@ -26,9 +24,8 @@ new rows). Transactional databases are the best choice for that, e.g.,
 PostgreSQL. To quickly analyze data, an analytical database is the best choice.
 For that purpose, Parquet files can be used. Therefore, the data from
 PostgreSQL is dumped into the Parquet files. This creates a redundant storage,
-for the sake of analysis speed.
-
-The resulting data format is shown in Figure~\ref{fig:er-diagram}.
+in exchange for analysis speed. The resulting data format is shown in
+Figure~\ref{fig:er-diagram}.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{./chapters/3-methodology/img/er-diagram.drawio.pdf}
@@ -37,12 +34,13 @@ The resulting data format is shown in Figure~\ref{fig:er-diagram}.
 \end{figure}
 
 The database includes Ping, Traceroute, TLS, HTTP, Disconnect Event, and DNS
-measurement data, as well as information about the RIPE Atlas probes and all
-satellites ever launched (including rocket bodies).
-The whole database comprises more than 150 GB.
+measurement data, as well as information about the RIPE~Atlas probes and all
+satellites ever launched (including rocket bodies). The whole database
+comprises more than 150 GB in PostgreSQL.
 
-Additionally, the analysis uses data from IPinfo. This data is however not
-included in the dataset and has to be obtained from IPinfo itself.
+Additionally, the measurement data in enriched with data from IPinfo during the
+analysis process. This data is however not included in the dataset and has to
+be obtained from IPinfo itself.
 
 \subsection*{RIPE Atlas Data}
 
