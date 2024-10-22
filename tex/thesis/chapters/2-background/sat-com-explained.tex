@@ -19,6 +19,12 @@ satellite that might either forward the packets to another satellite or
 directly send them to a nearby \ac{GS} (also called \ac{PoP}). The \ac{GS}
 serves as an "entry point" to the terrestrial internet. A \ac{GS} can forward
 packets through wired connections, so they will reach the receiver eventually.
+\ac{GS}s have to be provided by the \ac{SNO}. It is essential to have a dense
+\ac{GS} infrastructure. Fewer \ac{GS}s can induce higher latencies, as more
+hops might be necessary. Therefore, it is necessary to determine an
+advantageous positioning of \ac{GS}s \cite{DBLP:conf/sigcomm/VasishtSC21}. For
+reference, one can get an overview of current placements of Starlink and OneWeb
+\ac{GS}s on \url{https://satellitemap.space}.
 
 The technology of communicating with satellites will not be explained here.
 Amongst others, it is described by Pratt~et~al.~\cite{pratt2019satellite}.
@@ -67,12 +73,12 @@ Ground stations are required for satellites to route packets to a receiver.
 Depending on the location of the sender, the first satellite on the route might
 have to forward packets to a different satellite (using an \ac{ISL}) in order
 to reach a region with a \ac{GS}. Such a route is called "Bent-Pipe". Depending
-on the number of satellites on the route, it is called an "n-hop-bent-pipe". If
-there is only a single satellite involved, it is a 1-hop-bent-pipe.
+on the number of hops in-between satellites, it is called an "n-hop-bent-pipe".
+If the packet needs to be forwarded only once, it is a 1-hop-bent-pipe.
 
 % TODO: Find more sources pro and con
-It is in question how the bent-pipe influences the performance and behavior of
-a networked satellite system. Research still discusses whether bent-pipes
-provide a positive (\cite{DBLP:conf/hotnets/HauriBGS20}) or negative
+It is in question how bent-pipes influences the performance and behavior of a
+networked satellite system. Research still discusses whether bent-pipes provide
+a positive (\cite{DBLP:conf/hotnets/HauriBGS20}) or negative
 (\cite{DBLP:conf/www/MohanFCBRMO24}) impact.
 
