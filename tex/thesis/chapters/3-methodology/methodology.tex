@@ -36,10 +36,10 @@ Figure~\ref{fig:er-diagram}.
 The database includes Ping, Traceroute, TLS, HTTP, Disconnect Event, and DNS
 measurement data, as well as information about the RIPE~Atlas probes and all
 satellites ever launched (including rocket bodies). The whole database
-comprises more than 150 GB in PostgreSQL.
+comprises more than 150 GB in PostgreSQL ($\approx$ 50 GB in Parquet files).
 
-Additionally, the measurement data in enriched with data from IPinfo during the
-analysis process. This data is however not included in the dataset and has to
+Additionally, the measurement data is enriched with data from IPinfo during the
+analysis process. However, this data is not included in the dataset and has to
 be obtained from IPinfo itself.
 
 \subsection*{RIPE Atlas Data}
