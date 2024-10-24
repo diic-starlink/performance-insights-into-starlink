@@ -2,12 +2,15 @@ name: Build LaTeX Documents and Upload Artifacts
 
 on:
   push:
-    paths: &paths
+    paths:
       - .github/workflows/tex.yml
       - tex/thesis/**
       - tex/proposal/**
   pull_request:
-    paths: *paths
+    paths:
+      - .github/workflows/tex.yml
+      - tex/thesis/**
+      - tex/proposal/**
 
 jobs:
   build-latex:
