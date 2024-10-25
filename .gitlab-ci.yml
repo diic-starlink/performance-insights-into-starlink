@@ -16,30 +16,20 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-image: nixos/nix
-
 stages:
-    - Clean Up Artifacts
-    - Test Nix Installation
-    - Build Proposal
-    - Build Thesis
-    - Deploy to Branch
+    - build
 
-clean-up:
-    stage: Clean Up Artifacts
-    script:
-        - chmod -R 777 .
+default:
+    image: registry.gitlab.com/islandoftex/images/texlive:TL2024-2024-10-20-full
 
-test-nix:
-    stage: Test Nix Installation
-    script:
-        - nix --version
+.build-command: &build-command latexmk -pdf -output-directory="out" -aux-directory="out" -interaction=nonstopmode main.tex
 
-build-proposal:
-    stage: Build Proposal
+proposal:
+    stage: build
     script:
-        - nix-build proposal.nix
-        - cp result/main.pdf proposal.pdf
+        - cd ./tex/proposal
+        - *build-command
+        - mv out/main.pdf proposal.pdf
     artifacts:
         untracked: false
         when: on_success
@@ -48,11 +38,12 @@ build-proposal:
         paths:
             - proposal.pdf
 
-build-thesis:
-    stage: Build Thesis
+thesis:
+    stage: build
     script:
-        - nix-build tex.nix
-        - cp result/main.pdf thesis.pdf
+        - cd ./tex/thesis
+        - *build-command
+        - mv out/main.pdf out/thesis.pdf
     artifacts:
         untracked: false
         when: on_success
