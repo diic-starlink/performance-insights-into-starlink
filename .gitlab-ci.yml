@@ -19,35 +19,19 @@
 stages:
     - build
 
-default:
+build:
     image: registry.gitlab.com/islandoftex/images/texlive:TL2024-2024-10-20-full
-
-.build-command: &build-command latexmk -pdf -output-directory="out" -aux-directory="out" -interaction=nonstopmode main.tex
-
-proposal:
     stage: build
+    parallel:
+        matrix:
+            - DOCUMENT: [proposal, thesis]
     script:
-        - cd ./tex/proposal
-        - *build-command
-        - mv out/main.pdf proposal.pdf
+        - cd ./tex/${DOCUMENT}
+        - latexmk -pdf -output-directory="out" -aux-directory="out" -interaction=nonstopmode main.tex
     artifacts:
-        untracked: false
+        name: "${DOCUMENT}"
         when: on_success
         access: all
         expire_in: 30 days
         paths:
-            - proposal.pdf
-
-thesis:
-    stage: build
-    script:
-        - cd ./tex/thesis
-        - *build-command
-        - mv out/main.pdf out/thesis.pdf
-    artifacts:
-        untracked: false
-        when: on_success
-        access: all
-        expire_in: 30 days
-        paths:
-            - thesis.pdf
+            - ./tex/${DOCUMENT}/out/main.pdf
