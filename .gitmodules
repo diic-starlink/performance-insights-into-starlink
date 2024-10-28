@@ -1,3 +1,6 @@
 [submodule "hugo-pages/themes/hugo-book"]
 	path = hugo-pages/themes/hugo-book
 	url = https://github.com/alex-shpak/hugo-book
+[submodule "tex/acm-paper"]
+	path = tex/acm-paper
+	url = git@github.com:starlink-thesis-diic/acm-paper.git
