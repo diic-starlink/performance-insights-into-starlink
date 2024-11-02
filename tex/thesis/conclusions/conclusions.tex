@@ -1,65 +1,65 @@
 \chapter{Conclusions \& Outlook} \label{sec:conclusion}
 
-In this thesis, we looked at the performance and resilience of the Starlink
-satellite system. The main research questions are listed in
+We have looked at the performance and resilience of the Starlink satellite
+system. The main research questions are listed in
 Chapter~\ref{sec:research-questions}.
 
-To answer research question 1, we looked at the TLS handshake latency in the
-individual years 2022~--~2024 and found that Starlink latency is at
-approximately 80~ms median in 2024. However, it has to be noted that the
-Starlink latency improved since 2022 in average, median, and minimal latency
-(see Table~\ref{fig:weekday-statistics}).
+To answer research question 1, we looked at the TLS handshake latency in each
+years 2022~--~2024 and found that Starlink latency is at approximately 80~ms
+median in 2024. However, it has to be noted that Starlink latency improved
+since 2022 in average, median, and minimal latency (see
+Table~\ref{fig:weekday-statistics}).
 
 We observed a strange behavior in the latency that we call the
-"two-bell-pattern". It is visible in Figure~\ref{fig:latency-histogram-1} and
+"two-bell-pattern." It is visible in Figure~\ref{fig:latency-histogram-1} and
 \ref{fig:latency-histogram-2}. It describes the behavior of serving two ranges
 of latencies especially well. First lower latencies ($\approx$~80~--100~ms) and
 second higher latencies ($\approx$~150~--250~ms) with a major gap in between.
-It is unclear what the cause of this pattern is.
+The cause of this pattern is unclear.
 
 Additionally, we wanted to find out about diurnal variation. Looking at data
 from April~2024, we found that there is no difference between the individual
 week days (see Figure~\ref{fig:latencies-per-weekday}). However, there is a
-strong variation between the hours of the day. For example, in the night, one
-can expect lower latencies compared to lunchtime.
+strong variation between the hours of the day. For example, one can expect
+lower latencies at night compared to during lunchtime.
 
 We also looked at packet loss and noted a high variation by country. Countries
-like the Philippines have packet loss ratios of up to 18\%, while Czechia and
-Chile achieve less than 0.25\%. However, also highly modernized countries like
-Germany and the Netherlands experience in high packet loss ratios (see
-Table~\ref{fig:packetloss-total}). In the end, for most countries have a packet
+such as the Philippines have packet loss ratios of up to 18\%, while Czechia
+and Chile achieve less than 0.25\%. On the other hand side, highly modernized
+countries like Germany and the Netherlands experience high packet loss ratios
+(see Table~\ref{fig:packetloss-total}). Overall, most countries have a packet
 loss of 1 to 4\%.
 
-We expected a correlation in packet loss and latency. We correlated the two
-values and separated by country. Table~\ref{fig:packetloss-latency-correlation}
-shows the resulting correlation values, where 0 indicates orthogonal random
-variables and 1 or -1 indicates a strong correlation. Some countries hold
-values that allow to make a conclusion, but others do not. We assumed that the
-number of probes played a role, but were able to eliminate it as a factor for
-the behavior (see
+We expected a correlation in packet loss and latency and therefore correlated
+them. We split the values by year and by country.
+Table~\ref{fig:packetloss-latency-correlation} shows the resulting correlation
+values, where 0 indicates orthogonal random variables and 1 or -1 indicates a
+strong correlation. Some countries hold values that allow to draw a conclusion,
+but others do not. We assumed that the number of probes played a role, but were
+able to eliminate it as a determinant of behavior (see
 Table~\ref{fig:packetloss-latency-number-probes-correlation}). The correlation
 might be related to currently unknown contributing factors that need to be
 taken into consideration before drawing a conclusion. Therefore, we cannot make
 a statement about the correlation of latency and packet loss. Research question
-2 can consequently not be answered by the research.
+2 can consequently not be answered by our research.
 
 To answer research question 3, we further looked at the routing of the Starlink
 satellite system. First, we wanted to find out the number of hops a route
 usually takes. We found that most routes take 10 to 14 hops (see
-Figure~\ref{fig:hops-per-measument}). The histogram for the hops is also
-showing the mentioned "two-bell-pattern". Both observations might be related,
-which was not further researched in this thesis.
+Figure~\ref{fig:hops-per-measument}). The histogram for the hops also shows the
+mentioned "two-bell-pattern." Both observations might be related, which was not
+further researched in this thesis.
 
-We also observed the change in latency per hop (i.e., what latency does the
-traceroute measurement report in each hop). We found that usually there is a
+We also observed the change in latency per hop (i.e., what the traceroute
+measurement latency reports in each hop). We found that usually there is a
 spike in latency in the second hop. Likely, the spike originates from routing
 through the Starlink satellite constellation, which is not reflected in the
 traceroute results (see Figures~\ref{fig:latency-change-per-hop-1} and
 \ref{fig:latency-change-per-hop-2}). We also found consequent spikes in
-latency. However, mapping the hops to their predominant ASN, we found that
+latency. However, in mapping the hops to their predominant ASN, we found that
 those spikes lay outside the Starlink domain. Starlink has an opportunity of
-increasing their performance at this point, but likely other entities are
-actually responsible for the spike.
+improving its performance at this point, but likely other entities are actually
+responsible for the spike.
 
 Finally, we looked at the influence of solar magnetic storms on the Starlink
 latency and found that there is no correlation (i.e., both random
@@ -67,23 +67,27 @@ variables are orthogonal).
 
 \section{Future Work}
 
-During our work, we faced several limitations that require more effort. The
-first limitation were the probes that we did not hold ourselves, but originate
-from RIPE~Atlas. That means unknown people in the world set them up as they
-wished. This might have corrupted the data. Ideally, the probes are operated by
-the researchers themselves, but this a costly and tedious thing to do.
+During our work, we faced several limitations that required more effort. The
+first limitation were the probes that we did not hold ourselves, but which
+originate from RIPE~Atlas. This means unknown people in the world set them up
+as they wished. This might have corrupted the data. Ideally, the probes are
+operated by the researchers themselves, but doing this a costly and tedious
+undertaking.
 
-Further, we did not explore quite some directions due to time constraints. The
+Further, some directions were left unexplored due to time constraints. The
 two-bell-pattern is an interesting observation that needs confirmation and
 explanation as it was not clear why it occurred. It should also be correlated
 with the similar observation in number of hops.
 
-Also, we did not look into detail how Starlink routes packets on their
-satellite constellation and later on in terrestrial internet. It is clear that
-Starlink cannot give away complete responsibility after a packet is handed to a
-different AS. However, it is unclear what a proper model for such a routing
-behavior would be.
+A detailed look at how Starlink routes packets on its satellite constellation
+and later in terrestrial internet is left out. It is clear that Starlink cannot
+give away complete responsibility after a packet is handed to a different AS.
+At the same time, a proper model for such a routing behavior is missing.
+Certain parts, like the placing of ground stations, are known, but a complete
+model was not yet found.
 
 Mentioned in Chapter~\ref{sec:bent-pipes}, \ac{SNO}s largely rely on \ac{ISL}s.
-However, researchers still discuss the impact of \ac{ISL}s. It should be
-researched what impact they have and how their ideal usage would work.
+Looking at the traceroute data, it is obvious that \ac{ISL}s are used for
+supporting remote regions. In parallel, research discusses the impact of
+\ac{ISL}s on the performance. Their impact and ideal usage are questions that
+need to be addressed and are a matter of future research.
