@@ -1,49 +1,47 @@
 \section{Research Questions} \label{sec:research-questions}
 
-In this thesis, we scope for the Resilience and Performance of Networked
-Satellite Systems. Specially, we focus on the Starlink constellation as it is
+In this thesis, we scope for the resilience and performance of networked
+satellite systems. Specially, we focus on the Starlink constellation as it is
 the only system that has public data available on different measurement
-platforms. Other constellations like Orbcomm or OneWeb had no or insufficient
-data available and could therefore also not be explored. We even tried to get
-our hands on a satellite system to deploy at our chair, but were not able to
-get a proper response by the operators. Therefore, we will solve the following
-research question by the data that is openly available on websites like
-RIPE~Atlas or Cloudflare~Radar.
+platforms. Other constellations like Orbcomm or OneWeb have no or insufficient
+data available and can therefore not be explored. We tried to get our
+hands on a satellite system to deploy at our chair, but were not able to get a
+proper response by the operators. Therefore, we solve the following research
+question by the data that is openly available on websites like RIPE~Atlas or
+Cloudflare~Radar.
 
 \begin{rqbox}{1: How do networked satellite systems perform in terms of latency
 		and packet loss?}
-	Packet loss and latency are the main factors for the performance of a
-	network. Recent research stated high packet loss values, but mostly
-	idealized latency values. This thesis shall take a look at those two
-	performance characteristics.
+	Packet loss and latency are key factors for the performance of a
+	network. Recent research stated high packet loss values, and mostly
+	idealized latency values. This thesis investigates the two
+	performance characteristics. We focus on the Starlink constellation as
+	it is the only system that has public data available on different
+	measurement platforms
 
 	To solve this research question, we will use RIPE~Atlas and Cloudflare
-	Radar. However, RIPE~Atlas will provide the majority of the data as the
-	data is more fine-grained\footnote{Cloudflare~Radar also provides
-		fine-grained data, but our data collection did not collect that
-		data}.
+	Radar.
 \end{rqbox}
 
 \begin{rqbox}{2: Do latency and packet loss correlate?}
-	It is expected that a rising latency correlates with a rising packet
-	loss and vice versa due to the need of retransmits.
-	It is in question whether this is the case for networked satellite
-	systems.
+	Rising packet losses are expected to correlate with a rising latency as
+	they need to be retransmitted. It is in question whether we can observe
+	such a correlation for satellite networks.
 
-	If it appears that there is no clear correlation observable, what
-	factors might influence the correlation? Amongst other, we look at
-	factors like the Kp index of solar magnetic storms.
+	If we cannot observe a correlation, what factors might influence the
+	correlation? Amongst others, we look at factors like the intensity of
+	solar magnetic storms.
 
-	To solve this research question, we will use the data obtained from
-	RQ~1 (i.e., data from RIPE Atlas and Cloudflare Radar).
+	To answer this research question, we use the data obtained while
+	investigating RQ~1 (i.e., data from RIPE Atlas and Cloudflare Radar).
 \end{rqbox}
 
 \begin{rqbox}{3: How do networked satellite systems route?}
-	Networked satellite systems face a severe challenge when routing a
-	packet as they need to route through a highly complex satellite system.
+	Networked satellite systems face a severe challenge when routing
+	packets as they need to route through a highly complex satellite mesh.
 	It includes linking satellites to one another and predict their
 	performance. This thesis takes a look at the routing performance.
 
-	To solve this research question, we will use traceroute data from
+	To answer this research question, we use traceroute data from
 	RIPE~Atlas.
 \end{rqbox}
