@@ -72,7 +72,7 @@ We also observed the change in latency per hop and found that usually there is
 a spike in latency in the second hop. Likely, the spike originates from routing
 through the Starlink satellite constellation, which is not reflected in the
 traceroute results. We also found consequent spikes in latency. However, in
-mapping the hops to their predominant ASN, we found that those spikes lay
+mapping the hops to their predominant \ac{ASN}, we found that those spikes lay
 outside the Starlink domain. Starlink has an opportunity of improving its
 performance at this point, but likely other entities are actually responsible
 for the spike.
@@ -100,7 +100,7 @@ doing this a costly and labour-intensive undertaking.
 
 
 In this work, measurement data mainly originated from RIPE~Atlas and
-Cloudlfare~Radar. Further platforms also allow contributing more perspectives
+Cloudflare~Radar. Further platforms also allow contributing more perspectives
 and variables that can be correlated with the Starlink performance. Prominent
 examples are OONI and M-Lab.
 
@@ -117,7 +117,7 @@ the same time, a proper model for such a routing behavior is missing. Certain
 parts, like the placing of ground stations, are known, but a complete model was
 not yet found.
 
-Mentioned in Chapter~\ref{sec:bent-pipes}, \ac{SNO}s largely rely on \ac{ISL}s.
+Mentioned in \Cref{sec:bent-pipes}, \ac{SNO}s largely rely on \ac{ISL}s.
 Looking at the traceroute data, it is obvious that \ac{ISL}s are used for
 supporting remote regions. In parallel, research discusses the impact of
 \ac{ISL}s on the performance, especially their influence on routing and

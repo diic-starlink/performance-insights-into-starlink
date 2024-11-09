@@ -10,21 +10,21 @@ connected via a \ac{SNO}, to a receiver connected to a terrestrial ISP.
 	\label{fig:sat-com-explained}
 \end{figure}
 
-The structure is illustrated in Figure~\ref{fig:sat-com-explained}.
-Initially, there is a sender connected to a satellite antenna provided by the
-specific \ac{SNO}. The satellite antenna is also colloquially called "dishy".
-From the senders' perspective, there is no different use compared to a
-traditional terrestrial internet connection. The antenna sends packets to a
-satellite that might either forward the packets to another satellite or
-directly send them to a nearby \ac{GS} (also called \ac{PoP}). The \ac{GS}
-serves as an "entry point" to the terrestrial internet. A \ac{GS} can forward
-packets through wired connections, so they will reach the receiver eventually.
-\ac{GS}s have to be provided by the \ac{SNO}. It is essential to have a dense
-\ac{GS} infrastructure. Fewer \ac{GS}s can induce higher latencies, as more
-hops might be necessary. Therefore, it is necessary to determine an
-advantageous positioning of \ac{GS}s \cite{DBLP:conf/sigcomm/VasishtSC21}. For
-reference, one can get an overview of current placements of Starlink and OneWeb
-\ac{GS}s on \url{https://satellitemap.space}.
+The structure is illustrated in \Cref{fig:sat-com-explained}. Initially, there
+is a sender connected to a satellite antenna provided by the specific \ac{SNO}.
+The satellite antenna is also colloquially called "dishy". From the senders'
+perspective, there is no different use compared to a traditional terrestrial
+internet connection. The antenna sends packets to a satellite that might either
+forward the packets to another satellite or directly send them to a nearby
+\ac{GS} (also called \ac{PoP}). The \ac{GS} serves as an "entry point" to the
+terrestrial internet. A \ac{GS} can forward packets through wired connections,
+so they will reach the receiver eventually. \ac{GS}s have to be provided by the
+\ac{SNO}. It is essential to have a dense \ac{GS} infrastructure. Fewer
+\ac{GS}s can induce higher latencies, as more hops might be necessary.
+Therefore, it is necessary to determine an advantageous positioning of \ac{GS}s
+\cite{DBLP:conf/sigcomm/VasishtSC21}. For reference, one can get an overview of
+current placements of Starlink and OneWeb \ac{GS}s on
+\url{https://satellitemap.space}.
 
 The technology of communicating with satellites will not be explained here.
 Amongst others, it is described by Pratt~et~al.~\cite{pratt2019satellite}.
@@ -43,8 +43,8 @@ able to cover approximately $379~km^2$ \cite{Pekhterev2021}.
 
 Overall, one differentiates between \ac{GEO} (35'786 km altitude), \ac{MEO}
 (2'000 - 35'786 km altitude), and \ac{LEO} (< 2'000 km altitude) satellite
-constellations. One can see in Equation~\ref{eq:geo-min-latency} and
-\ref{eq:starlink-min-latency} that this has a significant impact on the
+constellations. One can see in \Cref{eq:geo-min-latency} and
+\Cref{eq:starlink-min-latency} that this has a significant impact on the
 latency.
 
 \begin{equation}
@@ -57,14 +57,14 @@ latency.
 \end{equation}
 
 A \ac{GEO} constellation has a minimum latency of around 240 ms, as shown in
-Equation~\ref{eq:geo-min-latency}, assuming a packet needs to reach a satellite
-in GEO altitude and get back to the earth's surface. On the other hand,
-Equation~\ref{eq:starlink-min-latency} shows that a \ac{LEO} satellite
-constellation at an altitude of 550 km (like in the case of Starlink) has a
-minimum latency of only 4 ms. Research has shown that also in practice \ac{LEO}
-constellations are superior compared to \ac{GEO} constellations, especially in
-terms of latency \cite{DBLP:journals/pacmnet/RamanVCSZ23, Segan2020}. However,
-terrestrial internet still performed better compared to \ac{LEO} constellations
+\Cref{eq:geo-min-latency}, assuming a packet needs to reach a satellite in
+\ac{GEO} altitude and get back to the earth's surface. On the other hand,
+\Cref{eq:starlink-min-latency} shows that a \ac{LEO} satellite constellation at
+an altitude of 550 km (like in the case of Starlink) has a minimum latency of
+only 4 ms. Research has shown that also in practice \ac{LEO} constellations are
+superior compared to \ac{GEO} constellations, especially in terms of latency
+\cite{DBLP:journals/pacmnet/RamanVCSZ23, Segan2020}. However, terrestrial
+internet still performed better compared to \ac{LEO} constellations
 \cite{DBLP:conf/www/MohanFCBRMO24, DBLP:conf/infocom/MaCZCML23}.
 
 \subsection{Bent-Pipes} \label{sec:bent-pipes}
@@ -76,7 +76,6 @@ to reach a region with a \ac{GS}. Such a route is called "Bent-Pipe". Depending
 on the number of hops in-between satellites, it is called an "n-hop-bent-pipe".
 If the packet needs to be forwarded only once, it is a 1-hop-bent-pipe.
 
-% TODO: Find more sources pro and con
 It is in question how bent-pipes influences the performance and behavior of a
 networked satellite system. Research still discusses whether bent-pipes provide
 a positive (\cite{DBLP:conf/hotnets/HauriBGS20}) or negative

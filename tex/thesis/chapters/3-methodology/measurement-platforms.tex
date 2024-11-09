@@ -11,22 +11,14 @@ A probe is a machine that has the RIPE~Atlas probe software installed. A user
 can request a probe for a measurement (e.g., a ping from a probe to a RIPE NCC
 root server, i.e., *.root-servers.org).
 
-RIPE Atlas offers the following basic types of measurements:
-
-\begin{itemize}
-	\item Ping
-	\item Traceroute
-	\item (Dis)connection Events
-	\item DNS Lookup
-	\item DNS TLDs
-	\item HTTP
-	\item TLS (SSL) GET Certificate
-\end{itemize}
+RIPE Atlas offers the following basic types of measurements: Ping, Traceroute,
+(Dis)connection~Events, DNS~Lookup, DNS~TLDs, HTTP, and TLS (SSL) GET
+Certificate.
 
 RIPE Atlas offers the possibility to start measurements via the web interface
 or an API. While the web interface is sufficient for most use cases, it is also
-quite limited. Using the API offers more possibilities (e.g., turning DoH
-queries into DoTLS by adding \verb|"tls": true| into the definition of the
+quite limited. Using the API offers more possibilities (e.g., turning \ac{DoH}
+queries into \ac{DoTLS} by adding \verb|"tls": true| into the definition of the
 measurement).
 
 Additionally, each registered probe performs measurements on a regular basis in
@@ -44,10 +36,10 @@ rate-limited, but we did not encounter problems even when bulk-downloading
 larger datasets. Still, ethical crawling was used.
 
 RIPE Atlas offered 150 Starlink probes (i.e., probes with ASN14593) at the time
-of writing. Table~\ref{fig:probes-per-country} in the appendix shows the number
-of probes per country. The originating country is determined by RIPE Atlas. As
-most metrics rely on larger data amounts, the results in
-Chapter~\ref{sec:results} will rely on countries with more probes.
+of writing. \Cref{fig:probes-per-country} in the appendix shows the number of
+probes per country. The originating country is determined by RIPE Atlas. As
+most metrics rely on larger data amounts, the results in \Cref{sec:results}
+will rely on countries with more probes.
 
 \subsection{Cloudflare Radar} \label{sec:cloudflare-radar}
 
@@ -71,7 +63,7 @@ fixed set of Cloudflare servers.
 	probe (RIPE Atlas probe vs. browser), and the metric used (TLS vs. Time
 	to First Byte). Cloudflare's servers are expected to have a better
 	latency (they claim to be ~50ms away from 95 \% of the earth's
-	population; State September 17, 2024).
+	population\footnote{State September 17, 2024}).
 \end{takeaway}
 
 \begin{figure}
