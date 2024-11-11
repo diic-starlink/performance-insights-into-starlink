@@ -29,7 +29,7 @@ time interval).
 	\label{fig:latency_wholerange}
 \end{figure}
 
-Figure~\ref{fig:latency_wholerange} shows the history of median TLS handshake
+\Cref{fig:latency_wholerange} shows the history of median TLS handshake
 latencies from January~2022 until June~2024 for Germany, the United States,
 Poland, and Austria\footnote{These countries were chosen due to the
 	completeness of data}.
@@ -44,8 +44,8 @@ the congestion of the Starlink network. In the recent time, Starlink extended
 their availability across more countries allowing more users, especially those
 in countries with less networking infrastructure, to access the network. On the
 contrary, Starlink also launched more satellites (2022: 3481, 2024: 6000+; see
-Chapter~\ref{sec:satellite-constellations}) and added more \ac{GS}s which
-likely reduces the congestion.
+\Cref{sec:satellite-constellations}) and added more \ac{GS}s which likely
+reduces the congestion.
 
 \begin{figure}
 	\centering
@@ -61,22 +61,27 @@ likely reduces the congestion.
 	\label{fig:heatmap-latencies-europe}
 \end{figure}
 
-Figure~\ref{fig:heatmap-latencies-europe} shows the median and average TLS
-handshake latencies in European countries. It shows that the north-west of
-Europe experiences the best latencies, likely due to the presence of various
-\ac{GS}s. The southern and eastern European countries experience worse
-latencies. Especially Greece has a high median latency. A cause could be the
-absence of \ac{GS}s in the east-european region. Italy on the other hand side
-experiences a high average latency, even with \ac{GS}s being present in the
-country.
+\Cref{fig:heatmap-latencies-europe} shows the median and average TLS handshake
+latencies in European countries. It shows that the north-west of Europe
+experiences the best latencies, likely due to the presence of various \ac{GS}s.
+The southern and eastern European countries experience worse latencies.
+Especially Greece has a high median latency. A cause could be the absence of
+\ac{GS}s in the east-european region. Italy on the other hand side experiences
+a high average latency, even with \ac{GS}s being present in the country.
 
 Looking at the CDFs of the USA and Canada results in a similar observation.
-Figure~\ref{fig:latency-cdfs-1} illustrates the CDF plots for 2022 -- 2024
-for the USA and Canada. We observe similar results for other countries, but
-only chose the USA and Canada as it holds sufficient data for a conclusion.
+\Cref{fig:latency-cdfs-1} illustrates the CDF plots for 2022 -- 2024 for the
+USA and Canada. We observe similar results for other countries, but only chose
+the USA and Canada as it holds sufficient data for a conclusion.
 
 In the CDFs, we observe a similar performance of 2022 and 2024, but a drop in
-latency in 2023, similar to the conclusion we drew before. Also, the CDF is continuous, up to a specific point, where it flattens, followed by a stronger increase once again. This is similarly observed for curves of other countries (e.g., for France and Germany in Figure~\ref{fig:latency-cdfs-2}). This observation suggests that there is a region of latencies that Starlink does not serve equally. The specific location of the flattening behavior varies between countries, but is usually located between 150 and 250 ms.
+latency in 2023, similar to the conclusion we drew before. Also, the CDF is
+continuous, up to a specific point, where it flattens, followed by a stronger
+increase once again. This is similarly observed for curves of other countries
+(e.g., for France and Germany in \Cref{fig:latency-cdfs-2}). This observation
+suggests that there is a region of latencies that Starlink does not serve
+equally. The specific location of the flattening behavior varies between
+countries, but is usually located between 150 and 250 ms.
 
 \begin{figure}
 	\centering
@@ -138,14 +143,14 @@ Based on the assumption that Starlink does not serve all latencies equally, we
 used an EquiWidth histogram\footnote{A histogram that puts all values in a
 	pre-defined number of bins, where all bins cover an equally wide
 	data-range.} to plot the most frequent latencies.
-Figure~\ref{fig:latency-histogram-1} and \ref{fig:latency-histogram-2}
-show the histograms for the USA, Canada, France, and Germany. It
-becomes apparent that there is actually a major gap within the latencies. This
-gap appears for most countries. In 2024, it became even more apparent (e.g.,
-looking at Germany, the gap was not visible in 2022, but appeared in 2024). For
-further countries, the appendix holds further plots (see
-Figures~\ref{fig:latency-cdf-3} -- \ref{fig:latency-cdf-7} and
-\ref{fig:latency-histogram-3} -- \ref{fig:latency-histogram-7}).
+\Cref{fig:latency-histogram-1} and \Cref{fig:latency-histogram-2} show the
+histograms for the USA, Canada, France, and Germany. It becomes apparent that
+there is actually a major gap within the latencies. This gap appears for most
+countries. In 2024, it became even more apparent (e.g., looking at Germany, the
+gap was not visible in 2022, but appeared in 2024). For further countries, the
+appendix holds further plots (see \Cref{fig:latency-cdf-3} --
+\Cref{fig:latency-cdf-7} and \Cref{fig:latency-histogram-3} --
+\Cref{fig:latency-histogram-7}).
 
 Currently, it is unclear why the gap appears, but we assume that either
 the measurements were consistent enough for such a pattern to occur or the gap
@@ -156,7 +161,7 @@ latencies. Possible causes are the weather, altitude, or \ac{GS} positioning.
 
 Additionally, we conclude that approximately half of the measurement results
 are below 100 ms, while the other half moves above 100 ms. This opposes
-research suggesting Starlink performance is mostly in the sub-100 ms area
+research suggesting Starlink performance is mostly less than 100~ms
 \cite{DBLP:conf/www/MohanFCBRMO24, DBLP:conf/icnp/LaiLL20,
 	DBLP:journals/pacmnet/RamanVCSZ23, DBLP:conf/imc/MichelTGB22}. Likely,
 this is due to the idealized conditions research took their
