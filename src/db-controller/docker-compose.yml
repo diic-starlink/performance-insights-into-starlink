@@ -40,14 +40,6 @@ services:
     ports:
       - 81:81
 
-  duckdb:
-    container_name: duckdb
-    build: ./duckdb-image
-    ports:
-      - 5433:5000
-    volumes:
-      - ./data/duckdb/:/app/data
-
   schema-generator:
     container_name: schema-generator
     build: ./schema-generator
