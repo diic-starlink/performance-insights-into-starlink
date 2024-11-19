@@ -18,3 +18,5 @@ requests
 geopy
 deep-translator
 duckdb
+pyarrow
+fastparquet
