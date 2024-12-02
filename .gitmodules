@@ -4,3 +4,6 @@
 [submodule "tex/acm-paper"]
 	path = tex/acm-paper
 	url = git@github.com:starlink-thesis-diic/acm-paper.git
+[submodule "tex/MT-Defense-Presentation"]
+	path = tex/MT-Defense-Presentation
+	url = git@github.com:starlink-thesis-diic/MT-Defense-Presentation.git
