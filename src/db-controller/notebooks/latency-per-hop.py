@@ -188,7 +188,8 @@ def visualize_rtts(data, target, country):
 def hops_histogram(data, country):
     data = data[:20]
     plt.rcParams.update({'font.size': 16})
-    
+    plt.gca().invert_yaxis()
+
     fig, ax = plt.subplots()
     fig.set_size_inches(8, 6)
     ax.set_xlabel('Hops')
@@ -202,7 +203,9 @@ def hops_histogram(data, country):
 
     max = np.max(data)
     tick_sep = 50_000
-    plt.yticks(np.arange(0, max, tick_sep), np.arange(0, max, tick_sep))
+
+    labels = [f'{v}k' for v in np.arange(0, max / 1000, tick_sep / 1000)]
+    plt.yticks(np.arange(0, max, tick_sep), labels)
 
     ax.spines[['right', 'top']].set_visible(False)
     plt.savefig(f'traceroute/hops_{country}.pdf', bbox_inches='tight')
@@ -229,13 +232,15 @@ def hops_for_country(country):
     country_hops[country] = hops
     return country_res
 
+ctr = 'PH'
+
 countries = []
-for c in ['US']:
+for c in [ctr]:
     countries.append(hops_for_country(c))
 
 for c in countries:
     for data, target in c:
-        visualize_rtts(data, target, 'US')
+        visualize_rtts(data, target, ctr)
 
 for idx, (key, value) in enumerate(country_hops.items()):
     hops_histogram(value, key)
