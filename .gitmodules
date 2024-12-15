@@ -7,3 +7,6 @@
 [submodule "tex/MT-Defense-Presentation"]
 	path = tex/MT-Defense-Presentation
 	url = git@github.com:starlink-thesis-diic/MT-Defense-Presentation.git
+[submodule "tex/paper"]
+	path = tex/paper
+	url = git@github.com:starlink-thesis-diic/paper.git
