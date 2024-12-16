@@ -7,6 +7,7 @@ in pkgs.mkShell {
   buildInputs = with pkgs; [
     docker-compose
     nodejs_22
+    tmux
   ];
 
   shellHook = ''
