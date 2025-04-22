@@ -3,6 +3,11 @@
 The dataset consists of various files that each describe one type of measurement. Each file is given as a Parquet files. They are organized just like columns of a database.
 It is recommended to use DuckDB to access the data. This allows to query the data just like SQL. Using Pandas is also possible, but might be difficult if the Parquet file is larger than memory.
 
+## Dataset Download
+
+> [!CAUTION]
+> The data is not yet accessible as there was no suitable location found yet.
+
 ## Access to Data using DuckDB
 
 Obtain it using e.g., Nix:
