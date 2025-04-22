@@ -8,6 +8,19 @@ It is recommended to use DuckDB to access the data. This allows to query the dat
 > [!CAUTION]
 > The data is not yet accessible as there was no suitable location found yet.
 
+## Data Files
+
+The RIPE Atlas data formats usually follow the ones listed on the RIPE Atlas result data formats website.
+- `disconnect_event_data.parquet`: RIPE Atlas data for diconnect events of Starlink probes.
+- `http_data.parquet` & `http_result_data.parquet`: RIPE Atlas data for HTTP build-in measurements.
+- `ping_data.parquet`: RIPE Atlas and Cloudflare Radar data for ping measurements. The Cloudflare Radar is aggregated.
+- `ripe_atlas_probe_data.parquet`: Information about the Starlink probes used in the measurements.
+- `satellite_data.parquet`: All satellites on N2YO until June 2024. Used to determine the numbers of satellites in each satellite constellation.
+- `tls_data.parquet`: RIPE Atlas data about TLS measurements from Starlink probes.
+- `traceroute_data.parquet`: RIPE Atlas data about traceroute measurement from Starlink probes.
+
+All RIPE Atlas measurement are built-in measurements. That means they are executed at a fixed schedule toward mostly *.root-servers.org. For a reference to the built-in measurements, refer to [RIPE Atlas Built-In Measurements](https://atlas.ripe.net/docs/getting-started/built-in-measurements).
+
 ## Access to Data using DuckDB
 
 Obtain it using e.g., Nix:
@@ -47,15 +60,3 @@ D SELECT MIN(rt) FROM read_parquet('tls_data.parquet') WHERE rt > 0;
 └──────────┘
 ```
 
-## Data Files
-
-The RIPE Atlas data formats usually follow the ones listed on the RIPE Atlas result data formats website.
-- `disconnect_event_data.parquet`: RIPE Atlas data for diconnect events of Starlink probes.
-- `http_data.parquet` & `http_result_data.parquet`: RIPE Atlas data for HTTP build-in measurements.
-- `ping_data.parquet`: RIPE Atlas and Cloudflare Radar data for ping measurements. The Cloudflare Radar is aggregated.
-- `ripe_atlas_probe_data.parquet`: Information about the Starlink probes used in the measurements.
-- `satellite_data.parquet`: All satellites on N2YO until June 2024. Used to determine the numbers of satellites in each satellite constellation.
-- `tls_data.parquet`: RIPE Atlas data about TLS measurements from Starlink probes.
-- `traceroute_data.parquet`: RIPE Atlas data about traceroute measurement from Starlink probes.
-
-All RIPE Atlas measurement are built-in measurements. That means they are executed at a fixed schedule toward mostly *.root-servers.org. For a reference to the built-in measurements, refer to [RIPE Atlas Built-In Measurements](https://atlas.ripe.net/docs/getting-started/built-in-measurements).
