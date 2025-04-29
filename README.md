@@ -5,7 +5,7 @@
 
 Data access: 
 
-![Zenodo DOI 10.5281/zenodo.15303863](https://zenodo.org/badge/DOI/10.5281/zenodo.15303863.svg)
+[![Zenodo DOI 10.5281/zenodo.15303863](https://zenodo.org/badge/DOI/10.5281/zenodo.15303863.svg)](https://zenodo.org/records/15303863)
 
 Insights into the performance characteristics of the Starlink network. Contains various measurement types (Ping, Traceroute, HTTP, TLS, Satellite Numbers, Probe Disconnect Events, etc.).
 Findings are summarized in the paper "Breaking Through the Clouds: Performance Insights into Starlink’s Latency and Packet Loss"
