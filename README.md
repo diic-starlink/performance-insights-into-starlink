@@ -3,6 +3,8 @@
 <!-- Green Badges -->
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+Data access: ![Zenodo DOI 10.5281/zenodo.15303863](https://zenodo.org/badge/DOI/10.5281/zenodo.15303863.svg)
+
 Insights into the performance characteristics of the Starlink network. Contains various measurement types (Ping, Traceroute, HTTP, TLS, Satellite Numbers, Probe Disconnect Events, etc.).
 Findings are summarized in the paper "Breaking Through the Clouds: Performance Insights into Starlink’s Latency and Packet Loss"
 
