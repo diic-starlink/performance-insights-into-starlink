@@ -3,6 +3,11 @@
 <!-- Green Badges -->
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+Insights into the performance characteristics of the Starlink network. Contains various measurement types (Ping, Traceroute, HTTP, TLS, Satellite Numbers, Probe Disconnect Events, etc.).
+Findings are summarized in the paper "Breaking Through the Clouds: Performance Insights into Starlink’s Latency and Packet Loss"
+
+ISBN: 978-3-903176-72-0
+
 ## Components
 
 - `nixpkgs/`: Contains the Nix package manager configuration. Mainly, the
