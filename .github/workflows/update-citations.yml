@@ -1,0 +1,79 @@
+name: Update Citation Counter
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-node-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Fetch Citations and Update README
+      run: |
+        python - <<EOF
+        import requests
+        import re
+        
+        # Your target paper ID
+        paper_id = "89c0c7b50589d07eafe325204be1571af9b7eb61"
+        
+        # Use the explicitly versioned graph API with requested fields
+        url = f"https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations"
+        
+        # Semantic Scholar appreciates a User-Agent header so it doesn't treat GitHub Actions as a malicious bot
+        headers = {"User-Agent": "GitHubAction-CitationCounter/1.0"}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            response.raise_for_status() # Raise an error for bad status codes
+            data = response.json()
+        
+            # Fallback safety: Check both 'citationCount' and 'citations' array length
+            # just in case the API maps the keys differently on public unauthenticated requests
+            if "data" in data:
+                citation_count = len(data["data"])
+            else:
+                citation_count = 0
+        
+        except Exception as e:
+            print(f"API Error: {e}")
+            citation_count = "error"
+        
+        # Create the badge (turns yellow if there's an API fallback issue)
+        color = "success" if isinstance(citation_count, int) else "inactive"
+
+        # Create the new badge Markdown
+        new_badge = f"![Citations](https://img.shields.io/badge/citations-{citation_count}-success)"
+
+        # Read and update README
+        with open("README.md", "r") as f:
+            content = f.read()
+
+        # Replace text between the comment tags
+        pattern = r"<!-- START_CITATIONS -->.*?<!-- END_CITATIONS -->"
+        replacement = f"<!-- START_CITATIONS -->\n{new_badge}\n<!-- END_CITATIONS -->"
+        updated_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+        with open("README.md", "w") as f:
+            f.write(updated_content)
+        EOF
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git diff-index --quiet HEAD || git commit -m "Update citation count"
+        git push
