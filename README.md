@@ -1,7 +1,7 @@
 # Breaking Through the Clouds: Performance Insights into Starlink's Latency and Packet Loss
 
 <!-- START_CITATIONS -->
-![Citations](https://img.shields.io/badge/citations-loading-blue)
+![Citations](https://img.shields.io/badge/citations-4-success)
 <!-- END_CITATIONS -->
 
 <!-- Green Badges -->
